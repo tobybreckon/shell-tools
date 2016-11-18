@@ -1,0 +1,111 @@
+#!/usr/bin/perl
+
+###############################################################################
+
+# simple perl hack to number files as prefix_001 ... etc.
+# The list specified as "-p prefix -t tail files"
+
+# "numberfile -h" for usage
+
+# Author: Toby Breckon, November 2010
+
+# Known bugs: does not check for file existance
+
+###############################################################################
+
+# process command line options
+
+$counter = 0; # counter
+$prefix = "";
+$tail = "";
+
+	#initial check for error
+	if ((@ARGV == 0) || (@ARGV[0] =~ /^-h/) || (@ARGV[0] =~ /^--h/)){
+	  #if no options or files or help requested (-h,--h,--help,-help etc.)
+	  #display some help
+			 &print_help;
+			 exit(1);
+	}
+
+	#get options from command line
+	@options = &get_options(@ARGV);
+
+	#process options from comand line and set option flags
+	foreach $item (@options){
+	                if ($item eq "p"){
+			   $prefix = @ARGV[1];   # get prefix 
+			}elsif ($item eq "t"){
+			  $tail = @ARGV[3];   # get prefix 
+			 }else{
+			   #handle invalid options
+			   print ("numberfiles: invalid option: -$item \n\n");
+			   &print_help;
+			   exit(1);
+			 }
+	} 
+	
+# rename files
+
+$i=0;
+
+foreach $item (@ARGV){
+
+  $filename=$prefix . sprintf("%05d", $i) . $tail;
+  # printf("$filename $tail\n");
+
+  if (-e $item)
+  {
+	rename($item, $filename);
+  	$i++;
+  }
+
+}
+
+################################################################################
+
+sub get_options{
+#return the options from the command line inputs array
+local @options;
+local @temp;
+local $item;
+local $item2;
+local $counter = 0;
+foreach $item (@_){
+         #for each input
+         if ($item =~ /^-/){
+           #if it's an option get it
+           @temp = split(//, $item);
+           for $item2 (@temp){
+                 if ($item2 ne "-"){
+                         @options[$counter]=$item2;
+                         $counter++;
+                 }
+           }
+         }else{
+         #if it's not an option then that's the end of the options
+         #thus return list of options
+           # return @options;
+         }
+}
+#if only options in parameters then still return options
+return @options;
+}
+
+################################################################################
+
+sub print_help {
+  	 #print out standard help message as follows
+	
+	 print ("Usage: numberfile [-p prefix -t tail | files]\n");
+         print ("-p prefix: prefix for numbered files\n");
+         print ("-t tail: tail (postfix) for numbered files\n");
+	 print ("\n");
+
+	 print ("number a set of files as prefix00001 prefix00002 etc\n");
+	 print ("from specified list of files on command line.\n");
+
+	 print ("\n");
+         print ("Author: Toby Breckon, November 2010\n");
+}
+
+################################################################################

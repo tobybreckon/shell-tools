@@ -1,0 +1,115 @@
+#!/usr/bin/perl
+
+###############################################################################
+
+# simple perl hack to randomly select a file from a list of files.
+# The list specified as "-f listfile" or command line list "files"
+
+# "ramdomfile -h" for usage
+
+# e.g. randomfile -f myfiles.txt
+#      ramdomfile -f my_directory/* file1 file2 
+#      ....
+#      etc.
+
+# Author: Toby Breckon, July 2006
+
+# Known bugs: does not check for file existance
+
+###############################################################################
+
+# process command line options
+
+$filelistmode = 0; # are we using a list file : true/false
+
+	#initial check for error
+	if ((@ARGV == 0) || (@ARGV[0] =~ /^-h/) || (@ARGV[0] =~ /^--h/)){
+	  #if no options or files or help requested (-h,--h,--help,-help etc.)
+	  #display some help
+			 &print_help;
+			 exit(1);
+	}
+
+	#get options from command line
+	@options = &get_options(@ARGV);
+
+	#process options from comand line and set option flags
+	foreach $item (@options){
+			 if ($item eq "f"){
+					 $filelistmode = 1;   # verbose mode on 
+			 }else{
+					#handle invalid options
+					 print ("randomfile: invalid option: -$item \n\n");
+					 &print_help;
+					 exit(1);
+			 }
+	} 
+	
+# select random entry and print
+
+srand(time^$$);
+
+if ($filelistmode) {
+	
+	#get the files from the file list
+	open(Filelist, "@ARGV[1]"); 
+	@files = <Filelist>;
+	close(Filelist);
+	
+        $random = rand(@files - 1);
+	print ("@files[$random]");
+} else {
+	
+	# otherwise select it from command line specified list
+	$random = rand(@ARGV - 1);
+	print ("@ARGV[$random]");
+	print("\n");
+}
+
+################################################################################
+
+sub get_options{
+#return the options from the command line inputs array
+local @options;
+local @temp;
+local $item;
+local $item2;
+local $counter = 0;
+foreach $item (@_){
+         #for each input
+         if ($item =~ /^-/){
+           #if it's an option get it
+           @temp = split(//, $item);
+           for $item2 (@temp){
+                 if ($item2 ne "-"){
+                         @options[$counter]=$item2;
+                         $counter++;
+                 }
+           }
+         }else{
+         #if it's not an option then that's the end of the options
+         #thus return list of options
+           return @options;
+         }
+}
+#if only options in parameters then still return options
+return @options;
+}
+
+################################################################################
+
+sub print_help {
+  	 #print out standard help message as follows
+	
+	 print ("Usage: randomfile [-f listfile | files]\n");
+         print ("-f listfile : specify a file containing a list of files\n");
+	 print ("\n");
+
+	 print ("Randomly select a file from specified list file or\n");
+	 print ("from specified list of files on command line.\n");
+
+	 print ("\n");
+         print ("Author: Toby Breckon, July 2006\n");
+}
+
+################################################################################

@@ -1,0 +1,199 @@
+#!/usr/bin/perl
+
+#renames files to their lower case equivalents.
+#works from files and directories from given list 
+
+#Usage: lowername [-voUrh] files
+#-v verbose mode
+#-o overwrite mode
+#-U invert operation (change lowercase names to uppercase)
+#-r recursive mode
+#-h usage message (as per above)
+
+#written 1/99 tbreckon
+#verbose, recursive, overwrite and uppercase options added 8/99 tbreckon
+#tidied up error handling 12/99 tbreckon
+#added file permission checking and subsequent error handling 5/2000 tbreckon
+#error in 'No write permission message' changed 3/2003 tbreckon
+
+#License: http://www.gnu.org/licenses/gpl.txt
+
+#report bugs to: toby.breckon@ed.ac.uk
+
+#initial check for error
+if ((@ARGV == 0) || (@ARGV[0] =~ /^-h/) || (@ARGV[0] =~ /^--h/)){
+  #if no options or files or help requested (-h,--h,--help,-help etc.)
+  #display some help
+         &print_help;
+         exit(1);
+}
+
+#initialize option flags to false
+$moved = 0;     #number of files moved
+$verbose = 0;   #verbose mode status 
+$recursive = 0; #recursive mode status
+$overwrite = 0; #overwrite mode status
+$help = 0;      #help mode status
+$upper = 0;     #lower to upper mode (reverse operation) status
+
+#get options from command line
+@options = &get_options(@ARGV);
+
+#process options from comand line and set option flags
+foreach $item (@options){
+         if ($item eq "v"){
+                 $verbose = 1;   # verbose mode on 
+         }elsif ($item eq "r"){
+                 $recursive = 1; # recursive mode on
+         }elsif ($item eq "o"){
+                 $overwrite = 1; # overwrite mode on
+         }elsif ($item eq "h"){#skip any help options
+                 $help = 1;      # help mode on for tidyness!
+         }elsif ($item eq "U"){
+                 $upper = 1;     # lower to upper mode on (reverse operation)
+         }else{
+                #handle invalid options
+                 print ("lowername: invalid option: $item \n");
+                 &print_help;
+                 exit(1);
+         }
+} 
+
+#get file names from command line
+@filesin = &strip_options(@ARGV);
+$inputs = @filesin; #number of files to be processed
+
+#check files have been specified
+if (@filesin == 0){
+   #if not issue error and help message
+   print ("lowername: no files specified\n");    
+   &print_help;
+   exit(1);
+}
+
+#loop through number of files
+foreach $file (@filesin){
+    if (-e $file){ #check file exists
+         $filelower = $file;
+         #translate name depending on option -U
+         if ($upper){
+         #if upper mode translate lower to upper (reverse) operation
+                 $filelower=~ tr/a-z/A-Z/; #get file name in upper case
+         }else{
+         #else tranlate upper to lower as normal operation
+                 $filelower=~ tr/A-Z/a-z/; #get file name in lower case
+         }
+         #if name translates then move file
+         if ($file ne $filelower){
+               
+                #rename file if new target doesn't exist
+                 #or if overwrite is specified
+                #for sub-directories it would appear!
+                 #but significantly slower
+                 if ((-e $filelower) && !($overwrite)){
+                         print ("lowername: $filelower already exists - $file not renamed\n");
+                 }elsif (!(&able_to_move($file))){
+                        print ("lowername: user does not have write permission for $file - cannot rename\n");
+                 }else{
+                         rename($file,$filelower);
+                        #if verbose mode then print and count translations
+                        if ($verbose){
+                               print ("$file => $filelower\n");
+                               $moved++;
+                        }
+                 }
+         }
+
+         #if recursive then get the sub-directory listings too.
+         #do this after to avoid file name confusions caused by
+         #previously renamed directories.
+         if (($recursive) && (-d $filelower)){
+
+            #open and get all sub-directory listings
+            opendir (DIRHANDLE,$filelower);
+            @dirfiles = readdir DIRHANDLE; 
+            close DIRHANDLE;
+            foreach $diritem (@dirfiles){
+                 #add all new sub-directory entries to array of files
+                 #to process
+                 if (($diritem ne ".") && ($diritem ne "..")){
+                    $path = ($filelower."/".$diritem);
+                    $inputs++;
+                    @filesin[$inputs] = $path;
+                 }
+           }
+         }
+    }elsif ($file ne ""){ #if not "dud" file and file doesn't exist
+         print("lowername: $file: file does not exist.\n");
+    }
+
+}
+#if verbose mode then summerise convertions
+if ($verbose){
+    print "$moved filenames converted.\n";
+}
+
+sub get_options{
+#return the options from the command line inputs array
+local @options;
+local @temp;
+local $item;
+local $item2;
+local $counter = 0;
+foreach $item (@_){
+         #for each input
+         if ($item =~ /^-/){
+           #if it's an option get it
+           @temp = split(//, $item);
+           for $item2 (@temp){
+                 if ($item2 ne "-"){
+                         @options[$counter]=$item2;
+                         $counter++;
+                 }
+           }
+         }else{
+         #if it's not an option then that's the end of the options
+         #thus return list of options
+           return @options;
+         }
+}
+#if only options in parameters then still return options
+return @options;
+}
+
+sub strip_options{
+#removes the options from the command line array
+local @parameters = @_; #command line parameters passed in
+while (@parameters[0] =~ /^-/){
+         #for each input check if it's a option
+         #if it's an option remove it
+         splice(@parameters, 0, 1);
+}
+#if it's not an option then that's the end of the options
+#thus return list of remaining parameters
+return @parameters;
+}
+
+sub able_to_move{
+#check whether user has permisson to move file
+#(i.e. write permission)
+local $file = @_[0];
+if (-w $file ) {
+        #if so then can move file
+        return 1;
+}else{
+        #if not then cannot move file
+        return 0;
+}
+}
+
+sub print_help {
+  #print out standard help message as follows:
+        print ("Usage: lowername [-voUr] files\n");
+         print ("-v verbose mode\n");
+         print ("-o overwrite files if they already exist\n");
+         print ("-U lowercase letters to UPPERCASE (reverse operation)\n");
+         print ("-r recursive mode - recurse through directories\n\n");
+         print ("Translate uppercase filenames to lowercase.\n\n");
+         print ("Author: Toby Breckon, Aug/Sept 1999\n");
+}
