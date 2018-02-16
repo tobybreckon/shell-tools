@@ -12,7 +12,8 @@
 
 ################################################################################
 
-# define location where all the zip'd submissions are downloaded to (1 per student)
+# define location where all the zip'd submissions are downloaded to 
+# (1 per student, already unzipped from the large multi-student zips from DUO)
 
 PATH_TO_MARK=/tmp/marking-2017-18/l4_submissions/to_mark/
 
