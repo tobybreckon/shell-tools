@@ -23,9 +23,18 @@ PATH_MARKED=/tmp/marking-2017-18/l4_submissions/marked/
 
 ################################################################################
 
+ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+################################################################################
+
 # reset the working environment - CHANGE FOR EACH ASSIGNMENT AS NEEDED
 
 clean:
+
+	cd $(ROOT_DIR)
+
+	pwd
+
 	rm -rf *
 
 	# data to be available for software testing
