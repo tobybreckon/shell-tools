@@ -12,48 +12,51 @@
 
 ################################################################################
 
-# define location where all the zip'd submissions are downloaded to 
+# define location where all the zip'd submissions are downloaded to
 # (1 per student, already unzipped from the large multi-student zips from DUO)
 
-PATH_TO_MARK=/tmp/marking-2017-18/l4_submissions/to_mark/
+PATH_TO_MARK=/tmp/marking-2018-19/l4-comp-vis-2018-marking/to_mark/
 
 # define location where all the zip'd submissions are moved to when marked
 
-PATH_MARKED=/tmp/marking-2017-18/l4_submissions/marked/
+PATH_MARKED=/tmp/marking-2018-19/l4-comp-vis-2018-marking/marked/
+
+# define a working directory
+
+PATH_WORKING=/tmp/marking-2018-19/working
+
+# define datasets needed for testing
+
+DATASETS_REQUIRED=/tmp/OH-sfm-test-sequence-DURHAM-2015-03-27-calibrated \
+									/tmp/OH-sfm-test-sequence-DURHAM-2015-03-27-uncalibrated \
+									/tmp/l4-test-cal /tmp/l4-test-uncal
 
 ################################################################################
 
-ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+# reset the working environment
 
-################################################################################
-
-# reset the working environment - CHANGE FOR EACH ASSIGNMENT AS NEEDED
+# explicity change dir, for safety
+# data to be available for software testing
+# location of this Makefile
 
 clean:
 
-	cd $(ROOT_DIR)
+	cd $(PATH_WORKING)
 
-	pwd
+	rm -rf * .[a-zA-Z]
 
-	rm -rf *
+	@ ln -s $(DATASETS_REQUIRED) .
 
-	# data to be available for software testing
-
-	ln -s /tmp/TTBB-durham-02-10-17-sub10 .
-	ln -s /tmp/TTBB-durham-02-10-17-sub5 .
-	ln -s TTBB-durham-02-10-17-sub10 test-l3
-	ln -s TTBB-durham-02-10-17-sub5 test-l4
-
-	# location of this Makefile
-
-	ln -s ~/mobile/shell-tools/Makefile.marking Makefile
+	@ ln -s ~/mobile/shell-tools/Makefile.marking Makefile
 
 ################################################################################
 
-# protect against code than may rewrite the input files (!)- CHANGE FOR EACH ASSIGNMENT AS NEEDED
+# protect against code than may rewrite the input files + create dirs
 
 setup:
-	chmod -R -w /tmp/TTBB-durham-02-10-17-sub10 /tmp/TTBB-durham-02-10-17-sub5
+	@ chmod -R -w $(DATASETS_REQUIRED)
+	@ mkdir -p $(PATH_TO_MARK) $(PATH_MARKED)
+
 
 ################################################################################
 
@@ -74,13 +77,26 @@ next:
 	@ echo Next from: $(PATH_TO_MARK)
 	@ echo File: `ls $(PATH_TO_MARK) | grep zip | head -1`
 	unzip $(PATH_TO_MARK)/"`ls $(PATH_TO_MARK) | grep zip | head -1`"
+	@ echo `ls $(PATH_TO_MARK) | grep txt | head -1 | cut -d"_" -f2` > .current_id
 
 # also handle people who fail to grasp the concept of zip
 
 nextnozip:
 	@ echo Next from: $(PATH_TO_MARK)
 	@ echo File set with submission: `ls $(PATH_TO_MARK) | grep txt | head -1`
-	cp -r $(PATH_TO_MARK)/*`basename $(PATH_TO_MARK)/*txt | head -1 | cut -f2 -d_`* .
+	cp -r $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep txt | head -1 | cut -d"_" -f2`* .
+
+################################################################################
+
+# print ID of current student being marked in working directory
+
+student: current
+id: current
+
+current:
+	@ cd $(PATH_WORKING)
+	@ echo -n "Current student being marked is: "
+	@ cat .current_id
 
 ################################################################################
 
@@ -92,7 +108,7 @@ marked:
 	@ mv -v $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep zip | head -1 | cut -d"_" -f2`* $(PATH_MARKED)
 	@ echo
 
-	# also handle people who fail to grasp the concept of zip
+# also handle people who fail to grasp the concept of zip
 
 markednozip:
 	@ echo Moving last marked from: $(PATH_TO_MARK) to $(PATH_MARKED)
