@@ -33,6 +33,13 @@ DATASETS_REQUIRED=/tmp/OH-sfm-test-sequence-DURHAM-2015-03-27-calibrated \
 
 ################################################################################
 
+status: left
+	@ echo working directory: $(PATH_WORKING)
+	@ echo assignments \"to mark\" directory: $(PATH_TO_MARK)
+	@ echo assignments \"marked\" directory: $(PATH_MARKED)
+
+################################################################################
+
 # reset the working environment
 
 # explicity change dir, for safety
