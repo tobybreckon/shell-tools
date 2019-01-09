@@ -43,7 +43,7 @@ clean:
 
 	cd $(PATH_WORKING)
 
-	rm -rf * .[a-zA-Z]
+	rm -rf * .[a-zA-Z]*
 
 	@ ln -s $(DATASETS_REQUIRED) .
 
