@@ -66,7 +66,7 @@ todo:	left
 
 left:
 	@ echo -n "Currently there are "
-	@ ls -l $(PATH_TO_MARK)/*txt | wc -l | tr -d "\n"
+	@ (ls -l $(PATH_TO_MARK)/*txt | wc -l | tr -d "\n") 2>/dev/null
 	@ echo " assignments left to mark! (including current one)"
 
 ################################################################################
