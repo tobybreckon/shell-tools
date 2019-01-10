@@ -96,7 +96,7 @@ id: current
 current:
 	@ cd $(PATH_WORKING)
 	@ echo -n "Current student being marked is: "
-	@ cat .current_id
+	@ (test -e .current_id && cat .current_id) || echo "<NONE IN WORKING DIRECTORY>"
 
 ################################################################################
 
