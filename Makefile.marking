@@ -142,3 +142,11 @@ txt:
 	@ cd $(PATH_TO_MARK); for i in `ls | grep -v "attempt_" | sed s/\.zip/_record\.txt/g`; do touch alt-submission-attempt_$$i; done
 
 ################################################################################
+
+# check for obvious duplicate submissions in the set of submissons by student ID
+# N.B. need to run nospaces and txt make targets first
+
+duplicates:
+	@ cd $(PATH_TO_MARK); ls *txt | cut -d"_" -f2 | sort | uniq -d
+
+################################################################################
