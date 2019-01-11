@@ -150,3 +150,11 @@ duplicates:
 	@ cd $(PATH_TO_MARK); ls *txt | cut -d"_" -f2 | sort | uniq -d
 
 ################################################################################
+
+# produce list of submissons by student ID in order they were marked
+# N.B. need to run nospaces and txt make targets first
+
+list:
+	@ ls $(PATH_MARKED) | grep txt$ | cut -d"_" -f2
+
+################################################################################
