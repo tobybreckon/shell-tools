@@ -126,3 +126,19 @@ markednozip:
 	@ echo
 
 ################################################################################
+
+# remove spaces within the submission filenames and replace with "-"
+# as these otherwise screw up the other operations
+
+nospaces:
+	@ cd $(PATH_TO_MARK); pwd; for i in `find . -name '* *' | tr ' ' '~'`; do mv "`echo $$i| sed s/'~'/' '/g`" `echo $$i | tr '~' '-'`; done
+
+################################################################################
+
+# creat txt submission records for those which do not have one as otherwise
+# this screws up the other operations
+
+txt:
+	@ cd $(PATH_TO_MARK); for i in `ls | grep -v "_attempt_" | sed s/\.zip/_record\.txt/g`; do touch alt_attempt_$$i; done
+
+################################################################################
