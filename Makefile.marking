@@ -139,6 +139,6 @@ nospaces:
 # this screws up the other operations
 
 txt:
-	@ cd $(PATH_TO_MARK); for i in `ls | grep -v "_attempt_" | sed s/\.zip/_record\.txt/g`; do touch alt_attempt_$$i; done
+	@ cd $(PATH_TO_MARK); for i in `ls | grep -v "attempt_" | sed s/\.zip/_record\.txt/g`; do touch alt-submission-attempt_$$i; done
 
 ################################################################################
