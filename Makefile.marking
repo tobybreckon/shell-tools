@@ -155,6 +155,32 @@ duplicates:
 # N.B. need to run nospaces and txt make targets first
 
 list:
-	@ ls $(PATH_MARKED) | grep txt$ | cut -d"_" -f2
+	@ ls $(PATH_MARKED) | grep txt$ | cut -d"_" -f2 > $(PATH_WORKING)/marking_order.txt
+	@ echo "List copied to: " $(PATH_WORKING)/marking_order.txt
+
+################################################################################
+
+# split any PDF file present in the working directory into individual pages
+# N.B. make symlink to master PDF file of all student marks into working dir first
+
+burstpdf:
+	@ cd $(PATH_WORKING); pdftk *.pdf burst; rm -f doc_data.txt
+
+################################################################################
+
+# name each PDF file present in the current directory resulting from a pdftk
+# burst operation (see taregt 1 above) by each line in the list of ordered
+# student marks (see target 2 above)
+
+namepdf:
+	@ cd $(PATH_WORKING); files=( pg_*.pdf ); i=0; while read -r new_name; do mv -v "$${files[$$i]}" "$$new_name".pdf; ((i++)); done < marking_order.txt
+
+################################################################################
+
+# check each PDF file named via the above namepdf target has been named correctly
+# by prining each student ID from the marking order list and displaying the PDF file
+
+checknampdf:
+	@ cd $(PATH_WORKING); while read -r studentid; do echo STUDENT ID: "$$studentid"; echo; okular $$studentid.pdf; done < marking_order.txt
 
 ################################################################################
