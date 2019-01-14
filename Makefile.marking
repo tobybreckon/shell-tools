@@ -33,6 +33,10 @@ PATH_WORKING=/tmp/marking-2018-19/working
 
 DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub10 /tmp/l3-test
 
+# define module name as used by DUO with spaces replaced by "-"
+
+DUO_MODULE_NAME = Computer-Vision
+
 ################################################################################
 
 status: left
@@ -135,11 +139,13 @@ nospaces:
 
 ################################################################################
 
-# creat txt submission records for those which do not have one as otherwise
-# this screws up the other operations
+# create txt submission records for those which do not have one as otherwise
+# this screws up the other operations + also prefix all the zip files with the DUO name
+# (hence forcing consist ordering for ls *txt records and ls *zip submissions)
 
-txt:
-	@ cd $(PATH_TO_MARK); for i in `ls | grep -v "attempt_" | sed s/\.zip/_record\.txt/g`; do touch alt-submission-attempt_$$i; done
+fixtomark:
+	@ cd $(PATH_TO_MARK); for i in `ls | grep -v "attempt_" | sed s/\.zip/_attempt_altrecord\.txt/g`; do touch $(DUO_MODULE_NAME)_$$i; done
+	@ cd $(PATH_TO_MARK); for i in `ls *zip | grep -v "$(DUO_MODULE_NAME)_"`; do mv $$i $(DUO_MODULE_NAME)_$$i; done
 
 ################################################################################
 
