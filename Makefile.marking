@@ -1,7 +1,7 @@
 ################################################################################
 
 # A Makefile script for iterating through zipped assignments from DUO (blackboard)
-# for software testing in a reset working evnvironment for each one
+# for software testing in a reset working environment for each one
 #
 # use:
 # - define working directory e.g. /tmp/marking-this-year
@@ -48,7 +48,7 @@ status: left
 
 # reset the working environment
 
-# explicity change dir, for safety
+# explicitly change dir, for safety
 # data to be available for software testing
 # location of this Makefile
 
@@ -186,7 +186,7 @@ namepdf:
 # check each PDF file named via the above namepdf target has been named correctly
 # by prining each student ID from the marking order list and displaying the PDF file
 
-checknampdf:
+checknamepdf:
 	@ cd $(PATH_WORKING); while read -r studentid; do echo STUDENT ID: "$$studentid"; echo; okular $$studentid.pdf; done < marking_order.txt
 
 ################################################################################
