@@ -8,7 +8,7 @@
 #  "ramdomfile -h" for usage
 
 #  e.g. randomfile -f myfiles.txt
-#       ramdomfile -f my_directory/* file1 file2
+#       ramdomfile my_directory/* file1 file2
 #       ....
 #       etc.
 
@@ -60,7 +60,7 @@ if ($filelistmode) {
 	print ("@files[$random]");
 } else {
 
-	# otherwise select it from command line specified list
+	# otherwise them it from command line specified list
 	$random = rand(@ARGV - 1);
 	print ("@ARGV[$random]");
 	print("\n");
