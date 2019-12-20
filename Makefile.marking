@@ -15,15 +15,15 @@
 # define location where all the zip'd submissions are downloaded to
 # (1 per student, already unzipped from the large multi-student zips from DUO)
 
-PATH_TO_MARK=/tmp/marking-2018-19/l3-comp-vis-2018-marking/to_mark/
+PATH_TO_MARK=/tmp/marking-2019-20/l3-comp-vis-2019-marking/to_mark/
 
 # define location where all the zip'd submissions are moved to when marked
 
-PATH_MARKED=/tmp/marking-2018-19/l3-comp-vis-2018-marking/marked/
+PATH_MARKED=/tmp/marking-2019-20/l3-comp-vis-2019-marking/marked/
 
 # define a working directory
 
-PATH_WORKING=/tmp/marking-2018-19/working
+PATH_WORKING=/tmp/marking-2019-20/working
 
 # define datasets needed for testing
 
