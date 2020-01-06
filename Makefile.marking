@@ -31,7 +31,7 @@ PATH_WORKING=/tmp/marking-2019-20/working
 #									/tmp/OH-sfm-test-sequence-DURHAM-2015-03-27-uncalibrated \
 #									/tmp/l4-test-cal /tmp/l4-test-uncal
 
-DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub10 /tmp/l3-test
+DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub10 /tmp/l3-test /tmp/yolov3.cfg /tmp/yolov3.weights /tmp/coco.names
 
 # define module name as used by DUO with spaces replaced by "-"
 
@@ -90,7 +90,7 @@ next:
 	@ echo Next from: $(PATH_TO_MARK)
 	@ echo File: `ls $(PATH_TO_MARK) | grep zip$ | head -1`
 	unzip $(PATH_TO_MARK)/"`ls $(PATH_TO_MARK) | grep zip$ | head -1`"
-	@ echo `ls $(PATH_TO_MARK) | grep txt$ | head -1 | cut -d"_" -f2` > .current_id
+	@ echo `ls $(PATH_TO_MARK) | grep zip$ | head -1 | cut -d"_" -f2` > .current_id
 
 # also handle people who fail to grasp the concept of zip
 
