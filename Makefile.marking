@@ -89,7 +89,7 @@ left:
 next:
 	@ echo Next from: $(PATH_TO_MARK)
 	@ echo File: `ls $(PATH_TO_MARK) | grep zip$ | head -1`
-	unzip -j -o $(PATH_TO_MARK)/"`ls $(PATH_TO_MARK) | grep zip$ | head -1`" -d ./
+	unzip -j -o $(PATH_TO_MARK)/"`ls $(PATH_TO_MARK) | grep zip$ | head -1`" -d ./ -x .[a-zA-Z]*
 	@ echo `ls $(PATH_TO_MARK) | grep zip$ | head -1 | cut -d"_" -f2` > .current_id
 	@ echo
 	@ make current
