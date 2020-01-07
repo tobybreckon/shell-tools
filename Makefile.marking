@@ -116,18 +116,18 @@ current:
 # move this one to the "marked" set
 
 marked:
-	@ echo Moving last marked from: $(PATH_TO_MARK) to $(PATH_MARKED)
+	@ echo Moving last marked (zip) from: $(PATH_TO_MARK) to $(PATH_MARKED)
 	@ echo
-	@ mv -v $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep txt$ | head -1 | cut -d"_" -f2`* $(PATH_MARKED)
+	@ mv -v $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep zip$ | head -1 | cut -d"_" -f2`* $(PATH_MARKED)
 	@ echo
 
 # also handle people who fail to grasp the concept of zip
 
-# markednozip:
-#	@ echo Moving last marked from: $(PATH_TO_MARK) to $(PATH_MARKED)
-#	@ echo
-#	@ mv -v $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep txt$ | head -1 | cut -d"_" -f2`* $(PATH_MARKED)
-#	@ echo
+markednozip:
+	@ echo Moving last marked (non-zip file set) from: $(PATH_TO_MARK) to $(PATH_MARKED)
+	@ echo
+	@ mv -v $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep txt$ | head -1 | cut -d"_" -f2`* $(PATH_MARKED)
+	@ echo
 
 ################################################################################
 
