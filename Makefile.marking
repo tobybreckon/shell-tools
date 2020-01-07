@@ -91,6 +91,8 @@ next:
 	@ echo File: `ls $(PATH_TO_MARK) | grep zip$ | head -1`
 	unzip $(PATH_TO_MARK)/"`ls $(PATH_TO_MARK) | grep zip$ | head -1`"
 	@ echo `ls $(PATH_TO_MARK) | grep zip$ | head -1 | cut -d"_" -f2` > .current_id
+	@ echo
+	@ make current
 
 # also handle people who fail to grasp the concept of zip
 
@@ -98,6 +100,8 @@ nextnozip:
 	@ echo Next from: $(PATH_TO_MARK)
 	@ echo File set with submission: `ls $(PATH_TO_MARK) | grep txt$ | head -1`
 	cp -r $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep txt$ | head -1 | cut -d"_" -f2`* .
+	@ echo
+	@ make current
 
 ################################################################################
 
