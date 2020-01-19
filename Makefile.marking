@@ -37,6 +37,10 @@ DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub10 /tmp/l3-test /tmp/yolov3.cfg /
 
 DUO_MODULE_NAME = Computer-Vision
 
+# define path to sync
+
+SYNC_PATH=/tmp/marking-2019-20 # no leading slash "/" !!!
+
 ################################################################################
 
 status: left
@@ -56,7 +60,7 @@ clean:
 
 	cd $(PATH_WORKING)
 
-	rm -rf * .[a-zA-Z]*
+	rm -rf * .[a-zA-Z_]*
 
 	@ ln -s $(DATASETS_REQUIRED) .
 
@@ -69,7 +73,6 @@ clean:
 setup:
 	@ chmod -R -w $(DATASETS_REQUIRED)
 	@ mkdir -p $(PATH_TO_MARK) $(PATH_MARKED)
-
 
 ################################################################################
 
@@ -192,5 +195,12 @@ namepdf:
 
 checknamepdf:
 	@ cd $(PATH_WORKING); while read -r studentid; do echo STUDENT ID: "$$studentid"; echo; okular $$studentid.pdf; done < marking_order.txt
+
+################################################################################
+
+# sync from laptop to office
+
+sync:
+	@ cd $(SYNC_PATH); rsync -e 'ssh -p2224' -avz --delete $(SYNC_PATH) localhost:/tmp/
 
 ################################################################################
