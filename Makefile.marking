@@ -35,7 +35,7 @@ DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub10 /tmp/l3-test /tmp/yolov3.cfg /
 
 # define module name as used by DUO with spaces replaced by "-"
 
-DUO_MODULE_NAME = Computer-Vision
+DUO_MODULE_NAME=Computer-Vision
 
 # define path to sync
 
@@ -170,6 +170,14 @@ duplicates:
 list:
 	@ ls $(PATH_MARKED) | grep txt$ | cut -d"_" -f2 > $(PATH_WORKING)/marking_order.txt
 	@ echo "List copied to: " $(PATH_WORKING)/marking_order.txt
+
+##############################################################################
+
+# produce a list of marks from a set of PDF files produced from the new 2019-20
+# PDF template as a CSV format file
+
+pdftomarklist:
+	@ for i in *pdf ; do pdftotext $i; done; cat *txt | grep official: | sed s/"official: "//g > all_marks.csv
 
 ################################################################################
 
