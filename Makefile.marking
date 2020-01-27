@@ -177,7 +177,7 @@ list:
 # PDF template as a CSV format file
 
 pdftomarklist:
-	@ for i in *pdf ; do pdftotext $i; done; cat *txt | grep official: | sed s/"official: "//g > all_marks.csv
+	@ for i in *pdf ; do pdftotext $$i; done; cat *txt | grep official: | sed s/"official: "//g > all_marks.csv
 
 ################################################################################
 
