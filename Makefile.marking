@@ -15,11 +15,11 @@
 # define location where all the zip'd submissions are downloaded to
 # (1 per student, already unzipped from the large multi-student zips from DUO)
 
-PATH_TO_MARK=/tmp/marking-2019-20/l4-adv-comp-vis-2019-marking/to_mark/
+PATH_TO_MARK=/tmp/marking-2019-20/l3-comp-vis-2019-marking/to_mark/
 
 # define location where all the zip'd submissions are moved to when marked
 
-PATH_MARKED=/tmp/marking-2019-20/l4-adv-comp-vis-2019-marking/marked/
+PATH_MARKED=/tmp/marking-2019-20/l3-comp-vis-2019-marking/marked/
 
 # define a working directory
 
@@ -31,12 +31,12 @@ PATH_WORKING=/tmp/marking-2019-20/working
 #									/tmp/OH-sfm-test-sequence-DURHAM-2015-03-27-uncalibrated \
 #									/tmp/l4-test-cal /tmp/l4-test-uncal
 
-#DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub10 /tmp/l3-test /tmp/yolov3.cfg /tmp/yolov3.weights /tmp/coco.names
-DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub5 /tmp/TTBB-durham-02-10-17 /tmp/l4-test /tmp/l4-test2 /tmp/yolov3.cfg /tmp/yolov3.weights /tmp/coco.names
+DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub10 /tmp/l3-test /tmp/yolov3.cfg /tmp/yolov3.weights /tmp/coco.names
+# DATASETS_REQUIRED=/tmp/TTBB-durham-02-10-17-sub5 /tmp/TTBB-durham-02-10-17 /tmp/l4-test /tmp/l4-test2 /tmp/yolov3.cfg /tmp/yolov3.weights /tmp/coco.names
 
 # define module name as used by DUO with spaces replaced by "-"
 
-DUO_MODULE_NAME=Advanced-Computer-Vision
+DUO_MODULE_NAME=Computer-Vision
 
 # define path to sync
 
@@ -89,12 +89,15 @@ left:
 ################################################################################
 
 # get next one to mark to "to mark" set
+# -- unzip to curent directory ignoring hidden files
+# -- silently copy any other non zip / txt files for the same user
 
 next:
 	@ echo Next from: $(PATH_TO_MARK)
 	@ echo File: `ls $(PATH_TO_MARK) | grep zip$ | head -1`
 	unzip -j -o $(PATH_TO_MARK)/"`ls $(PATH_TO_MARK) | grep zip$ | head -1`" -d ./ -x '.[a-zA-Z]*' '*/.[a-zA-Z]*'
 	@ echo `ls $(PATH_TO_MARK) | grep zip$ | head -1 | cut -d"_" -f2` > .current_id
+  @ cp -r $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep zip$ | head -1 | cut -d"_" -f2`'!(.zip|.txt)' . 2>/dev/null || :
 	@ echo
 	@ make current
 
@@ -104,6 +107,7 @@ nextnozip:
 	@ echo Next from: $(PATH_TO_MARK)
 	@ echo File set with submission: `ls $(PATH_TO_MARK) | grep txt$ | head -1`
 	cp -r $(PATH_TO_MARK)/*`ls $(PATH_TO_MARK) | grep txt$ | head -1 | cut -d"_" -f2`* .
+	@ echo `ls $(PATH_TO_MARK) | grep txt$ | head -1 | cut -d"_" -f2` > .current_id
 	@ echo
 	@ make current
 
