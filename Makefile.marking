@@ -143,18 +143,23 @@ markednozip:
 
 ################################################################################
 
-# remarking by student ID
+# remarking by indivdidual student ID
 
-# If the first argument is "run"...
+REMARK_ID="NO-STUDENT-ID" # initialise to dummy string to prevent accidental full copying as *.*
+
+# If the first argument is "remark"
 ifeq (remark,$(firstword $(MAKECMDGOALS)))
-  # use the rest as arguments for "run"
+  # use the rest as the set of arguments
   REMARK_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+	# extract the first as the student ID we what (as one at a time proceesing)
+	REMARK_ID := $(firstword $(REMARK_ARGS))
   # ...and turn them into do-nothing targets
   $(eval $(REMARK_ARGS):;@:)
 endif
 
-remark :
-    @ echo "REMARKING ID:" $(REMARK_ARGS)
+remark:
+	@ echo "Remarking ID: " $(REMARK_ID)
+	cp -v -r $(PATH_MARKED)/*$(REMARK_ID)* $(PATH_TO_MARK)/ 2>/dev/null || echo "ERROR - no marked files found for that ID."
 
 
 ################################################################################
