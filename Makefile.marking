@@ -73,7 +73,7 @@ clean:
 
 setup:
 	@ chmod -R -w $(DATASETS_REQUIRED)
-	@ mkdir -p $(PATH_TO_MARK) $(PATH_MARKED)
+	@ mkdir -p $(PATH_TO_MARK) $(PATH_MARKED) $(PATH_WORKING)
 
 ################################################################################
 
