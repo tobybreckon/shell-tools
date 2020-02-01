@@ -183,7 +183,7 @@ fixtomark:
 ################################################################################
 
 # check for obvious duplicate submissions in the set of submissons by student ID
-# N.B. need to run nospaces and txt make targets first
+# N.B. need to run nospaces and fixtomark make targets first
 
 duplicates:
 	@ cd $(PATH_TO_MARK); ls *txt | cut -d"_" -f2 | sort | uniq -d
@@ -191,7 +191,7 @@ duplicates:
 ################################################################################
 
 # produce list of submissons by student ID in order they were marked
-# N.B. need to run nospaces and txt make targets first
+# N.B. need to run nospaces and fixtomark make targets first
 
 list:
 	@ ls $(PATH_MARKED) | grep txt$ | cut -d"_" -f2 > $(PATH_WORKING)/marking_order.txt
@@ -216,7 +216,7 @@ burstpdf:
 ################################################################################
 
 # name each PDF file present in the current directory resulting from a pdftk
-# burst operation (see taregt 1 above) by each line in the list of ordered
+# burst operation (see target 1 above) by each line in the list of ordered
 # student marks (see target 2 above)
 
 namepdf:
@@ -225,7 +225,7 @@ namepdf:
 ################################################################################
 
 # check each PDF file named via the above namepdf target has been named correctly
-# by prining each student ID from the marking order list and displaying the PDF file
+# by printing each student ID from the marking order list and displaying the PDF file
 
 checknamepdf:
 	@ cd $(PATH_WORKING); while read -r studentid; do echo STUDENT ID: "$$studentid"; echo; okular $$studentid.pdf; done < marking_order.txt
