@@ -159,7 +159,7 @@ endif
 
 remark:
 	@ echo "Remarking ID: " $(REMARK_ID)
-	cp -v -r $(PATH_MARKED)/*$(REMARK_ID)* $(PATH_TO_MARK)/ 2>/dev/null || echo "ERROR - no marked files found for that ID."
+	@ cp -v -r $(PATH_MARKED)/*$(REMARK_ID)* $(PATH_TO_MARK)/ 2>/dev/null || echo "ERROR - no marked files found for that ID."
 
 
 ################################################################################
