@@ -161,6 +161,26 @@ remark:
 	@ echo "Remarking ID: " $(REMARK_ID)
 	@ cp -v -r $(PATH_MARKED)/*$(REMARK_ID)* $(PATH_TO_MARK)/ 2>/dev/null || echo "ERROR - no marked files found for that ID."
 
+################################################################################
+
+# re-examine for additional feedback by indivdidual student ID
+
+RE_EXAMINE_ID="NO-STUDENT-ID" # initialise to dummy string to prevent accidental full copying as *.*
+
+# If the first argument is "remark"
+ifeq (reexamine,$(firstword $(MAKECMDGOALS)))
+  # use the rest as the set of arguments
+  RE_EXAMINE_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+	# extract the first as the student ID we what (as one at a time proceesing)
+	RE_EXAMINE_ID := $(firstword $(RE_EXAMINE_ARGS))
+  # ...and turn them into do-nothing targets
+  $(eval $(RE_EXAMINE_ARGS):;@:)
+endif
+
+reexamine:
+	@ echo "Remarking ID: " $(RE_EXAMINE_ID)
+	unzip -j -o $(PATH_MARKED)/**$(RE_EXAMINE_ID).zip || echo "ERROR - no marked files found for that ID."
+	@ cp -v -r $(PATH_MARKED)/*$(RE_EXAMINE_ID)* $(PATH_WORKING) 2>/dev/null || echo "ERROR - no marked files found for that ID."
 
 ################################################################################
 
