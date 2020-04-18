@@ -190,6 +190,15 @@ reexamine:
 nospaces:
 	@ cd $(PATH_TO_MARK); pwd; for i in `find . -name '* *' | tr ' ' '~'`; do mv "`echo $$i| sed s/'~'/' '/g`" `echo $$i | tr '~' '-'`; done
 
+# remove commas and apostrophes within the submission filenames (!)
+# as these otherwise (yet again) screw up the other operations
+
+nocommas:
+	@ cd $(PATH_TO_MARK); pwd; for i in `find . -name '*,*' | tr ',' '~'`; do mv "`echo $$i| sed s/'~'/','/g`" `echo $$i | tr -d '~'`; done
+
+noapostrophes:
+	@ cd $(PATH_TO_MARK); pwd; for i in `find . -name "*'*"`; do mv "$$i" "$$(echo "$$i" | tr -d "'")"; done
+
 ################################################################################
 
 # create txt submission records for those which do not have one as otherwise
