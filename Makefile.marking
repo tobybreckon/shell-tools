@@ -190,7 +190,7 @@ reexamine:
 nospaces:
 	@ cd $(PATH_TO_MARK); pwd; for i in `find . -name '* *' | tr ' ' '~'`; do mv "`echo $$i| sed s/'~'/' '/g`" `echo $$i | tr '~' '-'`; done
 
-# remove commas and apostrophes within the submission filenames (!)
+# remove commas, apostrophes and accented chars within the submission filenames (!)
 # as these otherwise (yet again) screw up the other operations
 
 nocommas:
@@ -198,6 +198,14 @@ nocommas:
 
 noapostrophes:
 	@ cd $(PATH_TO_MARK); pwd; for i in `find . -name "*'*"`; do mv "$$i" "$$(echo "$$i" | tr -d "'")"; done
+
+noaccented:
+	@ cd $(PATH_TO_MARK); pwd; for i in `find *`; do mv $$i `echo $$i | iconv -f utf8 -t ascii//TRANSLIT`; done
+
+# if all else fails, and some characters are still causing pain - just kill all chars not in this set
+
+nospecials:
+	@ cd $(PATH_TO_MARK); pwd; for i in `find *`; do echo mv $$i `echo $$i | tr -cd 'A-Za-z0-9_.-'` ; done
 
 ################################################################################
 
