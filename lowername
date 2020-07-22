@@ -213,7 +213,7 @@ if (-w $file ) {
 
 sub print_help {
   # print out standard help message as follows:
-        print ("Usage: lowername [-voUr] files\n");
+        print ("Usage: lowername [-voUsSr] files\n");
          print ("-v verbose mode\n");
          print ("-o overwrite files if they already exist\n");
          print ("-U lowercase letters to UPPERCASE (reverse operation)\n");
