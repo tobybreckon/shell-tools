@@ -7,15 +7,18 @@
 # -v verbose mode
 # -o overwrite mode
 # -U invert operation (change lowercase names to uppercase)
+# -s remove spaces in filenames (in addition)
 # -r recursive mode
 # -h usage message (as per above)
 
-# written 1/99 tbreckon
-# verbose, recursive, overwrite and uppercase options added 8/99 tbreckon
-# tidied up error handling 12/99 tbreckon
-# added file permission checking and subsequent error handling 5/2000 tbreckon
-# error in 'No write permission message' changed 3/2003 tbreckon
+# originally written 1/99 - tbreckon
+# verbose, recursive, overwrite and uppercase options added 8/99 - tbreckon
+# tidied up error handling 12/99 - tbreckon
+# added file permission checking and subsequent error handling 5/2000 - tbreckon
+# error in 'No write permission message' changed 3/2003 - tbreckon
+# white space removal added 7/2020 - tbreckon
 
+# Copyright: Toby Breckon, 1999-2020
 # License: http://www.gnu.org/licenses/gpl.txt
 
 # report bugs to: toby.breckon@ed.ac.uk
@@ -35,6 +38,7 @@ $recursive = 0; # recursive mode status
 $overwrite = 0; # overwrite mode status
 $help = 0;      # help mode status
 $upper = 0;     # lower to upper mode (reverse operation) status
+$nospaces = 0;  # remove spaces in filenames (in addition)
 
 # get options from command line
 @options = &get_options(@ARGV);
@@ -51,6 +55,8 @@ foreach $item (@options){
                  $help = 1;      #  help mode on for tidyness!
          }elsif ($item eq "U"){
                  $upper = 1;     #  lower to upper mode on (reverse operation)
+         }elsif ($item eq "s"){
+                 $nospaces = 1;  # remove spaces in filenames (in addition)
          }else{
                 # handle invalid options
                  print ("lowername: invalid option: $item \n");
@@ -74,7 +80,9 @@ if (@filesin == 0){
 # loop through number of files
 foreach $file (@filesin){
     if (-e $file){ # check file exists
+
          $filelower = $file;
+
          # translate name depending on option -U
          if ($upper){
          # if upper mode translate lower to upper (reverse) operation
@@ -83,6 +91,12 @@ foreach $file (@filesin){
          # else tranlate upper to lower as normal operation
                  $filelower=~ tr/A-Z/a-z/; # get file name in lower case
          }
+
+         # remove spaces in filenames (in addition)
+         if ($nospaces){
+                $filelower=~ s/\s+/_/g; # remove all white space
+         }
+
          # if name translates then move file
          if ($file ne $filelower){
 
@@ -195,5 +209,5 @@ sub print_help {
          print ("-U lowercase letters to UPPERCASE (reverse operation)\n");
          print ("-r recursive mode - recurse through directories\n\n");
          print ("Translate uppercase filenames to lowercase.\n\n");
-         print ("Author: Toby Breckon, Aug/Sept 1999\n");
+         print ("Author: Toby Breckon, Aug/Sept 1999-2020\n");
 }
