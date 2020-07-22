@@ -21,8 +21,6 @@
 # Copyright: Toby Breckon, 1999-2020
 # License: http://www.gnu.org/licenses/gpl.txt
 
-# report bugs to: toby.breckon@ed.ac.uk
-
 # initial check for error
 if ((@ARGV == 0) || (@ARGV[0] =~ /^-h/) || (@ARGV[0] =~ /^--h/)){
   # if no options or files or help requested (-h,--h,--help,-help etc.)
