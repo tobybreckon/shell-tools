@@ -8,6 +8,7 @@
 # -o overwrite mode
 # -U invert operation (change lowercase names to uppercase)
 # -s remove spaces in filenames (in addition)
+# -S remove spaces in filenames (only, no case changes)
 # -r recursive mode
 # -h usage message (as per above)
 
@@ -30,13 +31,17 @@ if ((@ARGV == 0) || (@ARGV[0] =~ /^-h/) || (@ARGV[0] =~ /^--h/)){
 }
 
 # initialize option flags to false
-$moved = 0;     # number of files moved
 $verbose = 0;   # verbose mode status
 $recursive = 0; # recursive mode status
 $overwrite = 0; # overwrite mode status
 $help = 0;      # help mode status
 $upper = 0;     # lower to upper mode (reverse operation) status
+
 $nospaces = 0;  # remove spaces in filenames (in addition)
+$nospacesonly = 0; # remove spaces in filenames (only, no case changes)
+
+# global file counter
+$moved = 0;     # number of files moved
 
 # get options from command line
 @options = &get_options(@ARGV);
@@ -49,12 +54,15 @@ foreach $item (@options){
                  $recursive = 1; #  recursive mode on
          }elsif ($item eq "o"){
                  $overwrite = 1; #  overwrite mode on
-         }elsif ($item eq "h"){# skip any help options
-                 $help = 1;      #  help mode on for tidyness!
+         }elsif ($item eq "h"){# just skip any help options (as handled elsewhere)
+                 $help = 1;      # help mode on for tidyness!
          }elsif ($item eq "U"){
-                 $upper = 1;     #  lower to upper mode on (reverse operation)
+                 $upper = 1;     # lower to upper mode on (reverse operation)
          }elsif ($item eq "s"){
                  $nospaces = 1;  # remove spaces in filenames (in addition)
+         }elsif ($item eq "S"){
+                 $nospacesonly = 1;  # remove spaces in filenames (only, no case changes)
+                 $nospaces = 1;  # remove spaces in filenames (only)
          }else{
                 # handle invalid options
                  print ("lowername: invalid option: $item \n");
@@ -87,10 +95,14 @@ foreach $file (@filesin){
                  $filelower=~ tr/a-z/A-Z/; # get file name in upper case
          }else{
          # else tranlate upper to lower as normal operation
-                 $filelower=~ tr/A-Z/a-z/; # get file name in lower case
+
+                # as long as we are not performing space removal only
+                if (!($nospacesonly)){
+                  $filelower=~ tr/A-Z/a-z/; # get file name in lower case
+                }
          }
 
-         # remove spaces in filenames (in addition)
+         # remove spaces in filenames
          if ($nospaces){
                 $filelower=~ s/\s+/_/g; # remove all white space
          }
@@ -205,6 +217,8 @@ sub print_help {
          print ("-v verbose mode\n");
          print ("-o overwrite files if they already exist\n");
          print ("-U lowercase letters to UPPERCASE (reverse operation)\n");
+         print ("-s remove spaces in filenames (in addition)\n");
+         print ("-S remove spaces in filenames (only, no case changes)\n");
          print ("-r recursive mode - recurse through directories\n\n");
          print ("Translate uppercase filenames to lowercase.\n\n");
          print ("Author: Toby Breckon, Aug/Sept 1999-2020\n");
