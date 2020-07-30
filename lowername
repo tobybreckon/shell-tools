@@ -239,3 +239,5 @@ sub print_help {
          print ("Translate uppercase filenames to lowercase.\n\n");
          print ("Author: Toby Breckon, Aug/Sept 1999-2020\n");
 }
+
+###############################################################################
