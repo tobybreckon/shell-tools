@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+###############################################################################
+
 # renames files to their lower case equivalents.
 # works from files and directories from given list
 
@@ -12,6 +14,8 @@
 # -r recursive mode
 # -h usage message (as per above)
 
+###############################################################################
+
 # originally written 1/99 - tbreckon
 # verbose, recursive, overwrite and uppercase options added 8/99 - tbreckon
 # tidied up error handling 12/99 - tbreckon
@@ -19,8 +23,12 @@
 # error in 'No write permission message' changed 3/2003 - tbreckon
 # white space removal added 7/2020 - tbreckon
 
+###############################################################################
+
 # Copyright: Toby Breckon, 1999-2020
 # License: http://www.gnu.org/licenses/gpl.txt
+
+###############################################################################
 
 # initial check for error
 if ((@ARGV == 0) || (@ARGV[0] =~ /^-h/) || (@ARGV[0] =~ /^--h/)){
@@ -157,59 +165,67 @@ if ($verbose){
     print "$moved filenames converted.\n";
 }
 
+###############################################################################
+
 sub get_options{
-# return the options from the command line inputs array
-local @options;
-local @temp;
-local $item;
-local $item2;
-local $counter = 0;
-foreach $item (@_){
-         # for each input
-         if ($item =~ /^-/){
-           # if it's an option get it
-           @temp = split(//, $item);
-           for $item2 (@temp){
-                 if ($item2 ne "-"){
-                         @options[$counter]=$item2;
-                         $counter++;
-                 }
+  # return the options from the command line inputs array
+  local @options;
+  local @temp;
+  local $item;
+  local $item2;
+  local $counter = 0;
+  foreach $item (@_){
+           # for each input
+           if ($item =~ /^-/){
+             # if it's an option get it
+             @temp = split(//, $item);
+             for $item2 (@temp){
+                   if ($item2 ne "-"){
+                           @options[$counter]=$item2;
+                           $counter++;
+                   }
+             }
+           }else{
+           # if it's not an option then that's the end of the options
+           # thus return list of options
+             return @options;
            }
-         }else{
-         # if it's not an option then that's the end of the options
-         # thus return list of options
-           return @options;
-         }
+  }
+  # if only options in parameters then still return options
+  return @options;
 }
-# if only options in parameters then still return options
-return @options;
-}
+
+###############################################################################
 
 sub strip_options{
-# removes the options from the command line array
-local @parameters = @_; # command line parameters passed in
-while (@parameters[0] =~ /^-/){
-         # for each input check if it's a option
-         # if it's an option remove it
-         splice(@parameters, 0, 1);
-}
-# if it's not an option then that's the end of the options
-# thus return list of remaining parameters
-return @parameters;
+  # removes the options from the command line array
+  local @parameters = @_; # command line parameters passed in
+  while (@parameters[0] =~ /^-/){
+           # for each input check if it's a option
+           # if it's an option remove it
+           splice(@parameters, 0, 1);
+  }
+  # if it's not an option then that's the end of the options
+  # thus return list of remaining parameters
+  return @parameters;
 }
 
+###############################################################################
+
 sub able_to_move{
-# check whether user has permisson to move file
-# (i.e. write permission)
-local $file = @_[0];
-if (-w $file ) {
-        # if so then can move file
-        return 1;
-}else{
-        # if not then cannot move file
-        return 0;
+  # check whether user has permisson to move file
+  # (i.e. write permission)
+  local $file = @_[0];
+  if (-w $file ) {
+          # if so then can move file
+          return 1;
+  }else{
+          # if not then cannot move file
+          return 0;
+  }
 }
-}
+
+###############################################################################
 
 sub print_help {
   # print out standard help message as follows:
