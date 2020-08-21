@@ -16,9 +16,9 @@
 
 ###############################################################################
 
-# originally written 1/99 - tbreckon
-# verbose, recursive, overwrite and uppercase options added 8/99 - tbreckon
-# tidied up error handling 12/99 - tbreckon
+# originally written 1/1999 - tbreckon
+# verbose, recursive, overwrite and uppercase options added 8/1999 - tbreckon
+# tidied up error handling 12/1999 - tbreckon
 # added file permission checking and subsequent error handling 5/2000 - tbreckon
 # error in 'No write permission message' changed 3/2003 - tbreckon
 # white space removal added 7/2020 - tbreckon
@@ -237,7 +237,7 @@ sub print_help {
          print ("-S remove spaces in filenames (only, no case changes)\n");
          print ("-r recursive mode - recurse through directories\n\n");
          print ("Translate uppercase filenames to lowercase.\n\n");
-         print ("Author: Toby Breckon, Aug/Sept 1999-2020\n");
+         print ("Author: Toby Breckon, 1999-2020\n");
 }
 
 ###############################################################################
