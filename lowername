@@ -2,16 +2,18 @@
 
 ###############################################################################
 
-# renames files to their lower case equivalents.
-# works from files and directories from given list
+# renames files to their lower case equivalents, does other filename cleaning.
+# works from files and directories from given command line list
 
-# Usage: lowername [-voUrh] files
+# Usage: lowername [-voUsScCr] files
 # -v verbose mode
-# -o overwrite mode
-# -U invert operation (change lowercase names to uppercase)
+# -o overwrite files if they already exist
+# -U lowercase letters to UPPERCASE (reverse operation)
 # -s remove spaces in filenames (in addition)
 # -S remove spaces in filenames (only, no case changes)
-# -r recursive mode
+# -c clean filenames (remove all non-alphanumeric characaters apart from ".-_")
+# -C clean filenames (..., only, no case changes)
+# -r recursive mode - recurse through directories
 # -h usage message (as per above)
 
 ###############################################################################
@@ -22,6 +24,7 @@
 # added file permission checking and subsequent error handling 5/2000 - tbreckon
 # error in 'No write permission message' changed 3/2003 - tbreckon
 # white space removal added 7/2020 - tbreckon
+# non alphanumeric removal (clean filenames) added 9/2020 - tbreckon
 
 ###############################################################################
 
@@ -43,10 +46,11 @@ $verbose = 0;   # verbose mode status
 $recursive = 0; # recursive mode status
 $overwrite = 0; # overwrite mode status
 $help = 0;      # help mode status
+$lower = 1;     # upper to lower mode (normal) status
 $upper = 0;     # lower to upper mode (reverse operation) status
 
-$nospaces = 0;  # remove spaces in filenames (in addition)
-$nospacesonly = 0; # remove spaces in filenames (only, no case changes)
+$nospaces = 0;     # remove spaces in filenames (in addition)
+$clean = 0;        # remove all non-alphanumeric characaters apart from ".-_"
 
 # global file counter
 $moved = 0;     # number of files moved
@@ -66,11 +70,17 @@ foreach $item (@options){
                  $help = 1;      # help mode on for tidyness!
          }elsif ($item eq "U"){
                  $upper = 1;     # lower to upper mode on (reverse operation)
+                 $lower = 0;     # for tidyness only (unused in this mode)
          }elsif ($item eq "s"){
                  $nospaces = 1;  # remove spaces in filenames (in addition)
          }elsif ($item eq "S"){
-                 $nospacesonly = 1;  # remove spaces in filenames (only, no case changes)
+                 $lower = 0;     # remove spaces in filenames only (no case changes)
                  $nospaces = 1;  # remove spaces in filenames (only)
+         }elsif ($item eq "c"){
+                 $clean = 1;  # remove all non-alphanumeric characaters
+         }elsif ($item eq "C"){
+                 $lower = 0;  # remove all non-alphanumeric characaters only (no case changes)
+                 $clean = 1;  # remove all non-alphanumeric characaters
          }else{
                 # handle invalid options
                  print ("lowername: invalid option: $item \n");
@@ -104,8 +114,10 @@ foreach $file (@filesin){
          }else{
          # else tranlate upper to lower as normal operation
 
-                # as long as we are not performing space removal only
-                if (!($nospacesonly)){
+                # as long as we are operating normally and not
+                # -S = not performing space removal only
+                # -C = performing filename cleaning only
+                if ($lower){
                   $filelower=~ tr/A-Z/a-z/; # get file name in lower case
                 }
          }
@@ -113,6 +125,11 @@ foreach $file (@filesin){
          # remove spaces in filenames
          if ($nospaces){
                 $filelower=~ s/\s+/_/g; # remove all white space
+         }
+
+         # remove all non-alphanumeric characaters apart from ".-_"
+         if ($clean){
+                $filelower=~ s/[^a-zA-Z0-9.-_]/_/g;
          }
 
          # if name translates then move file
@@ -229,12 +246,14 @@ sub able_to_move{
 
 sub print_help {
   # print out standard help message as follows:
-        print ("Usage: lowername [-voUsSr] files\n");
+        print ("Usage: lowername [-voUsScCr] files\n");
          print ("-v verbose mode\n");
          print ("-o overwrite files if they already exist\n");
          print ("-U lowercase letters to UPPERCASE (reverse operation)\n");
          print ("-s remove spaces in filenames (in addition)\n");
          print ("-S remove spaces in filenames (only, no case changes)\n");
+         print ("-c clean filenames (remove all non-alphanumeric characaters apart from \".-_\")\n");
+         print ("-C clean filenames (..., only, no case changes)\n");
          print ("-r recursive mode - recurse through directories\n\n");
          print ("Translate uppercase filenames to lowercase.\n\n");
          print ("Author: Toby Breckon, 1999-2020\n");
