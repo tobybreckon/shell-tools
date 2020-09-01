@@ -11,8 +11,8 @@
 # -U lowercase letters to UPPERCASE (reverse operation)
 # -s remove spaces in filenames (in addition)
 # -S remove spaces in filenames (only, no case changes)
-# -c clean filenames (remove all non-alphanumeric characaters apart from ".-_")
-# -C clean filenames (..., only, no case changes)
+# -c clean filenames (in addition, remove non-alphanumeric except ".-_")
+# -C clean filenames (only, .... but with no case changes)
 # -r recursive mode - recurse through directories
 # -h usage message (as per above)
 
@@ -252,8 +252,8 @@ sub print_help {
          print ("-U lowercase letters to UPPERCASE (reverse operation)\n");
          print ("-s remove spaces in filenames (in addition)\n");
          print ("-S remove spaces in filenames (only, no case changes)\n");
-         print ("-c clean filenames (remove all non-alphanumeric characaters apart from \".-_\")\n");
-         print ("-C clean filenames (..., only, no case changes)\n");
+         print ("-c clean filenames (in addition, remove non-alphanumeric except  \".-_\")\n");
+         print ("-C clean filenames (only, ... but with no case changes)\n");
          print ("-r recursive mode - recurse through directories\n\n");
          print ("Translate uppercase filenames to lowercase.\n\n");
          print ("Author: Toby Breckon, 1999-2020\n");
