@@ -114,8 +114,8 @@ foreach $file (@filesin){
          }else{
          # else tranlate upper to lower as normal operation
 
-                # as long as we are operating normally and not
-                # -S = not performing space removal only
+                # as long as we are operating normally and not ...
+                # -S = performing space removal only
                 # -C = performing filename cleaning only
                 if ($lower){
                   $filelower=~ tr/A-Z/a-z/; # get file name in lower case
@@ -246,7 +246,7 @@ sub able_to_move{
 
 sub print_help {
   # print out standard help message as follows:
-        print ("Usage: lowername [-voUsScCr] files\n");
+         print ("Usage: lowername [-voUsScCr] files\n");
          print ("-v verbose mode\n");
          print ("-o overwrite files if they already exist\n");
          print ("-U lowercase letters to UPPERCASE (reverse operation)\n");
