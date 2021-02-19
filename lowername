@@ -14,7 +14,7 @@
 # -c clean filenames (in addition, remove non-alphanumeric except ".-_")
 # -C clean filenames (only, .... but with no case changes)
 # -r recursive mode - recurse through directories
-# -t test mode - show potential changes (verbose) with no file changes
+# -d dry-run - show potential changes (verbose) with no file changes
 # -h usage message (as per above)
 
 ###############################################################################
@@ -26,7 +26,7 @@
 # error in 'No write permission message' changed 3/2003 - tbreckon
 # white space removal added 7/2020 - tbreckon
 # non alphanumeric removal (clean filenames) added 9/2020 - tbreckon
-# test mode with no actual file changes/renames added 2/2021 - tbreckon
+# dry-run (test) mode with no actual file changes/renames added 2/2021 - tbreckon
 
 ###############################################################################
 
@@ -67,9 +67,9 @@ foreach $item (@options){
                  $verbose = 1;   #  verbose mode on
          }elsif ($item eq "r"){
                  $recursive = 1; #  recursive mode on
-         }elsif ($item eq "t"){
+         }elsif ($item eq "d"){
                  $verbose = 1;   #  verbose mode on
-                 $test = 1;      # test mode on
+                 $test = 1;      # test mode on (dry-run)
          }elsif ($item eq "o"){
                  $overwrite = 1; #  overwrite mode on
          }elsif ($item eq "h"){# just skip any help options (as handled elsewhere)
@@ -268,7 +268,7 @@ sub print_help {
          print ("-c clean filenames (in addition, remove non-alphanumeric except  \".-_\")\n");
          print ("-C clean filenames (only, ... but with no case changes)\n");
          print ("-r recursive mode - recurse through directories\n");
-         print ("-t test mode - show potential changes with no file changes\n\n");
+         print ("-d dry-run - show potential changes with no file changes\n\n");
          print ("Translate uppercase filenames to lowercase.\n\n");
          print ("Author: Toby Breckon, 1999-2021\n");
 }
