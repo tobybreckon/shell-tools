@@ -5,7 +5,7 @@
 # renames files to their lower case equivalents, does other filename cleaning.
 # works from files and directories from given command line list
 
-# Usage: lowername [-voUsScCrt] files
+# Usage: lowername [-voUsScCrd] files
 # -v verbose mode
 # -o overwrite files if they already exist
 # -U lowercase letters to UPPERCASE (reverse operation)
@@ -259,7 +259,7 @@ sub able_to_move{
 
 sub print_help {
   # print out standard help message as follows:
-         print ("Usage: lowername [-voUsScCrt] files\n");
+         print ("Usage: lowername [-voUsScCrd] files\n");
          print ("-v verbose mode\n");
          print ("-o overwrite files if they already exist\n");
          print ("-U lowercase letters to UPPERCASE (reverse operation)\n");
