@@ -36,6 +36,7 @@ fi
 ################################################################################
 
 # N.B. cutting out audio in 2 pass processing
+# (swap -an lines for commented out -c:a lines to copy across audio)
 
 ffmpeg \
     -y \
