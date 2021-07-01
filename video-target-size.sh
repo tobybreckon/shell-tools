@@ -44,6 +44,7 @@ ffmpeg \
     -b:v "$target_video_bitrate_kbit_s"k \
     -pass 1 \
     -an \
+    # -c:a copy \
     -f mp4 \
     /dev/null \
 && \
@@ -53,6 +54,7 @@ ffmpeg \
     -b:v "$target_video_bitrate_kbit_s"k \
     -pass 2 \
     -an \
-    "${1%.*}-$2mB.mp4"
+    # -c:a copy \
+    "${1%.*}-$2Mb.mp4"
 
 ################################################################################
