@@ -9,26 +9,29 @@
 
 ################################################################################
 
-if (test $# -ne 4)
+if (test $# -ne 5)
 then
-  echo "usage: video-to-gif-clip.sh skipsecs length input output"
+  echo "usage: video-to-gif-clip.sh skipsecs length scale input output"
   echo
   echo "skipsecs = number of seconds to skip at start"
   echo "length = length of clip in secs"
+  echo "scale = scale factor for height and width (use 1 for no change)"
   echo "input = path to input video"
   echo "output = path to output gif"
   echo
-  
+
   exit 1
 fi
 
 ################################################################################
 
-ffmpeg -ss $1 -t $2 -i $3 -vf \
-"fps=10,scale=0:0:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" \
--loop 0 $4
+ffmpeg -ss $1 -t $2 -i $4 -vf \
+"fps=10,scale=$3*in_w:$3*in_h:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=single[p];[s1][p]paletteuse=new=1" \
+-loop 0 $5
 
 echo
-echo "$4 : $2 duration at 10 fps (original resolution)"
+echo "$5 : $2 duration at 10 fps ($3 x original resolution)"
+mediainfo $5 | grep pixels
+echo
 
 ################################################################################
