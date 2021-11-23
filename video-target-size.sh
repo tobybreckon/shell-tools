@@ -36,7 +36,7 @@ fi
 ################################################################################
 
 # N.B. cutting out audio in 2 pass processing
-# (swap -an lines for commented out -c:a lines to copy across audio)
+# (swap -an lines for commented out "-c:a copy" lines to copy across audio)
 
 ffmpeg \
     -y \
@@ -45,7 +45,6 @@ ffmpeg \
     -b:v "$target_video_bitrate_kbit_s"k \
     -pass 1 \
     -an \
-    # -c:a copy \
     -f mp4 \
     /dev/null \
 && \
@@ -55,7 +54,6 @@ ffmpeg \
     -b:v "$target_video_bitrate_kbit_s"k \
     -pass 2 \
     -an \
-    # -c:a copy \
     "${1%.*}-$2Mb.mp4"
 
 ################################################################################
