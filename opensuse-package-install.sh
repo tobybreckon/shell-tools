@@ -3,8 +3,14 @@
 ################################################################################
 
 # install a number of esoteric packages on OpenSuSE 15.x and later using zypper
+# (semi-automatically without having to web serach each set of commands)
 
-# T. Breckon, Durham University, May 2022
+# Toby Breckon, Durham University, May 2022
+
+################################################################################
+
+TMPDIR=$(mktemp -d)
+cd $TMPDIR
 
 ################################################################################
 
@@ -56,9 +62,18 @@ case $1 in
     ;;
 
   *)
-    echo "usage: suse_package_install [chrome | zoom | teams | atom | dropbox | baseline ... ]"
+    echo
+    echo "usage: suse_package_install [chrome | zoom | teams | atom | dropbox | baseline | ... ]"
+    echo
+    echo "[ \"a quick hack\" by Toby Breckon, 2022+ ] "
+    echo	
+    rm -rf $TMPDIR
     exit 1
     ;;
 esac
+
+################################################################################
+
+rm -rf $TMPDIR
 
 ################################################################################
