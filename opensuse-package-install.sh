@@ -17,7 +17,7 @@ cd $TMPDIR
 case $1 in
 
   chrome)
-    sudo zypper ar http://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome
+    sudo zypper ar -f http://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome
     wget https://dl.google.com/linux/linux_signing_key.pub
     sudo rpm --import linux_signing_key.pub
     sudo zypper ref -f
@@ -33,9 +33,18 @@ case $1 in
 
   teams)
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
+    sudo zypper ar -f https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
     sudo zypper refresh
     sudo zypper install teams
+    ;;
+
+  f5vpn)
+    wget https://access.durham.ac.uk/public/download/linux_f5vpn.x86_64.rpm
+    wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.rpm
+    sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
+    echo
+    echo *** for CLI VPN instructions - https://support.f5.com/csp/article/K47922841 ***
+    echo
     ;;
 
   atom)
@@ -63,10 +72,10 @@ case $1 in
 
   *)
     echo
-    echo "usage: suse_package_install [chrome | zoom | teams | atom | dropbox | baseline | ... ]"
+    echo "usage: suse_package_install [chrome | zoom | teams | f5vpn | atom | dropbox | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ] "
-    echo	
+    echo
     rm -rf $TMPDIR
     exit 1
     ;;
