@@ -3,7 +3,7 @@
 ################################################################################
 
 # install a number of esoteric packages on OpenSuSE 15.x and later using zypper
-# (semi-automatically without having to web serach each set of commands)
+# (semi-automatically without having to web search each set of commands)
 
 # Toby Breckon, Durham University, May 2022
 
