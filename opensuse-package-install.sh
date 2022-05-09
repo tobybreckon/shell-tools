@@ -31,6 +31,12 @@ case $1 in
     sudo zypper install zoom_openSUSE_x86_64.rpm
     ;;
 
+  skype)
+   sudo zypper ar -f https://repo.skype.com/rpm/stable/skype-stable.repo
+   sudo zypper refresh
+   sudo zypper install skypeforlinux
+   ;;
+
   teams)
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo zypper ar -f https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
