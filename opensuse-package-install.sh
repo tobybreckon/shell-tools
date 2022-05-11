@@ -47,7 +47,7 @@ case $1 in
   f5vpn)
     wget https://access.durham.ac.uk/public/download/linux_f5vpn.x86_64.rpm
     wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.rpm
-    sudo zypper install -G linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
+    sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
     echo
     echo *** for CLI VPN instructions - https://support.f5.com/csp/article/K47922841 ***
     echo
