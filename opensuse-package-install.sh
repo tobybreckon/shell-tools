@@ -64,6 +64,13 @@ case $1 in
     sudo zypper install dropbox
     ;;
 
+  ximea)
+    wget https://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
+    tar xzf XIMEA_Linux_SP.tgz
+    cd package
+    sudo ./install
+    ;;
+
   baseline)
     sudo zypper install unison git lyx opera obs obs-v4l2sink nano kwrite \
     pavucontrol opera obs-studio-devel mtools mjpegtools zip youtube-dl \
@@ -73,12 +80,12 @@ case $1 in
     lame htop traceroute texmaker attica-qt5 MPlayer ImageMagick gzip gwenview5 \
     gv gparted gimp ghostscript-x11 ghostscript-fonts-std ghostscript-fonts-other \
     ghostscript gawk file fetchmsttfonts dos2unix diffutils cmake-gui cmake \
-    bzip2 bind-utils nmap xournal klatexformula
+    bzip2 bind-utils nmap xournal klatexformula kernel-devel
     ;;
 
   *)
     echo
-    echo "usage: suse_package_install [chrome | zoom | skype | teams | f5vpn | atom | dropbox | baseline | ... ]"
+    echo "usage: suse_package_install [chrome | zoom | skype | teams | f5vpn | atom | dropbox | ximea | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ] "
     echo
