@@ -89,7 +89,9 @@ case $1 in
 
   *)
     echo
-    echo "usage: suse_package_install [chrome | zoom | skype | teams | f5vpn | atom | dropbox | ximea | baseline | ... ]"
+    echo "usage: suse_package_install [chrome | zoom | skype | teams | "
+    echo "                            f5vpn | atom | dropbox | ximea | "
+    echo "                            patterns | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ] "
     echo
