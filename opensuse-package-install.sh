@@ -80,7 +80,7 @@ case $1 in
     lame htop traceroute texmaker attica-qt5 MPlayer ImageMagick gzip gwenview5 \
     gv gparted gimp ghostscript-x11 ghostscript-fonts-std ghostscript-fonts-other \
     ghostscript gawk file fetchmsttfonts dos2unix diffutils cmake-gui cmake \
-    bzip2 bind-utils nmap xournal klatexformula kernel-devel
+    bzip2 bind-utils nmap xournal klatexformula kernel-devel openvpn
     ;;
 
   *)
