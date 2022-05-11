@@ -47,7 +47,7 @@ case $1 in
   f5vpn)
     wget https://access.durham.ac.uk/public/download/linux_f5vpn.x86_64.rpm
     wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.rpm
-    sudo zypper install -G linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
+    sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
     echo
     echo *** for CLI VPN instructions - https://support.f5.com/csp/article/K47922841 ***
     echo
@@ -62,6 +62,8 @@ case $1 in
   dropbox)
     sudo zypper install libatomic1
     sudo zypper install dropbox
+    dropbox start -i
+    dropbox autostart y
     ;;
 
   ximea)
@@ -69,6 +71,10 @@ case $1 in
     tar xzf XIMEA_Linux_SP.tgz
     cd package
     sudo ./install
+    ;;
+
+  patterns)
+    sudo zypper in -t pattern devel_basis devel_C_C++ devel_kernel multimedia
     ;;
 
   baseline)
@@ -85,7 +91,9 @@ case $1 in
 
   *)
     echo
-    echo "usage: suse_package_install [chrome | zoom | skype | teams | f5vpn | atom | dropbox | ximea | baseline | ... ]"
+    echo "usage: suse_package_install [chrome | zoom | skype | teams | "
+    echo "                            f5vpn | atom | dropbox | ximea | "
+    echo "                            patterns | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ] "
     echo
