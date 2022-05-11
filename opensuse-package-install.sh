@@ -62,6 +62,8 @@ case $1 in
   dropbox)
     sudo zypper install libatomic1
     sudo zypper install dropbox
+    dropbox start -i
+    dropbox autostart y
     ;;
 
   ximea)
