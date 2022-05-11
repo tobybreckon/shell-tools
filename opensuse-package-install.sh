@@ -71,6 +71,10 @@ case $1 in
     sudo ./install
     ;;
 
+  patterns)
+    sudo zypper in -t pattern devel_basis devel_C_C++ devel_kernel multimedia
+    ;;
+
   baseline)
     sudo zypper install unison git lyx opera obs obs-v4l2sink nano kwrite \
     pavucontrol opera obs-studio-devel mtools mjpegtools zip youtube-dl \
