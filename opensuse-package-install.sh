@@ -78,15 +78,15 @@ case $1 in
     ;;
 
   baseline)
-    sudo zypper install unison git lyx opera obs obs-v4l2sink nano kwrite \
+    sudo zypper install unison git lyx opera obs-v4l2sink nano kwrite \
     pavucontrol opera obs-studio-devel mtools mjpegtools zip youtube-dl \
     xterm xless vlc-noX vlc-codecs vlc-codec-gstreamer vlc v4l2loopback-utils \
     v4l-utils-lang v4l-utils v4l-tools v4l-conf unzip unrar powertop xcalc \
-    wireless-tools wine-32bit wine whois which vtkdata vtk-examples vtk-devel \
+    wireless-tools wine-32bit wine whois which vtkdata vtk-devel \
     lame htop traceroute texmaker attica-qt5 MPlayer ImageMagick gzip gwenview5 \
     gv gparted gimp ghostscript-x11 ghostscript-fonts-std ghostscript-fonts-other \
     ghostscript gawk file fetchmsttfonts dos2unix diffutils cmake-gui cmake \
-    bzip2 bind-utils nmap xournal klatexformula kernel-devel openvpn
+    bzip2 bind-utils nmap xournalpp klatexformula kernel-devel openvpn mlocate
     ;;
 
   *)
