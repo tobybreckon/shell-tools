@@ -4,7 +4,6 @@
 
 # install a number of esoteric packages on OpenSuSE 15.x and later using zypper
 # (semi-automatically without having to web search each set of commands)
-
 # Toby Breckon, Durham University, May 2022
 
 ################################################################################
@@ -32,10 +31,10 @@ case $1 in
     ;;
 
   skype)
-   sudo zypper ar -f https://repo.skype.com/rpm/stable/skype-stable.repo
-   sudo zypper refresh
-   sudo zypper install skypeforlinux
-   ;;
+    sudo zypper ar -f https://repo.skype.com/rpm/stable/skype-stable.repo
+    sudo zypper refresh
+    sudo zypper install skypeforlinux
+    ;;
 
   teams)
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -57,7 +56,7 @@ case $1 in
     sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ntype=rpm-md\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/zypp/repos.d/atom.repo'
     sudo zypper --gpg-auto-import-keys refresh
     sudo zypper install atom
-  ;;
+    ;;
 
   dropbox)
     sudo zypper install libatomic1
@@ -71,6 +70,12 @@ case $1 in
     tar xzf XIMEA_Linux_SP.tgz
     cd package
     sudo ./install
+    ;;
+
+  brackets)
+    flatpak install https://dl.flathub.org/repo/appstream/io.brackets.Brackets.flatpakref
+    echo
+    echo "Now run as: flatpak run io.brackets.Brackets"
     ;;
 
   patterns)
@@ -94,7 +99,7 @@ case $1 in
     echo
     echo "usage: suse_package_install [chrome | zoom | skype | teams | "
     echo "                            f5vpn | atom | dropbox | ximea | "
-    echo "                            patterns | baseline | ... ]"
+    echo "                            brackets | patterns | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ] "
     echo
