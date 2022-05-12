@@ -86,7 +86,8 @@ case $1 in
     lame htop traceroute texmaker attica-qt5 MPlayer ImageMagick gzip gwenview5 \
     gv gparted gimp ghostscript-x11 ghostscript-fonts-std ghostscript-fonts-other \
     ghostscript gawk file fetchmsttfonts dos2unix diffutils cmake-gui cmake \
-    bzip2 bind-utils nmap xournalpp klatexformula kernel-devel openvpn mlocate
+    bzip2 bind-utils nmap xournalpp klatexformula kernel-devel openvpn mlocate \
+    kdeconnect-kde powertop
     ;;
 
   *)
