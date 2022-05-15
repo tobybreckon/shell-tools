@@ -78,6 +78,23 @@ case $1 in
     echo "Now run as: flatpak run io.brackets.Brackets"
     ;;
 
+  cuda)
+    echo "CUDA version - 11.3 (latest for Pytorch as of 15/5/22)"
+    echo
+    sudo zypper ar -f https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
+    sudo zypper refresh
+    sudo zypper install cuda-11-3
+    ;;
+
+  cudnn)
+    echo "cuDNN for CUDA 11.3 (latest for Pytorch as of 15/5/22)"
+    echo
+    wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.2.1.32-1.cuda11.3.x86_64.rpm
+    wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.2.1.32-1.cuda11.3.x86_64.rpm
+    sudo zypper refresh
+    sudo zypper install libcudnn*.rpm
+    ;;
+
   patterns)
     sudo zypper in -t pattern devel_basis devel_C_C++ devel_kernel multimedia
     ;;
