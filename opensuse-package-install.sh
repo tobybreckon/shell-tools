@@ -99,6 +99,16 @@ case $1 in
     sudo zypper in -t pattern devel_basis devel_C_C++ devel_kernel multimedia
     ;;
 
+  opencv-extras)
+    sudo zypper in python-devel python38-numpy-devel tbb-devel libjpeg8-devel \
+    libtiff-devel libjasper-devel libdc1394-devel \
+    pkgconf-pkg-config libva-devel openblas-common-devel \
+    atlascpp-devel lapack-devel eigen3-devel gstreamer-devel \
+    libtesseract4 tesseract tesseract-ocr tesseract-ocr-devel \
+    gflags gflags-devel gflags-devel-static glog-devel gdal-devel \
+    gdcm-devel onnx-devel libxine-devel libceres-devel gstreamer*
+    ;;
+
   baseline)
     sudo zypper install unison git lyx opera obs-v4l2sink nano kwrite \
     pavucontrol opera obs-studio-devel mtools mjpegtools zip youtube-dl \
@@ -116,9 +126,10 @@ case $1 in
     echo
     echo "usage: suse_package_install [chrome | zoom | skype | teams | "
     echo "                            f5vpn | atom | dropbox | ximea | "
-    echo "                            brackets | patterns | baseline | ... ]"
+    echo "                            brackets | cuda | cudnn | patterns | "
+    echo "                            opencv-extras | baseline | ... ]"
     echo
-    echo "[ \"a quick hack\" by Toby Breckon, 2022+ ] "
+    echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
     echo
     rm -rf $TMPDIR
     exit 1
