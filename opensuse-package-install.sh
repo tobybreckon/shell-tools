@@ -119,7 +119,9 @@ case $1 in
     gv gparted gimp ghostscript-x11 ghostscript-fonts-std ghostscript-fonts-other \
     ghostscript gawk file fetchmsttfonts dos2unix diffutils cmake-gui cmake \
     bzip2 bind-utils nmap xournalpp klatexformula kernel-devel openvpn mlocate \
-    kdeconnect-kde xkill
+    kdeconnect-kde xkill xev texlive-spie texlive-ieeeconf texlive-ieeetran \
+    texlive-biblatex-ieee texlive-llncs texlive-biblatex-lncs texlive-llncsconf \
+    texlive-elsarticle
     ;;
 
   *)
