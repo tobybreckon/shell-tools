@@ -2,8 +2,9 @@
 
 ################################################################################
 
-# install a number of esoteric packages on OpenSuSE 15.x and later using zypper
+# install a number of esoteric packages on OpenSuSE 15.x and later + Tumbleweed
 # (semi-automatically without having to web search each set of commands)
+
 # Toby Breckon, Durham University, May 2022
 
 ################################################################################
@@ -19,7 +20,7 @@ case $1 in
     sudo zypper ar -f http://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome
     wget https://dl.google.com/linux/linux_signing_key.pub
     sudo rpm --import linux_signing_key.pub
-    sudo zypper ref -f
+    sudo zypper refresh
     sudo zypper in google-chrome-stable
     ;;
 
@@ -32,14 +33,14 @@ case $1 in
 
   skype)
     sudo zypper ar -f https://repo.skype.com/rpm/stable/skype-stable.repo
-    sudo zypper refresh
+    sudo zypper --gpg-auto-import-keys refresh
     sudo zypper install skypeforlinux
     ;;
 
   teams)
-    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    # sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo zypper ar -f https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
-    sudo zypper refresh
+    sudo zypper --gpg-auto-import-keys refresh
     sudo zypper install teams
     ;;
 
@@ -47,9 +48,6 @@ case $1 in
     wget https://access.durham.ac.uk/public/download/linux_f5vpn.x86_64.rpm
     wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.rpm
     sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
-    echo
-    echo *** for CLI VPN instructions - https://support.f5.com/csp/article/K47922841 ***
-    echo
     ;;
 
   atom)
@@ -79,28 +77,31 @@ case $1 in
     ;;
 
   cuda)
+    sudo zypper ar -f https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
+    sudo zypper  --gpg-auto-import-keys refresh
+    sudo zypper install cuda-11-3
+    echo
     echo "CUDA version - 11.3 (latest for Pytorch as of 15/5/22)"
     echo
-    sudo zypper ar -f https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
-    sudo zypper refresh
-    sudo zypper install cuda-11-3
     ;;
 
   cudnn)
-    echo "cuDNN for CUDA 11.3 (latest for Pytorch as of 15/5/22)"
-    echo
+
     wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.2.1.32-1.cuda11.3.x86_64.rpm
     wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.2.1.32-1.cuda11.3.x86_64.rpm
     sudo zypper refresh
     sudo zypper install libcudnn*.rpm
+    echo
+    echo "cuDNN for CUDA 11.3 (latest for Pytorch as of 15/5/22)"
+    echo
     ;;
 
   patterns)
-    sudo zypper in -t pattern devel_basis devel_C_C++ devel_kernel multimedia
+    sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia
     ;;
 
   opencv-extras)
-    sudo zypper in python-devel python38-numpy-devel tbb-devel libjpeg8-devel \
+    sudo zypper install python-devel python38-numpy-devel tbb-devel libjpeg8-devel \
     libtiff-devel libjasper-devel libdc1394-devel \
     pkgconf-pkg-config libva-devel openblas-common-devel \
     atlascpp-devel lapack-devel eigen3-devel gstreamer-devel \
