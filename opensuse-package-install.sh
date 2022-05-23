@@ -86,7 +86,6 @@ case $1 in
     ;;
 
   cudnn)
-
     wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.2.1.32-1.cuda11.3.x86_64.rpm
     wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.2.1.32-1.cuda11.3.x86_64.rpm
     sudo zypper refresh
