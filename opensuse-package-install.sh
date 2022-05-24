@@ -32,16 +32,31 @@ case $1 in
     ;;
 
   skype)
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo zypper ar -f https://repo.skype.com/rpm/stable/skype-stable.repo
     sudo zypper --gpg-auto-import-keys refresh
     sudo zypper install skypeforlinux
     ;;
 
   teams)
-    # sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo zypper ar -f https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
-    sudo zypper --gpg-auto-import-keys refresh
+    sudo zypper refresh
     sudo zypper install teams
+    ;;
+
+  vscode)
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo zypper ar -f https://packages.microsoft.com/yumrepos/vscode/ vscode
+    sudo zypper refresh
+    sudo zypper install code
+    ;;
+
+  edge)
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo zypper ar -f https://packages.microsoft.com/yumrepos/edge/ edge
+    sudo zypper refresh
+    sudo zypper install microsoft-edge-stable
     ;;
 
   f5vpn)
@@ -127,9 +142,10 @@ case $1 in
   *)
     echo
     echo "usage: suse_package_install [chrome | zoom | skype | teams | "
-    echo "                            f5vpn | atom | dropbox | ximea | "
-    echo "                            brackets | cuda | cudnn | patterns | "
-    echo "                            opencv-extras | baseline | ... ]"
+    echo "                             vscode | edge | f5vpn | atom  | "
+    echo "                             dropbox | ximea | brackets | cuda"
+    echo "                             cudnn | patterns | opencv-extras"
+    echo "                             baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
     echo
