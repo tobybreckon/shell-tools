@@ -110,6 +110,24 @@ case $1 in
     echo
     ;;
 
+  clamav)
+    sudo zypper install clamav
+    echo
+    echo "Setting up freshcam service via systemctl ..."
+    echo
+    sudo systemctl start freshclam
+    sudo systemctl enable freshclam
+    echo
+    echo "Checking freshcam service status via systemctl ..."
+    echo
+    sudo systemctl status freshclam
+    echo
+    echo "If failure: apply fix from - https://github.com/Cisco-Talos/clamav/issues/200"
+    echo
+    echo "Run scan as: sudo clamscan --max-filesize=4000M --max-scansize=4000M --recursive=yes --log=/tmp/clamav.log --infected /"
+    echo
+    ;;
+
   patterns)
     sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia
     ;;
@@ -143,9 +161,9 @@ case $1 in
     echo
     echo "usage: suse_package_install [chrome | zoom | skype | teams | "
     echo "                             vscode | edge | f5vpn | atom  | "
-    echo "                             dropbox | ximea | brackets | cuda"
-    echo "                             cudnn | patterns | opencv-extras"
-    echo "                             baseline | ... ]"
+    echo "                             dropbox | ximea | brackets | cuda |"
+    echo "                             cudnn | clamav | patterns | "
+    echo "                             opencv-extras | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
     echo
