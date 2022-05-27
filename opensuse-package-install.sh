@@ -113,16 +113,13 @@ case $1 in
   clamav)
     sudo zypper install clamav
     echo
-    echo "Setting up freshcam service via systemctl ..."
+    echo "Setting up freshcam timer via systemctl ..."
     echo
-    sudo systemctl start freshclam
-    sudo systemctl enable freshclam
+    sudo systemctl enable freshclam.timer
     echo
-    echo "Checking freshcam service status via systemctl ..."
+    echo "Checking freshcam status via systemctl ..."
     echo
     sudo systemctl status freshclam
-    echo
-    echo "If failure: apply fix from - https://github.com/Cisco-Talos/clamav/issues/200"
     echo
     echo "Run scan as: sudo clamscan --max-filesize=4000M --max-scansize=4000M --recursive=yes --log=/tmp/clamav.log --infected /"
     echo
