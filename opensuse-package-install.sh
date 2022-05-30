@@ -154,6 +154,10 @@ case $1 in
     texlive-elsarticle
     ;;
 
+  laptop-extras)
+    sudo zypper install bluez-obexd obexd obexfs
+    ;;
+
   *)
     echo
     echo "usage: suse_package_install [chrome | zoom | skype | teams | "
