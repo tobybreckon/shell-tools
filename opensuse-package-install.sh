@@ -125,6 +125,16 @@ case $1 in
     echo
     ;;
 
+  libreoffice-extensions)
+
+    # extensions one-size + ISO signage from: https://extensions.libreoffice.org
+
+    wget https://extensions.libreoffice.org/assets/downloads/z/kvd-0-3-7.oxt
+    sudo /usr/lib64/libreoffice/program/unopkg add -v --shared kvd-0-3-7.oxt
+    wget https://extensions.libreoffice.org/assets/downloads/1778/1637949852/GallerySignauxDangers.3.1.0.oxt
+    sudo /usr/lib64/libreoffice/program/unopkg add -v --shared GallerySignauxDangers.3.1.0.oxt
+    ;;
+
   patterns)
     sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia
     ;;
@@ -164,6 +174,7 @@ case $1 in
     echo "                             vscode | edge | f5vpn | atom  | "
     echo "                             dropbox | ximea | brackets | cuda |"
     echo "                             cudnn | clamav | patterns | "
+    echo "                             libreoffice-extensions | "
     echo "                             opencv-extras | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
