@@ -17,6 +17,9 @@ cd $TMPDIR
 case $1 in
 
   chrome)
+
+    # google chrome browser
+
     sudo zypper ar -f http://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome
     wget https://dl.google.com/linux/linux_signing_key.pub
     sudo rpm --import linux_signing_key.pub
@@ -25,6 +28,9 @@ case $1 in
     ;;
 
   zoom)
+
+    # zoom video conf
+
     wget https://zoom.us/client/latest/zoom_openSUSE_x86_64.rpm
     wget -O package-signing-key.pub https://zoom.us/linux/download/pubkey
     sudo rpm --import package-signing-key.pub
@@ -32,6 +38,9 @@ case $1 in
     ;;
 
   skype)
+
+    # MS Skype For Linux video conf
+
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo zypper ar -f https://repo.skype.com/rpm/stable/skype-stable.repo
     sudo zypper --gpg-auto-import-keys refresh
@@ -39,6 +48,9 @@ case $1 in
     ;;
 
   teams)
+
+    # MS Teams video conf
+
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo zypper ar -f https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
     sudo zypper refresh
@@ -46,6 +58,9 @@ case $1 in
     ;;
 
   vscode)
+
+    # MS VS code editor
+
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo zypper ar -f https://packages.microsoft.com/yumrepos/vscode/ vscode
     sudo zypper refresh
@@ -53,6 +68,9 @@ case $1 in
     ;;
 
   edge)
+
+    # MS edge browser
+
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo zypper ar -f https://packages.microsoft.com/yumrepos/edge/ edge
     sudo zypper refresh
@@ -60,18 +78,27 @@ case $1 in
     ;;
 
   f5vpn)
+
+    # f5 networks VPN solution - GUI + CLI
+
     wget https://access.durham.ac.uk/public/download/linux_f5vpn.x86_64.rpm
     wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.rpm
     sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
     ;;
 
   atom)
+
+    # atom editor
+
     sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ntype=rpm-md\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/zypp/repos.d/atom.repo'
     sudo zypper --gpg-auto-import-keys refresh
     sudo zypper install atom
     ;;
 
   dropbox)
+
+    # install + setup dropbox
+
     sudo zypper install libatomic1
     sudo zypper install dropbox
     dropbox start -i
@@ -79,6 +106,9 @@ case $1 in
     ;;
 
   ximea)
+
+    # ximea camera drivers - for OpenCV build
+
     wget https://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
     tar xzf XIMEA_Linux_SP.tgz
     cd package
@@ -86,12 +116,18 @@ case $1 in
     ;;
 
   brackets)
+
+    # brackets editor
+
     flatpak install https://dl.flathub.org/repo/appstream/io.brackets.Brackets.flatpakref
     echo
     echo "Now run as: flatpak run io.brackets.Brackets"
     ;;
 
   cuda)
+
+    # nvidia cuda - full stack
+
     sudo zypper ar -f https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
     sudo zypper  --gpg-auto-import-keys refresh
     sudo zypper install cuda-11-3
@@ -101,6 +137,9 @@ case $1 in
     ;;
 
   cudnn)
+
+    # nvidia cuCNN deep learning base library
+
     wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.2.1.32-1.cuda11.3.x86_64.rpm
     wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.2.1.32-1.cuda11.3.x86_64.rpm
     sudo zypper refresh
@@ -111,6 +150,9 @@ case $1 in
     ;;
 
   clamav)
+
+    # clam anti-virus
+
     sudo zypper install clamav
     echo
     echo "Setting up freshcam timer via systemctl ..."
@@ -136,10 +178,16 @@ case $1 in
     ;;
 
   patterns)
+
+    # base SuSE software patterns
+
     sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia
     ;;
 
   opencv-extras)
+
+    # additional packages required for fully functional OpenCV build from source
+
     sudo zypper install python-devel python38-numpy-devel tbb-devel libjpeg8-devel \
     libtiff-devel libjasper-devel libdc1394-devel \
     pkgconf-pkg-config libva-devel openblas-common-devel \
@@ -150,6 +198,9 @@ case $1 in
     ;;
 
   baseline)
+
+   # everything else ....
+
     sudo zypper install unison git lyx opera obs-v4l2sink nano kwrite \
     pavucontrol opera obs-studio-devel mtools mjpegtools zip youtube-dl \
     xterm xless vlc-noX vlc-codecs vlc-codec-gstreamer vlc v4l2loopback-utils \
@@ -165,6 +216,9 @@ case $1 in
     ;;
 
   laptop-extras)
+
+    # everything laptop specific ....
+
     sudo zypper install bluez-obexd obexd obexfs
     ;;
 
@@ -174,7 +228,7 @@ case $1 in
     echo "                             vscode | edge | f5vpn | atom  | "
     echo "                             dropbox | ximea | brackets | cuda |"
     echo "                             cudnn | clamav | patterns | "
-    echo "                             libreoffice-extensions | "
+    echo "                             libreoffice-extensions | laptop-extras |"
     echo "                             opencv-extras | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
