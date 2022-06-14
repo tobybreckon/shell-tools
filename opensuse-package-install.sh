@@ -169,7 +169,7 @@ case $1 in
 
   libreoffice-extensions)
 
-    # extensions one-size + ISO signage from: https://extensions.libreoffice.org
+    # extensions one-size, ISO signage, multisave, expand animations
 
     wget https://extensions.libreoffice.org/assets/downloads/z/kvd-0-3-7.oxt
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared kvd-0-3-7.oxt
@@ -177,6 +177,9 @@ case $1 in
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared GallerySignauxDangers.3.1.0.oxt
     wget https://extensions.libreoffice.org/assets/downloads/z/multiformatsave-v1-5-6.oxt
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared multiformatsave-v1-5-6.oxt
+    wget https://github.com/monperrus/ExpandAnimations/releases/download/0.13/ExpandAnimations-0.13.oxt
+    sudo /usr/lib64/libreoffice/program/unopkg add -v --shared ExpandAnimations-0.13.oxt
+
     ;;
 
   patterns)
