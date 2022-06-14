@@ -175,6 +175,8 @@ case $1 in
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared kvd-0-3-7.oxt
     wget https://extensions.libreoffice.org/assets/downloads/1778/1637949852/GallerySignauxDangers.3.1.0.oxt
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared GallerySignauxDangers.3.1.0.oxt
+    wget https://extensions.libreoffice.org/assets/downloads/z/multiformatsave-v1-5-6.oxt
+    sudo /usr/lib64/libreoffice/program/unopkg add -v --shared multiformatsave-v1-5-6.oxt
     ;;
 
   patterns)
