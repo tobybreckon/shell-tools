@@ -243,7 +243,7 @@ case $1 in
     echo "usage: suse_package_install [chrome | zoom | skype | teams | "
     echo "                             vscode | edge | f5vpn | atom  | "
     echo "                             dropbox | ximea | brackets | cuda |"
-    echo "                             cudnn | clamav | patterns | "
+    echo "                             cudnn | clamav | pdfjam-extras | patterns | "
     echo "                             libreoffice-extensions | laptop-extras |"
     echo "                             opencv-extras | baseline | ... ]"
     echo
