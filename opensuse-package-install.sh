@@ -228,7 +228,7 @@ case $1 in
     bzip2 bind-utils nmap xournalpp klatexformula kernel-devel openvpn mlocate \
     kdeconnect-kde xkill xev texlive-spie texlive-ieeeconf texlive-ieeetran \
     texlive-biblatex-ieee texlive-llncs texlive-biblatex-lncs texlive-llncsconf \
-    texlive-elsarticle pdftk rpmdevtools rpmlint
+    texlive-elsarticle pdftk rpmdevtools rpmlint sox
     ;;
 
   laptop-extras)
