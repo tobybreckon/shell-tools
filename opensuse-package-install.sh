@@ -240,7 +240,7 @@ case $1 in
 
   *)
     echo
-    echo "usage: suse_package_install [chrome | zoom | skype | teams | "
+    echo "usage: opensuse-package-install [chrome | zoom | skype | teams | "
     echo "                             vscode | edge | f5vpn | atom  | "
     echo "                             dropbox | ximea | brackets | cuda |"
     echo "                             cudnn | clamav | pdfjam-extras | patterns | "
