@@ -179,7 +179,6 @@ case $1 in
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared multiformatsave-v1-5-6.oxt
     wget https://github.com/monperrus/ExpandAnimations/releases/download/0.13/ExpandAnimations-0.13.oxt
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared ExpandAnimations-0.13.oxt
-
     ;;
 
   pdfjam-extras)
@@ -190,7 +189,6 @@ case $1 in
     wget -O package-signing-key.pub https://breckon.org/toby/pgp.txt
     sudo rpm --import package-signing-key.pub
     sudo rpm -i pdfjam-extras-0.1-0.noarch.rpm
-
     ;;
 
   patterns)
@@ -228,8 +226,14 @@ case $1 in
     bzip2 bind-utils nmap xournalpp klatexformula kernel-devel openvpn mlocate \
     kdeconnect-kde xkill xev texlive-spie texlive-ieeeconf texlive-ieeetran \
     texlive-biblatex-ieee texlive-llncs texlive-biblatex-lncs texlive-llncsconf \
-    texlive-elsarticle pdftk rpmdevtools rpmlint sox dpkg
+    texlive-elsarticle pdftk sox
     ;;
+
+  packaging)
+
+   # tools for building rpm and deb packages
+      
+    sudo zypper install rpmdevtools rpmlint dpkg
 
   laptop-extras)
 
@@ -245,7 +249,7 @@ case $1 in
     echo "                             dropbox | ximea | brackets | cuda |"
     echo "                             cudnn | clamav | pdfjam-extras | patterns | "
     echo "                             libreoffice-extensions | laptop-extras |"
-    echo "                             opencv-extras | baseline | ... ]"
+    echo "                             packaging | opencv-extras | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
     echo
