@@ -234,6 +234,7 @@ case $1 in
    # tools for building rpm and deb packages
       
     sudo zypper install rpmdevtools rpmlint dpkg
+    ;;
 
   laptop-extras)
 
