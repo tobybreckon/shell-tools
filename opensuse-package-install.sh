@@ -20,10 +20,12 @@ case $1 in
 
     # google chrome browser
 
-    sudo zypper ar -f http://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome
+    sudo zypper ar -f https://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome
     wget https://dl.google.com/linux/linux_signing_key.pub
     sudo rpm --import linux_signing_key.pub
+    # wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
     sudo zypper refresh
+    # sudo zypper in google-chrome-stable_current_x86_64.rpm
     sudo zypper in google-chrome-stable
     ;;
 
