@@ -14,6 +14,10 @@ cd $TMPDIR
 
 ################################################################################
 
+set -e
+
+################################################################################
+
 case $1 in
 
   chrome)
@@ -132,9 +136,9 @@ case $1 in
 
     sudo zypper ar -f https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
     sudo zypper  --gpg-auto-import-keys refresh
-    sudo zypper install cuda-11-3
+    sudo zypper install cuda-11-8
     echo
-    echo "CUDA version - 11.3 (latest for Pytorch as of 15/5/22)"
+    echo "CUDA version - 11.8 (latest for Pytorch as of 17/1/23)"
     echo
     ;;
 
@@ -142,12 +146,12 @@ case $1 in
 
     # nvidia cuCNN deep learning base library
 
-    wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.2.1.32-1.cuda11.3.x86_64.rpm
-    wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.2.1.32-1.cuda11.3.x86_64.rpm
+    wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.7.0.84-1.cuda11.8.x86_64.rpm
+    wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.7.0.84-1.cuda11.8.x86_64.rpm
     sudo zypper refresh
     sudo zypper install libcudnn*.rpm
     echo
-    echo "cuDNN for CUDA 11.3 (latest for Pytorch as of 15/5/22)"
+    echo "cuDNN for CUDA 11.8 (latest for Pytorch as of 15/5/22)"
     echo
     ;;
 
