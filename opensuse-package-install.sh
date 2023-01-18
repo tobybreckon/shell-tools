@@ -151,7 +151,7 @@ case $1 in
     sudo zypper refresh
     sudo zypper install libcudnn*.rpm
     echo
-    echo "cuDNN for CUDA 11.8 (latest for Pytorch as of 15/5/22)"
+    echo "cuDNN for CUDA 11.8 (latest for Pytorch as of 17/1/23)"
     echo
     ;;
 
