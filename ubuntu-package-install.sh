@@ -143,7 +143,7 @@ case $1 in
 
    # everything else ....
    
-   sudo apt install vlc cvlc
+   sudo apt install vlc exfat-fuse exfat-utils
 
    ##########
     ;;
