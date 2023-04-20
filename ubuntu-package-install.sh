@@ -99,7 +99,9 @@ case $1 in
 
     # nvidia cuCNN deep learning base library
 
-    sudo apt install nvidia-cudnn
+    sudo add-apt-repository 'deb [arch=amd64] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/'
+    sudo apt update
+    sudo apt install libcudnn8 libcudnn8-dev
   
     ;;
 
