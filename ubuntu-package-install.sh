@@ -143,7 +143,7 @@ case $1 in
 
    # everything else ....
    
-   sudo apt install vlc exfat-fuse exfat-utils cmake-qt-gui v4l-utils v4l-conf
+   sudo apt install vlc exfat-fuse exfat-utils cmake-qt-gui v4l-utils v4l-conf nvtop htop nano
 
    ##########
     ;;
