@@ -118,6 +118,7 @@ case $1 in
     wget https://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
     tar xzf XIMEA_Linux_SP.tgz
     cd package
+    sudo rm -rf /opt/XIMEA
     sudo ./install
     ;;
 
