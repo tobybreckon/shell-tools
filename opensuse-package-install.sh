@@ -120,6 +120,7 @@ case $1 in
     cd package
     sudo rm -rf /opt/XIMEA
     sudo ./install
+    sudo ln -sf /usr/lib64/libtiff.so.6 /usr/lib64/libtiff.so.5
     ;;
 
   brackets)
@@ -216,7 +217,8 @@ case $1 in
     atlascpp-devel lapack-devel eigen3-devel gstreamer-devel \
     libtesseract4 tesseract tesseract-ocr tesseract-ocr-devel \
     gflags gflags-devel gflags-devel-static glog-devel gdal-devel \
-    gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit gstreamer*
+    gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit \
+    librealsense librealsense-devel gstreamer*
     ;;
 
   baseline)
