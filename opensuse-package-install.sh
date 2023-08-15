@@ -256,7 +256,7 @@ case $1 in
 
   *)
     echo
-    echo "usage: opensuse-package-install [chrome | zoom | skype | teams | "
+    echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | teams | "
     echo "                             vscode | edge | f5vpn | atom  | "
     echo "                             dropbox | ximea | brackets | cuda |"
     echo "                             cudnn | clamav | pdfjam-extras | patterns | "

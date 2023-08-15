@@ -11,7 +11,7 @@
 
 if (test $# -ne 2)
 then
-  echo "usage: video-target-size.sh video size"
+  echo "Usage: video-target-size.sh video size"
   echo "video = video file"
   echo "size = size in MB (integer or float)"
   exit 1

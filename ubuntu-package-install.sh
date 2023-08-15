@@ -150,7 +150,7 @@ case $1 in
 
   *)
     echo
-    echo "usage: ubuntu-package-install [repos | chrome | zoom | skype | teams | "
+    echo "Usage: ubuntu-package-install.sh [repos | chrome | zoom | skype | teams | "
     echo "                               vscode | edge | ximea | cuda |"
     echo "                               cudnn | opencv-extras | baseline | ... ]"
     echo

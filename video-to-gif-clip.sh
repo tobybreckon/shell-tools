@@ -11,7 +11,7 @@
 
 if (test $# -ne 5)
 then
-  echo "usage: video-to-gif-clip.sh skipsecs length scale input output"
+  echo "Usage: video-to-gif-clip.sh skipsecs length scale input output"
   echo
   echo "skipsecs = number of seconds to skip at start"
   echo "length = length of clip in secs"
