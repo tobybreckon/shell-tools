@@ -220,7 +220,7 @@ case $1 in
     gflags gflags-devel gflags-devel-static glog-devel gdal-devel \
     gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit \
     librealsense librealsense-devel libgphoto2-devel aravis libaravis-0_8-0 libaravis-0_8-devel \
-    libmfx* gstreamer*
+    libmfx* gstreamer* gcc7 gcc7-c++
     ;;
 
   baseline)
