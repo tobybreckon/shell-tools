@@ -48,9 +48,10 @@ case $1 in
     # MS Skype For Linux video conf
 
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar -f https://repo.skype.com/rpm/stable/skype-stable.repo
+    sudo zypper ar -f https://repo.skype.com/rpm/stable/ skype
     sudo zypper --gpg-auto-import-keys refresh
     sudo zypper install skypeforlinux
+
     ;;
 
   teams)
