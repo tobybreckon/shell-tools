@@ -227,7 +227,7 @@ case $1 in
 
    # everything else ....
 
-    sudo zypper install unison git lyx opera obs-v4l2sink nano kwrite \
+    sudo zypper install unison git lyx opera nano kwrite \
     pavucontrol opera obs-studio-devel mtools mjpegtools zip youtube-dl \
     xterm xless vlc-noX vlc-codecs vlc-codec-gstreamer vlc v4l2loopback-utils \
     v4l-utils-lang v4l-utils v4l-tools v4l-conf unzip unrar powertop xcalc \
