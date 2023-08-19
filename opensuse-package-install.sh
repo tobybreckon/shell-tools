@@ -257,12 +257,12 @@ case $1 in
 
   *)
     echo
-    echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode | "
-    echo "                             vscode | edge | f5vpn | dropbox | "
-    echo "                             ximea | brackets | cuda | cudnn "
-    echo "                             clamav | pdfjam-extras | patterns | "
-    echo "                             libreoffice-extensions | laptop-extras |"
-    echo "                             packaging | opencv-extras | baseline | ... ]"
+    echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode |"
+    echo "                                    edge | f5vpn | dropbox | ximea |"
+    echo "                                    brackets | cuda | cudnn | clamav |"
+    echo "                                    pdfjam-extras | patterns |"
+    echo "                                    libreoffice-extensions | laptop-extras |"
+    echo "                                    packaging | opencv-extras | baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
     echo
