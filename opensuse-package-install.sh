@@ -54,15 +54,15 @@ case $1 in
 
     ;;
 
-  teams)
+#  teams)
 
     # MS Teams video conf
 
-    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar -f https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
-    sudo zypper refresh
-    sudo zypper install teams
-    ;;
+ #   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+ #   sudo zypper ar -f https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
+ #   sudo zypper refresh
+ #   sudo zypper install teams
+ #   ;;
 
   vscode)
 
@@ -93,14 +93,14 @@ case $1 in
     sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
     ;;
 
-  atom)
+  # atom)
 
     # atom editor
 
-    sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ntype=rpm-md\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/zypp/repos.d/atom.repo'
-    sudo zypper --gpg-auto-import-keys refresh
-    sudo zypper install atom
-    ;;
+  #  sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ntype=rpm-md\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/zypp/repos.d/atom.repo'
+  #  sudo zypper --gpg-auto-import-keys refresh
+  #  sudo zypper install atom
+  #  ;;
 
   dropbox)
 
@@ -244,7 +244,7 @@ case $1 in
   packaging)
 
    # tools for building rpm and deb packages
-      
+
     sudo zypper install rpmdevtools rpmlint dpkg
     ;;
 
@@ -257,10 +257,10 @@ case $1 in
 
   *)
     echo
-    echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | teams | "
-    echo "                             vscode | edge | f5vpn | atom  | "
-    echo "                             dropbox | ximea | brackets | cuda |"
-    echo "                             cudnn | clamav | pdfjam-extras | patterns | "
+    echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode | "
+    echo "                             vscode | edge | f5vpn | dropbox | "
+    echo "                             ximea | brackets | cuda | cudnn "
+    echo "                             clamav | pdfjam-extras | patterns | "
     echo "                             libreoffice-extensions | laptop-extras |"
     echo "                             packaging | opencv-extras | baseline | ... ]"
     echo
