@@ -238,7 +238,8 @@ case $1 in
     bzip2 bind-utils nmap xournalpp klatexformula kernel-devel openvpn mlocate \
     kdeconnect-kde xkill xev texlive-spie texlive-ieeeconf texlive-ieeetran \
     texlive-biblatex-ieee texlive-llncs texlive-biblatex-lncs texlive-llncsconf \
-    texlive-elsarticle pdftk sox arping2 arp-watch nvtop simplescreenrecorder
+    texlive-elsarticle pdftk sox arping2 arpwatch nvtop simplescreenrecorder \
+    v4l2loopback-kmp-default 
     ;;
 
   packaging)
