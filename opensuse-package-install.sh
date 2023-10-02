@@ -119,9 +119,7 @@ case $1 in
     wget https://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
     tar xzf XIMEA_Linux_SP.tgz
     cd package
-    sudo rm -rf /opt/XIMEA
     sudo ./install
-    sudo ln -sf /usr/lib64/libtiff.so.6 /usr/lib64/libtiff.so.5
     ;;
 
   brackets)
@@ -214,15 +212,19 @@ case $1 in
 
     # additional packages required for fully functional OpenCV build from source
 
-    sudo zypper install python-devel python311-numpy-devel tbb-devel libjpeg8-devel \
+    sudo zypper install python-devel python38-numpy-devel tbb-devel libjpeg8-devel \
     libtiff-devel libjasper-devel libdc1394-devel \
     pkgconf-pkg-config libva-devel openblas-common-devel \
     atlascpp-devel lapack-devel eigen3-devel gstreamer-devel \
-    libtesseract* tesseract tesseract-ocr tesseract-ocr-devel \
+    libtesseract4 tesseract tesseract-ocr tesseract-ocr-devel \
     gflags gflags-devel gflags-devel-static glog-devel gdal-devel \
+<<<<<<< Updated upstream
     gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit \
     librealsense librealsense-devel libgphoto2-devel aravis libaravis-0_8-0 libaravis-0_8-devel \
     libmfx* gstreamer* gcc7 gcc7-c++
+=======
+    gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit gstreamer*
+>>>>>>> Stashed changes
     ;;
 
   baseline)
@@ -256,6 +258,24 @@ case $1 in
     # everything laptop specific ....
 
     sudo zypper install bluez-obexd obexd obexfs
+    ;;
+
+  durham-printers)
+
+    # printer setup at DU
+    
+    sudo zypper refresh
+    sudo zypper in krb5-client hplip
+    sudo zypper install libwebkit2gtk-4*
+    sudo chmod 0700 /usr/lib64/samba/smbspool_krb5_wrapper
+    sudo ln -sbiv /usr/lib64/samba/smbspool_krb5_wrapper /usr/lib/cups/backend/smb
+    echo "[libdefaults]" > krb5.conf
+    echo "default_realm = MDS.AD.DUR.AC.UK" >> krb5.conf
+    echo "default_ccache_name = FILE:/tmp/krb5cc_%{uid}" >> krb5.conf
+    sudo cp krb5.conf /etc/
+    wget --content-disposition https://myprint.durham.ac.uk/print-deploy/client/linux-rpm
+    sudo zypper in pc-print-deploy-client*rpm
+
     ;;
 
   *)
