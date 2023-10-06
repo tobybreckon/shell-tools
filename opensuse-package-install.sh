@@ -218,13 +218,7 @@ case $1 in
     atlascpp-devel lapack-devel eigen3-devel gstreamer-devel \
     libtesseract4 tesseract tesseract-ocr tesseract-ocr-devel \
     gflags gflags-devel gflags-devel-static glog-devel gdal-devel \
-<<<<<<< Updated upstream
-    gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit \
-    librealsense librealsense-devel libgphoto2-devel aravis libaravis-0_8-0 libaravis-0_8-devel \
-    libmfx* gstreamer* gcc7 gcc7-c++
-=======
     gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit gstreamer*
->>>>>>> Stashed changes
     ;;
 
   baseline)
@@ -243,7 +237,7 @@ case $1 in
     kdeconnect-kde xkill xev texlive-spie texlive-ieeeconf texlive-ieeetran \
     texlive-biblatex-ieee texlive-llncs texlive-biblatex-lncs texlive-llncsconf \
     texlive-elsarticle pdftk sox arping2 arpwatch nvtop simplescreenrecorder \
-    v4l2loopback-kmp-default 
+    v4l2loopback-kmp-default heif-examples
     ;;
 
   packaging)
