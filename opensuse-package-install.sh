@@ -54,16 +54,6 @@ case $1 in
 
     ;;
 
-#  teams)
-
-    # MS Teams video conf
-
- #   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
- #   sudo zypper ar -f https://packages.microsoft.com/yumrepos/ms-teams/ ms-teams
- #   sudo zypper refresh
- #   sudo zypper install teams
- #   ;;
-
   vscode)
 
     # MS VS code editor
@@ -92,15 +82,6 @@ case $1 in
     wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.rpm
     sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
     ;;
-
-  # atom)
-
-    # atom editor
-
-  #  sudo sh -c 'echo -e "[Atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ntype=rpm-md\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/zypp/repos.d/atom.repo'
-  #  sudo zypper --gpg-auto-import-keys refresh
-  #  sudo zypper install atom
-  #  ;;
 
   dropbox)
 
@@ -252,24 +233,6 @@ case $1 in
     # everything laptop specific ....
 
     sudo zypper install bluez-obexd obexd obexfs
-    ;;
-
-  durham-printers)
-
-    # printer setup at DU
-    
-    sudo zypper refresh
-    sudo zypper in krb5-client hplip
-    sudo zypper install libwebkit2gtk-4*
-    sudo chmod 0700 /usr/lib64/samba/smbspool_krb5_wrapper
-    sudo ln -sbiv /usr/lib64/samba/smbspool_krb5_wrapper /usr/lib/cups/backend/smb
-    echo "[libdefaults]" > krb5.conf
-    echo "default_realm = MDS.AD.DUR.AC.UK" >> krb5.conf
-    echo "default_ccache_name = FILE:/tmp/krb5cc_%{uid}" >> krb5.conf
-    sudo cp krb5.conf /etc/
-    wget --content-disposition https://myprint.durham.ac.uk/print-deploy/client/linux-rpm
-    sudo zypper in pc-print-deploy-client*rpm
-
     ;;
 
   *)
