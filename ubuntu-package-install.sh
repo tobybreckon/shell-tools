@@ -5,7 +5,7 @@
 # install a number of esoteric packages on Ubuntu 22.04 and later
 # (semi-automatically without having to web search each set of commands)
 
-# Toby Breckon, Durham University, August 2022
+# Toby Breckon, Durham University, November 2023
 
 ################################################################################
 
@@ -46,17 +46,6 @@ case $1 in
     sudo apt install ./skypeforlinux-64.deb
     ;;
 
-  teams)
-
-    # MS Teams video conf
-
-    wget https://packages.microsoft.com/keys/microsoft.asc
-    sudo apt-key add microsoft.asc
-    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main" > /etc/apt/sources.list.d/teams.list'
-    sudo apt update
-    sudo apt install teams
-    ;;
-
   vscode)
 
     # MS VS code editor
@@ -92,16 +81,14 @@ case $1 in
 
     # nvidia cuda - full stack
 
-    sudo apt install nvidia-cuda-toolkit nvidia-cuda-toolkit
+    sudo apt install nvidia-cuda-toolkit
     ;;
 
   cudnn)
 
     # nvidia cuCNN deep learning base library
 
-    sudo add-apt-repository 'deb [arch=amd64] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/'
-    sudo apt update
-    sudo apt install libcudnn8 libcudnn8-dev
+    sudo apt install nvidia-cudnn
   
     ;;
 
@@ -137,20 +124,25 @@ case $1 in
     sudo apt-get install libgoogle-glog-dev libgflags-dev
     sudo apt-get install libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
 
+    # extras
+    
+    sudo apt-get install clpeak ffmpeg libgphoto2-dev libopenblas-dev libatlas-base-dev
+    sudo apt-get install liblapacke-dev liblapacke64-dev pkg-config libxvidcore-dev libx264-dev
+    sudo apt-get install gcc-9 g++-9
     ;;
 
   baseline)
 
    # everything else ....
    
-   sudo apt install vlc exfat-fuse exfat-utils cmake-qt-gui v4l-utils v4l-conf nvtop htop nano
+   sudo apt install vlc exfat-fuse exfatprogs cmake-qt-gui v4l-utils v4l-conf nvtop htop nano
 
    ##########
     ;;
 
   *)
     echo
-    echo "Usage: ubuntu-package-install.sh [repos | chrome | zoom | skype | teams | "
+    echo "Usage: ubuntu-package-install.sh [repos | chrome | zoom | skype | "
     echo "                               vscode | edge | ximea | cuda |"
     echo "                               cudnn | opencv-extras | baseline | ... ]"
     echo
