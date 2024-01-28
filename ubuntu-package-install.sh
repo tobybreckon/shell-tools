@@ -5,7 +5,7 @@
 # install a number of esoteric packages on Ubuntu 22.04 and later
 # (semi-automatically without having to web search each set of commands)
 
-# Toby Breckon, Durham University, August 2022
+# Toby Breckon, Durham University, November 2023
 
 ################################################################################
 
@@ -81,16 +81,14 @@ case $1 in
 
     # nvidia cuda - full stack
 
-    sudo apt install nvidia-cuda-toolkit nvidia-cuda-toolkit
+    sudo apt install nvidia-cuda-toolkit
     ;;
 
   cudnn)
 
     # nvidia cuCNN deep learning base library
 
-    sudo add-apt-repository 'deb [arch=amd64] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/'
-    sudo apt update
-    sudo apt install libcudnn8 libcudnn8-dev
+    sudo apt install nvidia-cudnn
   
     ;;
 
@@ -100,46 +98,80 @@ case $1 in
 
     sudo apt update
     sudo apt upgrade
-    sudo apt install build-essential cmake pkg-config unzip yasm git checkinstall
-    sudo apt install libjpeg-dev libpng-dev libtiff-dev
-    sudo apt install libavcodec-dev libavformat-dev libswscale-dev libavresample-dev
-    sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-    sudo apt install libxvidcore-dev x264 libx264-dev libfaac-dev libmp3lame-dev libtheora-dev 
-    sudo apt install libfaac-dev libmp3lame-dev libvorbis-dev
-    sudo apt install libavcodec-dev libavformat-dev libswscale-dev libavresample-dev
-    sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-    sudo apt install libxvidcore-dev x264 libx264-dev libfaac-dev libmp3lame-dev libtheora-dev 	 
-    sudo apt install libfaac-dev libmp3lame-dev libvorbis-dev
-    
-    sudo apt-get install libdc1394-22 libdc1394-22-dev libxine2-dev libv4l-dev v4l-utils
-    cd /usr/include/linux
-    sudo ln -s -f ../libv4l1-videodev.h videodev.h
-    cd ~
-    
-    sudo apt-get install libgtk-3-dev
-    sudo apt-get install python3-dev python3-pip
-    sudo -H pip3 install -U pip numpy
-    sudo apt install python3-testresources
-    sudo apt-get install libtbb-dev
-    sudo apt-get install libatlas-base-dev gfortran
-    sudo apt-get install libprotobuf-dev protobuf-compiler
-    sudo apt-get install libgoogle-glog-dev libgflags-dev
-    sudo apt-get install libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
+   # additional packages required for fully functional OpenCV build from source
 
+    sudo apt update
+    sudo apt upgrade
+
+    sudo apt install \
+    build-essential \
+    checkinstall  \
+    clpeak \
+    cmake \
+    doxygen \
+    ffmpeg \
+    g++-9 \
+    gcc-9 \
+    gfortran \
+    git \
+    libatlas-base-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libswresample-dev \
+    libeigen3-dev \
+    libfaac-dev \
+    libgflags-dev \
+    libgoogle-glog-dev \
+    libgphoto2-dev \
+    libgstreamer1.0-dev \
+    libgstreamer-plugins-base1.0-dev \
+    libgtk-3-dev \
+    libhdf5-dev \
+    libjpeg-dev \
+    liblapacke64-dev \
+    liblapacke-dev \
+    libmp3lame-dev \
+    libopenblas-dev \
+    libpng-dev \
+    libprotobuf-dev \
+    libswscale-dev \
+    libtbb-dev \
+    libtheora-dev \
+    libtiff-dev \
+    libv4l-dev \
+    libvorbis-dev \
+    libx264-dev \
+    libxine2-dev \
+    libxvidcore-dev \
+    pkg-config \
+    protobuf-compiler \
+    python3-dev \
+    python3-pip \
+    python3-testresources \
+    unzip \
+    v4l-utils \
+    x264 \
+    yasm
+
+    sudo -H pip3 install -U pip numpy
+
+    cd /usr/include/linux
+    sudo ln -s -f ../libv4l1-videodev.h videodev.
+    
     ;;
 
   baseline)
 
    # everything else ....
    
-   sudo apt install vlc exfat-fuse exfat-utils cmake-qt-gui v4l-utils v4l-conf nvtop htop nano
+   sudo apt install vlc exfat-fuse exfatprogs cmake-qt-gui v4l-utils v4l-conf nvtop htop nano
 
    ##########
     ;;
 
   *)
     echo
-    echo "Usage: ubuntu-package-install.sh [repos | chrome | zoom | skype | teams | "
+    echo "Usage: ubuntu-package-install.sh [repos | chrome | zoom | skype | "
     echo "                               vscode | edge | ximea | cuda |"
     echo "                               cudnn | opencv-extras | baseline | ... ]"
     echo
