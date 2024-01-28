@@ -80,6 +80,7 @@ case $1 in
 
     wget https://access.durham.ac.uk/public/download/linux_f5vpn.x86_64.rpm
     wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.rpm
+    sudo mkdir -p /opt/f5/vpn/ # following install can break if this directory is not present
     sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
     ;;
 
