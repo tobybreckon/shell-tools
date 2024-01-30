@@ -157,7 +157,7 @@ case $1 in
     sudo -H pip3 install -U pip numpy
 
     cd /usr/include/linux
-    sudo ln -s -f ../libv4l1-videodev.h videodev.
+    sudo ln -s -f ../libv4l1-videodev.h videodev.h
     
     ;;
 
