@@ -68,6 +68,15 @@ case $1 in
     sudo apt install microsoft-edge-stable
     ;;
 
+  f5vpn)
+
+    # f5 networks VPN solution - GUI + CLI
+
+    wget https://access.durham.ac.uk/public/download/linux_f5vpn.x86_64.deb
+    wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.deb
+    sudo apt install ./linux_f5*.deb
+    ;;
+
   ximea)
 
     # ximea camera drivers - for OpenCV build
