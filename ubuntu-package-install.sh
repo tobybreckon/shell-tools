@@ -5,7 +5,7 @@
 # install a number of esoteric packages on Ubuntu 22.04 and later
 # (semi-automatically without having to web search each set of commands)
 
-# Toby Breckon, Durham University, November 2023
+# Toby Breckon, Durham University, Jan 2024
 
 ################################################################################
 
@@ -104,10 +104,6 @@ case $1 in
 
   opencv-extras)
 
-    # additional packages required for fully functional OpenCV build from source
-
-    sudo apt update
-    sudo apt upgrade
    # additional packages required for fully functional OpenCV build from source
 
     sudo apt update
@@ -157,13 +153,13 @@ case $1 in
     protobuf-compiler \
     python3-dev \
     python3-pip \
+    python3-numpy \
+    python3-numpy-dev \
     python3-testresources \
     unzip \
     v4l-utils \
     x264 \
     yasm
-
-    sudo -H pip3 install -U pip numpy
 
     cd /usr/include/linux
     sudo ln -s -f ../libv4l1-videodev.h videodev.h
