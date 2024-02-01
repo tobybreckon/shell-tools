@@ -200,6 +200,13 @@ case $1 in
     sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia
     ;;
 
+  realsense)
+
+    # intel realsense drivers, library and viewer
+
+    sudo zypper install librealsense
+    ;;
+
   opencv-extras)
 
     # additional packages required for fully functional OpenCV build from source
@@ -251,7 +258,7 @@ case $1 in
     echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode |"
     echo "                                    edge | f5vpn | dropbox | ximea |"
     echo "                                    brackets | cuda | cudnn | zed | clamav |"
-    echo "                                    pdfjam-extras | patterns |"
+    echo "                                    pdfjam-extras | patterns | realsense | "
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
     echo
