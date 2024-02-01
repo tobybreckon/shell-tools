@@ -186,9 +186,10 @@ case $1 in
 
   *)
     echo
-    echo "Usage: ubuntu-package-install.sh [repos | chrome | zoom | skype | "
-    echo "                               vscode | edge | ximea | cuda |"
-    echo "                               cudnn | opencv-extras | baseline | ... ]"
+    echo "Usage: ubuntu-package-install.sh [ repos | chrome | zoom | skype | "
+    echo "                                   vscode | edge | ximea | cuda | f5vpn |"
+    echo "                                   cudnn | opencv-extras | pdfjam-extras |"
+    echo "                                   baseline | ... ]"
     echo
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
     echo
