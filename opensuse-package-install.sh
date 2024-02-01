@@ -138,6 +138,16 @@ case $1 in
     echo
     ;;
 
+    zed)
+
+    # ZED stereo camera sdk
+
+    wget -O zed-installer.run https://download.stereolabs.com/zedsdk/4.0/cu118/ubuntu22
+    chmod +x zed-installer.run
+    sudo ln -s /opt/zed /usr/local/zed
+    ./zed-installer.run
+    ;;
+
   clamav)
 
     # clam anti-virus
@@ -240,7 +250,7 @@ case $1 in
     echo
     echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode |"
     echo "                                    edge | f5vpn | dropbox | ximea |"
-    echo "                                    brackets | cuda | cudnn | clamav |"
+    echo "                                    brackets | cuda | cudnn | zed | clamav |"
     echo "                                    pdfjam-extras | patterns |"
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
