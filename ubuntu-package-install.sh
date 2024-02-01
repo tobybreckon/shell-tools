@@ -166,6 +166,15 @@ case $1 in
     
     ;;
 
+  pdfjam-extras)
+
+    # pdfjam command line support scripts such as pdfnup etc
+
+    wget https://github.com/tobybreckon/pdfjam-extras/releases/download/v0.11/pdfjam-extras_0.11-1_all.deb
+    sudo apt install ./pdfjam-extras_0.11-1_all.deb
+
+    ;;
+
   baseline)
 
    # everything else ....
