@@ -94,6 +94,22 @@ case $1 in
     dropbox autostart y
     ;;
 
+  slack)
+
+    # install slack
+
+    wget https://slack.com/gpg/slack_pubkey_20230710.gpg
+    sudo rpm --import slack_pubkey_20230710.gpg
+
+    wget -q https://slack.com/downloads/instructions/fedora -O - \
+    | tr "\t\r\n'" '   "' \
+    | grep -i -o '<a[^>]\+href[ ]*=[ \t]*"\(ht\|f\)tps\?:[^"]\+"' \
+    | sed -e 's/^.*"\([^"]\+\)".*$/\1/g' \
+    | grep 'slack.*rpm' \
+    | xargs wget -q -O slack-desktop-latest.rpm 
+    sudo zypper in slack-desktop-latest.rpm 
+    ;;
+
   ximea)
 
     # ximea camera drivers - for OpenCV build
@@ -256,7 +272,7 @@ case $1 in
   *)
     echo
     echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode |"
-    echo "                                    edge | f5vpn | dropbox | ximea |"
+    echo "                                    edge | f5vpn | dropbox | slack | ximea |"
     echo "                                    brackets | cuda | cudnn | zed | clamav |"
     echo "                                    pdfjam-extras | patterns | realsense | "
     echo "                                    libreoffice-extensions | laptop-extras |"
