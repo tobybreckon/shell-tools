@@ -24,7 +24,7 @@ case $1 in
 
     # google chrome browser
 
-    sudo zypper ar -f https://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome
+    sudo zypper ar -f -n "Google Chrome Browser" https://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome 
     wget https://dl.google.com/linux/linux_signing_key.pub
     sudo rpm --import linux_signing_key.pub
     # wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
@@ -48,9 +48,8 @@ case $1 in
     # MS Skype For Linux video conf
 
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar -f https://repo.skype.com/rpm/stable/ skype
+    sudo zypper ar -f -n "MS Skype Video Calling" https://repo.skype.com/rpm/stable/ skype
     sudo zypper --gpg-auto-import-keys refresh
-    sudo zypper install skypeforlinux
 
     ;;
 
@@ -59,7 +58,7 @@ case $1 in
     # MS VS code editor
 
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar -f https://packages.microsoft.com/yumrepos/vscode/ vscode
+    sudo zypper ar -f -n "MS Visual Studio Code" https://packages.microsoft.com/yumrepos/vscode/ vscode
     sudo zypper refresh
     sudo zypper install code
     ;;
@@ -69,7 +68,7 @@ case $1 in
     # MS edge browser
 
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar -f https://packages.microsoft.com/yumrepos/edge/ edge
+    sudo zypper ar -f -n "MS Edge Browser" https://packages.microsoft.com/yumrepos/edge/ edge
     sudo zypper refresh
     sudo zypper install microsoft-edge-stable
     ;;
@@ -133,7 +132,7 @@ case $1 in
 
     # nvidia cuda - full stack
 
-    sudo zypper ar -f https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
+    sudo zypper ar -f -n "NVidia Developer Libraries" https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
     sudo zypper  --gpg-auto-import-keys refresh
     sudo zypper install cuda-11-8
     echo
