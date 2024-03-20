@@ -153,7 +153,24 @@ case $1 in
     echo
     ;;
 
-    zed)
+  nvcuvid)
+
+    # nvidia Video Codec Interface SDK - N.B. download requires login to Nvidia Developer site
+
+    echo "Manually download: https://developer.nvidia.com/downloads/designworks/video-codec-sdk/secure/12.1/video_codec_sdk_12.1.14.zip"
+    echo "Save into directory to ... : " $PWD
+    echo "then press enter."
+    read
+    unzip *zip 
+    cd Video_Codec_SDK_12.1.14/Interface/
+    mkdir -p  /usr/local/cuda/include/
+    sudo cp  *.h /usr/local/cuda/include/
+    cd ../Lib/linux/stubs/x86_64
+    sudo cp *.so /usr/lib64/
+    sudo ldconfig -i
+  ;;
+
+  zed)
 
     # ZED stereo camera sdk
 
@@ -272,7 +289,7 @@ case $1 in
     echo
     echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode |"
     echo "                                    edge | f5vpn | dropbox | slack | ximea |"
-    echo "                                    brackets | cuda | cudnn | zed | clamav |"
+    echo "                                    brackets | cuda | cudnn |nvcuvid | zed | clamav |"
     echo "                                    pdfjam-extras | patterns | realsense | "
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
