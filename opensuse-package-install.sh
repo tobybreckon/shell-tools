@@ -162,8 +162,8 @@ case $1 in
     echo "then press enter."
     read
     unzip *zip 
-    cd Video_Codec_SDK_12.1.14/Interface/
     mkdir -p  /usr/local/cuda/include/
+    cd Video_Codec_SDK_*/Interface/
     sudo cp  *.h /usr/local/cuda/include/
     cd ../Lib/linux/stubs/x86_64
     sudo cp *.so /usr/lib64/
@@ -289,7 +289,7 @@ case $1 in
     echo
     echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode |"
     echo "                                    edge | f5vpn | dropbox | slack | ximea |"
-    echo "                                    brackets | cuda | cudnn |nvcuvid | zed | clamav |"
+    echo "                                    brackets | cuda | cudnn | nvcuvid | zed | clamav |"
     echo "                                    pdfjam-extras | patterns | realsense | "
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
