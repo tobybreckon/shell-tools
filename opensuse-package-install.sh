@@ -100,11 +100,11 @@ case $1 in
     wget https://slack.com/gpg/slack_pubkey_20230710.gpg
     sudo rpm --import slack_pubkey_20230710.gpg
 
-    wget -q https://slack.com/downloads/instructions/fedora -O - \
+    wget -q https://slack.com/intl/en-gb/downloads/instructions/linux?build=rpm -O - \
     | tr "\t\r\n'" '   "' \
     | grep -i -o '<a[^>]\+href[ ]*=[ \t]*"\(ht\|f\)tps\?:[^"]\+"' \
     | sed -e 's/^.*"\([^"]\+\)".*$/\1/g' \
-    | grep 'slack.*rpm' \
+    | grep 'slack.*64.rpm' \
     | xargs wget -q -O slack-desktop-latest.rpm 
     sudo zypper in slack-desktop-latest.rpm 
     ;;
