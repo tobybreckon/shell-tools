@@ -27,10 +27,11 @@
 # white space removal added 7/2020 - tbreckon
 # non alphanumeric removal (clean filenames) added 9/2020 - tbreckon
 # dry-run (test) mode with no actual file changes/renames added 2/2021 - tbreckon
+# handle non alphanumeric removal of forward slash "\" in filenames 6/2024 - tbreckon
 
 ###############################################################################
 
-# Copyright: Toby Breckon, 1999-2021
+# Copyright: Toby Breckon, 1999-2024
 # License: http://www.gnu.org/licenses/gpl.txt
 
 ###############################################################################
@@ -136,6 +137,7 @@ foreach $file (@filesin){
          # remove all non-alphanumeric characaters apart from ".-_"
          if ($clean){
                 $filelower=~ s/[^a-zA-Z0-9.-_]/_/g;
+                $filelower=~ s/\\/_/g;
          }
 
          # if name translates then move file
@@ -270,7 +272,7 @@ sub print_help {
          print ("-r recursive mode - recurse through directories\n");
          print ("-d dry-run - show potential changes with no file changes\n\n");
          print ("Translate uppercase filenames to lowercase.\n\n");
-         print ("Author: Toby Breckon, 1999-2021\n");
+         print ("Author: Toby Breckon, 1999-2024\n");
 }
 
 ###############################################################################
