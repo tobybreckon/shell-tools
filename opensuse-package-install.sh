@@ -43,15 +43,15 @@ case $1 in
     sudo zypper install zoom_openSUSE_x86_64.rpm
     ;;
 
-  skype)
+  # skype)
 
     # MS Skype For Linux video conf
 
-    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar -f -n "MS Skype Video Calling" https://repo.skype.com/rpm/stable/ skype
-    sudo zypper --gpg-auto-import-keys refresh
+    # sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    # sudo zypper ar -f -n "MS Skype Video Calling" https://repo.skype.com/rpm/stable/ skype
+    # sudo zypper --gpg-auto-import-keys refresh
 
-    ;;
+    # ;;
 
   vscode)
 
@@ -250,7 +250,7 @@ case $1 in
     libtesseract4 tesseract tesseract-ocr tesseract-ocr-devel \
     gflags gflags-devel gflags-devel-static glog-devel gdal-devel \
     gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit \
-    libgphoto2-devel libaravis-*-devel gstreamer*
+    libgphoto2-devel libaravis-*-devel opencl-cpp-headers opencl-headers gstreamer*
     ;;
 
   baseline)
