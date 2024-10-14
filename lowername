@@ -28,6 +28,7 @@
 # non alphanumeric removal (clean filenames) added 9/2020 - tbreckon
 # dry-run (test) mode with no actual file changes/renames added 2/2021 - tbreckon
 # handle non alphanumeric removal of forward slash "\" in filenames 6/2024 - tbreckon
+# handle non alphanumeric removal of square brackets "[]" in filenames 10/2024 - tbreckon
 
 ###############################################################################
 
@@ -138,6 +139,8 @@ foreach $file (@filesin){
          if ($clean){
                 $filelower=~ s/[^a-zA-Z0-9.-_]/_/g;
                 $filelower=~ s/\\/_/g;
+                $filelower=~ s/\[//g;
+                $filelower=~ s/\]//g;
          }
 
          # if name translates then move file
