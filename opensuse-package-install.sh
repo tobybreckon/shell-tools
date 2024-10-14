@@ -258,7 +258,7 @@ case $1 in
    # everything else ....
 
     sudo zypper install unison git lyx opera nano kwrite \
-    pavucontrol opera obs-studio-devel mtools mjpegtools zip youtube-dl \
+    pavucontrol opera obs-studio-devel mtools mjpegtools zip yt-dlp yt-dlp-youtube-dl \
     xterm xless vlc-noX vlc-codecs vlc-codec-gstreamer vlc v4l2loopback-utils \
     v4l-utils-lang v4l-utils v4l-tools v4l-conf unzip unrar powertop xcalc \
     wireless-tools wine-32bit wine whois which vtkdata vtk-devel \
