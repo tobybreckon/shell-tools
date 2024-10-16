@@ -29,6 +29,7 @@
 # dry-run (test) mode with no actual file changes/renames added 2/2021 - tbreckon
 # handle non alphanumeric removal of forward slash "\" in filenames 6/2024 - tbreckon
 # handle non alphanumeric removal of square brackets "[]" in filenames 10/2024 - tbreckon
+# remove double underscore fills "__" that result from filename operations 10/2024 - tbreckon
 
 ###############################################################################
 
@@ -133,14 +134,26 @@ foreach $file (@filesin){
          # remove spaces in filenames
          if ($nospaces){
                 $filelower=~ s/\s+/_/g; # remove all white space
+
+                # replace any double underscore fills with singles (2 passes)
+                $filelower=~ s/__/_/g;
+                $filelower=~ s/__/_/g;
          }
 
          # remove all non-alphanumeric characaters apart from ".-_"
          if ($clean){
                 $filelower=~ s/[^a-zA-Z0-9.-_]/_/g;
+
+                # remove forward slash "\" not caught in the above
                 $filelower=~ s/\\/_/g;
+
+                # remove square brackets not caught in the above
                 $filelower=~ s/\[//g;
                 $filelower=~ s/\]//g;
+
+                # replace all double underscore fills with singles (2 passes)
+                $filelower=~ s/__/_/g;
+                $filelower=~ s/__/_/g;
          }
 
          # if name translates then move file
