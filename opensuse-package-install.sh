@@ -218,10 +218,10 @@ case $1 in
 
     # pdfjam command line support scripts such as pdfnup etc
 
-    wget https://github.com/tobybreckon/pdfjam-extras/releases/download/v0.11/pdfjam-extras-0.11-0.noarch.rpm
+    wget https://github.com/tobybreckon/pdfjam-extras/releases/download/v0.12/pdfjam-extras-0.12-0.noarch.rpm
     wget -O package-signing-key.pub https://breckon.org/toby/pgp.txt
     sudo rpm --import package-signing-key.pub
-    sudo rpm -i pdfjam-extras-0.11-0.noarch.rpm
+    sudo rpm -Ui pdfjam-extras-0.12-0.noarch.rpm
 
     ;;
 
