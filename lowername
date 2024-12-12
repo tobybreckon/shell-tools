@@ -30,6 +30,7 @@
 # handle non alphanumeric removal of forward slash "\" in filenames 6/2024 - tbreckon
 # handle non alphanumeric removal of square brackets "[]" in filenames 10/2024 - tbreckon
 # remove double underscore fills "__" that result from filename operations 10/2024 - tbreckon
+# fix verbose in recursive dry-run mode as directory names will not change 12/2024 - tbreckon
 
 ###############################################################################
 
@@ -176,8 +177,22 @@ foreach $file (@filesin){
 
                         # if verbose mode then print and count translations
                         if ($verbose){
-                               print ("$file => $filelower\n");
-                               $moved++;
+
+                               # put in handling for dry-run mode when we are only interested in the file basename changes
+                
+                               $file =~ /.*[\/\\](.*)/;         # will return 1 (or 0) and set $1 to basename
+                               $file_basename = $1;             # $1 contains the file basename
+
+                               $filelower =~ /.*[\/\\](.*)/;    # will return 1 (or 0) and set $1 to basename
+                               $filelower_basename = $1;        # $1 contains the file basename
+
+                               # if file base name has changed or if it is the top level directory with no base name
+
+                               if (($file_basename ne $filelower_basename) || ($file_basename eq "")) {
+                                   print ("$file => $filelower\n");
+                                   $moved++;
+                               }
+
                         }
                  }
          }
@@ -200,6 +215,23 @@ foreach $file (@filesin){
                     @filesin[$inputs] = $path;
                  }
            }
+         } elsif (($recursive) && (-d $file) && ($test)){
+            # catch the recursive directory case when in test (dry-run) mode
+
+            # open and get all sub-directory listings
+            opendir (DIRHANDLE,$file);
+            @dirfiles = readdir DIRHANDLE;
+            close DIRHANDLE;
+            foreach $diritem (@dirfiles){
+                 # add all new sub-directory entries to array of files
+                 # to process
+                 if (($diritem ne ".") && ($diritem ne "..")){
+                    $path = ($file."/".$diritem);
+                    $inputs++;
+                    @filesin[$inputs] = $path;
+                 }
+           }
+
          }
     }elsif ($file ne ""){ # if not "dud" file and file doesn't exist
          print("lowername: $file: file does not exist.\n");
