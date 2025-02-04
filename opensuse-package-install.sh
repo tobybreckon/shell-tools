@@ -134,22 +134,21 @@ case $1 in
 
     sudo zypper ar -f -n "NVidia Developer Libraries" https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
     sudo zypper  --gpg-auto-import-keys refresh
-    sudo zypper install cuda-11-8
+    sudo zypper install cuda-12-4
     echo
-    echo "CUDA version - 11.8 (latest for Pytorch as of 17/1/23)"
+    echo "CUDA version - 12-4"
     echo
     ;;
 
   cudnn)
 
     # nvidia cuCNN deep learning base library
-
-    wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.7.0.84-1.cuda11.8.x86_64.rpm
-    wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.7.0.84-1.cuda11.8.x86_64.rpm
+    # wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.7.0.84-1.cuda11.8.x86_64.rpm
+    # wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.7.0.84-1.cuda11.8.x86_64.rpm
     sudo zypper refresh
-    sudo zypper install libcudnn*.rpm
+    sudo zypper install libcudnn9-cuda-12 libcudnn9-devel-cuda-12 libcudnn9-static-cuda-12│
     echo
-    echo "cuDNN for CUDA 11.8 (latest for Pytorch as of 17/1/23)"
+    # echo "cuDNN for CUDA 11.8 (latest for Pytorch as of 17/1/23)"
     echo
     ;;
 
