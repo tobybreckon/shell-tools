@@ -289,10 +289,11 @@ case $1 in
 
   *)
     echo
-    echo "Usage: opensuse-package-install.sh [chrome | zoom | skype | vscode |"
-    echo "                                    edge | f5vpn | dropbox | slack | ximea |"
-    echo "                                    brackets | cuda | cudnn | nvcuvid | zed | clamav |"
-    echo "                                    pdfjam-extras | patterns | realsense | "
+    echo "Usage: opensuse-package-install.sh [chrome | zoom | vscode | edge |"
+    echo "                                    f5vpn | dropbox | slack | ximea |"
+    echo "                                    brackets | cuda | cudnn | nvcuvid |"
+    echo "                                    zed | clamav | pdfjam-extras |"
+    echo "                                    patterns | realsense |"
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
     echo
