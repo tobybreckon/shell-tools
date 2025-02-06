@@ -162,7 +162,7 @@ case $1 in
     read
     unzip *zip 
     mkdir -p  /usr/local/cuda/include/
-     cd Video_Codec_SDK_*/Interface/
+    cd Video_Codec_SDK_*/Interface/
     sudo cp  *.h /usr/local/cuda/include/
     cd ../Lib/linux/stubs/x86_64
     sudo cp *.so /usr/lib64/
