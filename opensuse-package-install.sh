@@ -270,7 +270,7 @@ case $1 in
     kdeconnect-kde xkill xev texlive-spie texlive-ieeeconf texlive-ieeetran \
     texlive-biblatex-ieee texlive-llncs texlive-biblatex-lncs texlive-llncsconf \
     texlive-elsarticle pdftk sox arping2 arpwatch nvtop simplescreenrecorder \
-    v4l2loopback-kmp-default heif-examples
+    v4l2loopback-kmp-default heif-examples mpv
     ;;
 
   packaging)
