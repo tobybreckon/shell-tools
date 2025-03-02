@@ -251,7 +251,8 @@ case $1 in
     libtesseract4 tesseract tesseract-ocr tesseract-ocr-devel \
     gflags gflags-devel gflags-devel-static glog-devel gdal-devel \
     gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit \
-    libgphoto2-devel libaravis-*-devel opencl-cpp-headers opencl-headers gstreamer*
+    libgphoto2-devel libaravis-*-devel opencl-cpp-headers opencl-headers gstreamer* \
+    coin-or-Clp coin-or-Clp-devel ffmpeg-7-mini-devel
     ;;
 
   baseline)
