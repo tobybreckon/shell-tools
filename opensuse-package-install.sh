@@ -24,12 +24,10 @@ case $1 in
 
     # google chrome browser
 
-    sudo zypper ar -f -n "Google Chrome Browser" https://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome 
+    sudo zypper ar -f -n "Google Chrome Browser" https://dl.google.com/linux/chrome/rpm/stable/x86_64 google-chrome
     wget https://dl.google.com/linux/linux_signing_key.pub
     sudo rpm --import linux_signing_key.pub
-    # wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
     sudo zypper refresh
-    # sudo zypper in google-chrome-stable_current_x86_64.rpm
     sudo zypper in google-chrome-stable
     ;;
 
@@ -43,22 +41,12 @@ case $1 in
     sudo zypper install zoom_openSUSE_x86_64.rpm
     ;;
 
-  # skype)
-
-    # MS Skype For Linux video conf
-
-    # sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    # sudo zypper ar -f -n "MS Skype Video Calling" https://repo.skype.com/rpm/stable/ skype
-    # sudo zypper --gpg-auto-import-keys refresh
-
-    # ;;
-
   vscode)
 
     # MS VS code editor
 
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar -f -n "MS Visual Studio Code" https://packages.microsoft.com/yumrepos/vscode/ vscode
+    sudo zypper ar -f -n "MS Visual Studio Code" https://packages.microsoft.com/yumrepos/vscode/ ms-vscode
     sudo zypper refresh
     sudo zypper install code
     ;;
@@ -68,7 +56,7 @@ case $1 in
     # MS edge browser
 
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo zypper ar -f -n "MS Edge Browser" https://packages.microsoft.com/yumrepos/edge/ edge
+    sudo zypper ar -f -n "MS Edge Browser" https://packages.microsoft.com/yumrepos/edge/ ms-edge
     sudo zypper refresh
     sudo zypper install microsoft-edge-stable
     ;;
@@ -132,23 +120,20 @@ case $1 in
 
     # nvidia cuda - full stack
 
-    sudo zypper ar -f -n "NVidia Developer Libraries" https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nVidia-Developer-Libraries"
+    sudo zypper ar -f -n "NVidia Developer Libraries" https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nvidia-developer-libraries"
     sudo zypper  --gpg-auto-import-keys refresh
-    sudo zypper install cuda-12-4
+    sudo zypper install cuda-12-8
     echo
-    echo "CUDA version - 12-4"
+    echo "CUDA version - 12-8"
     echo
     ;;
 
   cudnn)
 
     # nvidia cuCNN deep learning base library
-    # wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-8.7.0.84-1.cuda11.8.x86_64.rpm
-    # wget https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/libcudnn8-devel-8.7.0.84-1.cuda11.8.x86_64.rpm
+
     sudo zypper refresh
     sudo zypper install libcudnn9-cuda-12 libcudnn9-devel-cuda-12 libcudnn9-static-cuda-12│
-    echo
-    # echo "cuDNN for CUDA 11.8 (latest for Pytorch as of 17/1/23)"
     echo
     ;;
 
@@ -244,7 +229,7 @@ case $1 in
 
     # additional packages required for fully functional OpenCV build from source
 
-    sudo zypper install python-devel python311-numpy-devel tbb-devel libjpeg8-devel \
+    sudo zypper install python-devel python-numpy-devel tbb-devel libjpeg8-devel \
     libtiff-devel libjasper-devel libdc1394-devel \
     pkgconf-pkg-config libva-devel openblas-common-devel \
     atlascpp-devel lapack-devel eigen3-devel gstreamer-devel \
