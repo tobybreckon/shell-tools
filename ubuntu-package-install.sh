@@ -38,14 +38,6 @@ case $1 in
     sudo apt install ./zoom_amd64.deb
     ;;
 
-  skype)
-
-    # MS Skype For Linux video conf
-
-    wget https://go.skype.com/skypeforlinux-64.deb
-    sudo apt install ./skypeforlinux-64.deb
-    ;;
-
   vscode)
 
     # MS VS code editor
@@ -183,8 +175,10 @@ case $1 in
 
     # pdfjam command line support scripts such as pdfnup etc
 
-    wget https://github.com/tobybreckon/pdfjam-extras/releases/download/v0.11/pdfjam-extras_0.11-1_all.deb
-    sudo apt install ./pdfjam-extras_0.11-1_all.deb
+    wget https://raw.githubusercontent.com/tobybreckon/pdfjam-extras/refs/heads/master/pdfjam-extras.spec
+    VERSION=`cat pdfjam-extras.spec | grep Version | cut -d: -f2 | tr -d " "`
+    wget https://github.com/tobybreckon/pdfjam-extras/releases/download/v$VERSION/pdfjam-extras-$VERSION-1_all.deb
+    sudo apt install ./pdfjam-extras_$VERSION-1_all.deb
 
     ;;
 
