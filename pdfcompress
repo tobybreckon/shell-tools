@@ -1,16 +1,17 @@
 #!/bin/bash
 
-####################################################################
+#########################################################################################
 
-# compress a PDF file using ghostview (gv)
+# compress a PDF file using ghostview (gv) from level 1 (max/small) to level 5 (min/big)
 
 # (c) Toby Breckon, Durham University, 2025
+# License: http://www.gnu.org/licenses/gpl.txt
 
-####################################################################
+#########################################################################################
 
 PDF_COMPATIBILITY_LEVEL=1.4
 
-####################################################################
+#########################################################################################
 
 # check number of arguments
 
@@ -22,35 +23,39 @@ else
   compression=$1
 fi
 
-####################################################################
+#########################################################################################
 
 # check ghostview (gv) is available
 
-if ! command -v "gv" >/dev/null 2>&1; then
-  echo "$COMMAND_NAME ERROR: required ghostview package (package name: gv) NOT installed."
+NEEDED_COMMAND="gv"
+NEEDED_LONGNAME="ghostview"
+NEEDED_PACKAGE="gv"
+if ! command -v $NEEDED_COMMAND >/dev/null 2>&1; then
+  echo "$COMMAND_NAME ERROR: required $NEEDED_LONGNAME package (package name: $NEEDED_PACKAGE) NOT installed."
   echo
   exit 1
 fi
 
-####################################################################
+#########################################################################################
 
 # check for file overwrite as a safeguard
 
-if [ -e "$3" ]; then
-  echo "Output file '$3' already exists."
+FILE_TO_CHECK=$3
+if [ -e "$FILE_TO_CHECK" ]; then
+  echo "Output file '$FILE_TO_CHECK' already exists."
   read -p "Do you want to overwrite it? (y/n): " overwrite
   case "$overwrite" in
-    y|Y )
+    y|Y)
       echo "Overwriting $file..."
       ;;
-    * )
-      echo "Aborting. File '$3' was not overwritten."
+    *)
+      echo "Aborting. File '$FILE_TO_CHECK' was not overwritten."
       exit 1
       ;;
   esac
 fi
 
-####################################################################
+#########################################################################################
 
 # perform compression from level 1 (smallest file, max compression)
 # to 5 (largest file, minimum/default compression)
@@ -107,13 +112,16 @@ case "$compression" in
     -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$3 $2
     ;;
   error|*)
-
+    echo
     echo "Usage: $COMMAND_NAME {1-5} input.pdf output.pdf"
     echo "Usage: $COMMAND_NAME {small|medium|large|larger|largest} ..."
     echo "Usage: $COMMAND_NAME {screen|ebook|printer|prepress|default} ..."
+    echo
+    echo "Compress PDF file from level 1 (max, smallest file) to 5 (min, largest file)"
+    echo 
     exit 1
   
     ;;
 esac
 
-####################################################################
+#########################################################################################
