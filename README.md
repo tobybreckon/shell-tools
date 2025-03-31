@@ -15,9 +15,10 @@ Usage: lowername [-voUsScCrd] files
 
 Translate uppercase filenames to lowercase.
 
-Author: Toby Breckon, 1999-2021
-```
+Author: Toby Breckon, 1999-2024
 
+```
+--
 ```
 Usage: numberfile [-p prefix -t tail | files]
 -p prefix: prefix for numbered files
@@ -28,26 +29,28 @@ from specified list of files on command line.
 
 Author: Toby Breckon, November 2010
 ```
-
+--
 ```
-Usage: opensuse-package-install.sh [chrome | zoom | skype | teams | 
-                             vscode | edge | f5vpn | atom  | 
-                             dropbox | ximea | brackets | cuda |
-                             cudnn | clamav | pdfjam-extras | patterns | 
-                             libreoffice-extensions | laptop-extras |
-                             packaging | opencv-extras | baseline | ... ]
+Usage: opensuse-package-install.sh [chrome | zoom | vscode | edge |
+                                    f5vpn | dropbox | slack | ximea |
+                                    brackets | cuda | cudnn | nvcuvid |
+                                    zed | clamav | pdfjam-extras |
+                                    patterns | realsense |
+                                    libreoffice-extensions | laptop-extras |
+                                    packaging | opencv-extras | baseline | ... ]
 
 [ "a quick hack" by Toby Breckon, 2022+ ]
 ```
-
+--
 ```
-Usage: ubuntu-package-install.sh [repos | chrome | zoom | skype | teams | 
-                               vscode | edge | ximea | cuda |
-                               cudnn | opencv-extras | baseline | ... ]
+Usage: ubuntu-package-install.sh [ repos | chrome | zoom | vscode | 
+                                   edge | slack | ximea | cuda | f5vpn |
+                                   cudnn | opencv-extras | pdfjam-extras |
+                                   baseline | ... ]
 
 [ "a quick hack" by Toby Breckon, 2022+ ]
 ```
-
+--
 ```
 Usage: randomfile [-f listfile | files]
 -f listfile : specify a file containing a list of files
@@ -57,7 +60,7 @@ from specified list of files on command line.
 
 Author: Toby Breckon, July 2006
 ```
-
+--
 ```
 Usage: video-to-gif-clip.sh skipsecs length scale input output
 
@@ -67,7 +70,7 @@ scale = scale factor for height and width (use 1 for no change)
 input = path to input video
 output = path to output gif
 ```
-
+--
 ```
 Usage: video-target-size.sh video size
 video = video file
