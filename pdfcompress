@@ -13,9 +13,13 @@ PDF_COMPATIBILITY_LEVEL=1.4
 
 #########################################################################################
 
-# check number of arguments
+# get command name from command call
 
 COMMAND_NAME=`basename $0`
+
+#########################################################################################
+
+# check number of arguments
 
 if [ "$#" -ne 3 ]; then
   compression="error"
@@ -46,7 +50,7 @@ if [ -e "$FILE_TO_CHECK" ]; then
   read -p "Do you want to overwrite it? (y/n): " overwrite
   case "$overwrite" in
     y|Y)
-      echo "Overwriting $file..."
+      echo "Overwriting $FILE_TO_CHECK..."
       ;;
     *)
       echo "Aborting. File '$FILE_TO_CHECK' was not overwritten."
