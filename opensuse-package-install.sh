@@ -133,7 +133,7 @@ case $1 in
     # nvidia cuCNN deep learning base library
 
     sudo zypper refresh
-    sudo zypper install libcudnn9-cuda-12 libcudnn9-devel-cuda-12 libcudnn9-static-cuda-12│
+    sudo zypper install libcudnn9-cuda-12 libcudnn9-devel-cuda-12 libcudnn9-static-cuda-12
     echo
     ;;
 
@@ -186,7 +186,7 @@ case $1 in
 
   libreoffice-extensions)
 
-    # extensions one-size, ISO signage, multisave, expand animations
+    # extensions one-size, ISO signage, multisave, expand animations, mathtex
 
     wget https://extensions.libreoffice.org/assets/downloads/z/kvd-0-3-7.oxt
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared kvd-0-3-7.oxt
@@ -196,6 +196,8 @@ case $1 in
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared multiformatsave-v1-5-6.oxt
     wget https://github.com/monperrus/ExpandAnimations/releases/download/0.13/ExpandAnimations-0.13.oxt
     sudo /usr/lib64/libreoffice/program/unopkg add -v --shared ExpandAnimations-0.13.oxt
+    wget https://extensions.libreoffice.org/assets/downloads/1236/1729932096/TexMaths-0.52.3.oxt
+    sudo /usr/lib64/libreoffice/program/unopkg add -v --shared TexMaths-0.52.3.oxt
     ;;
 
   pdfjam-extras)
