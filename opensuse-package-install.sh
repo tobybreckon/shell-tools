@@ -67,7 +67,9 @@ case $1 in
 
     wget https://access.durham.ac.uk/public/download/linux_f5vpn.x86_64.rpm
     wget https://access.durham.ac.uk/public/download/linux_f5cli.x86_64.rpm
+    sudo zypper remove f5vpn f5cli # delete first otherwise install fails (as dir below is deleted but still assumed present)
     sudo mkdir -p /opt/f5/vpn/ # following install can break if this directory is not present
+    sudo zypper install libcap-progs # unrecorded dependancy of f5 vpn install 
     sudo zypper install linux_f5vpn.x86_64.rpm linux_f5cli.x86_64.rpm
     ;;
 
