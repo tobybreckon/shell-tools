@@ -61,6 +61,30 @@ case $1 in
     sudo zypper install microsoft-edge-stable
     ;;
 
+  .net)
+
+    # MS .NET runtime v 8.x for linux
+    
+    sudo zypper install libicu
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    wget https://packages.microsoft.com/config/opensuse/15/prod.repo
+    sudo mv prod.repo /etc/zypp/repos.d/microsoft-prod.repo
+    sudo chown root:root /etc/zypp/repos.d/microsoft-prod.repo
+
+    # runtime only
+
+    sudo zypper install dotnet-runtime-8.0
+
+    # runtime with asp
+
+    # sudo zypper install aspnetcore-runtime-8.0
+
+    # sdk 
+
+    # sudo zypper install dotnet-sdk-8.0
+
+    ;;
+
   f5vpn)
 
     # f5 networks VPN solution - GUI + CLI
@@ -279,7 +303,7 @@ case $1 in
 
   *)
     echo
-    echo "Usage: opensuse-package-install.sh [chrome | zoom | vscode | edge |"
+    echo "Usage: opensuse-package-install.sh [chrome | zoom | vscode | edge | .net"
     echo "                                    f5vpn | dropbox | slack | ximea |"
     echo "                                    brackets | cuda | cudnn | nvcuvid |"
     echo "                                    zed | clamav | pdfjam-extras |"
