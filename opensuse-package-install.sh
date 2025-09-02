@@ -298,7 +298,7 @@ case $1 in
 
     # everything laptop specific ....
 
-    sudo zypper install bluez-obexd obexd obexfs wireguard-tools
+    sudo zypper install bluez-obexd obexd obexfs wireguard-tools solaar
     ;;
 
   *)
