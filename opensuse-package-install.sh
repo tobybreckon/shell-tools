@@ -154,6 +154,15 @@ case $1 in
     echo
     ;;
 
+  pheonix)
+
+    # pheonix editor (installed local to current user)
+    
+    echo
+    wget -qO- https://updates.phcode.io/linux/installer.sh | bash
+    echo
+    ;;
+
   cudnn)
 
     # nvidia cuCNN deep learning base library
@@ -307,7 +316,7 @@ case $1 in
     echo "                                    f5vpn | dropbox | slack | ximea |"
     echo "                                    brackets | cuda | cudnn | nvcuvid |"
     echo "                                    zed | clamav | pdfjam-extras |"
-    echo "                                    patterns | realsense |"
+    echo "                                    patterns | realsense | pheonix"
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
     echo
