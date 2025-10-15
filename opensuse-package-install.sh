@@ -111,14 +111,15 @@ case $1 in
 
     # install slack
 
-    wget https://slack.com/gpg/slack_pubkey_20230710.gpg
-    sudo rpm --import slack_pubkey_20230710.gpg
+    wget https://slack.com/gpg/slack_pubkey_20240822.gpg
+    sudo rpm --import slack_pubkey_20240822.gpg
 
     wget -q https://slack.com/intl/en-gb/downloads/instructions/linux?build=rpm -O - \
     | tr "\t\r\n'" '   "' \
     | grep -i -o '<a[^>]\+href[ ]*=[ \t]*"\(ht\|f\)tps\?:[^"]\+"' \
     | sed -e 's/^.*"\([^"]\+\)".*$/\1/g' \
     | grep 'slack.*64.rpm' \
+    | head -1 \
     | xargs wget -q -O slack-desktop-latest.rpm 
     sudo zypper in slack-desktop-latest.rpm 
     ;;
