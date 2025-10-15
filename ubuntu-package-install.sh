@@ -76,7 +76,7 @@ case $1 in
 
     # slack 
 
-    wget -q https://slack.com/downloads/instructions/ubuntu -O - \
+    wget -q https://slack.com/intl/en-gb/downloads/instructions/linux?ddl=1\&build=deb -O - \
     | tr "\t\r\n'" '   "' \
     | grep -i -o '<a[^>]\+href[ ]*=[ \t]*"\(ht\|f\)tps\?:[^"]\+"' \
     | sed -e 's/^.*"\([^"]\+\)".*$/\1/g' \
