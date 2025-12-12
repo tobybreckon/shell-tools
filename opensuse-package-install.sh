@@ -160,7 +160,7 @@ case $1 in
     # pheonix editor (installed local to current user)
     
     echo
-    wget -qO- https://updates.phcode.io/linux/installer.sh | bash
+    wget -O- https://updates.phcode.io/linux/installer.sh | bash
     echo
     ;;
 
