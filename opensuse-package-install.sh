@@ -164,6 +164,15 @@ case $1 in
     echo
     ;;
 
+  nordvpn)
+
+    # nordvpn cli client
+    
+    echo
+    sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
+    echo
+    ;;
+
   cudnn)
 
     # nvidia cuCNN deep learning base library
@@ -317,7 +326,7 @@ case $1 in
     echo "                                    f5vpn | dropbox | slack | ximea |"
     echo "                                    brackets | cuda | cudnn | nvcuvid |"
     echo "                                    zed | clamav | pdfjam-extras |"
-    echo "                                    patterns | realsense | pheonix"
+    echo "                                    patterns | realsense | pheonix | nordvpn"
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
     echo
