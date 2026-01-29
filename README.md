@@ -44,7 +44,8 @@ from specified list of files on command line.
 
 Author: Toby Breckon, July 2006
 ```
----
+
+### PDF Files
 
 ```
 Usage: pdfcompress {1-5} input.pdf output.pdf
@@ -52,6 +53,13 @@ Usage: pdfcompress {small|medium|large|larger|largest} ...
 Usage: pdfcompress {screen|ebook|printer|prepress|default} ...
 
 Compress PDF file from level 1 (max, smallest file) to 5 (min, largest file)
+```
+---
+
+```
+Usage: pdfrotaten N input.pdf output.pdf
+
+Rotate Nth page (only) of a specified PDF file
 ```
 
 ### Linux Packages

@@ -1,0 +1,80 @@
+#!/bin/bash
+
+#########################################################################################
+
+# rotate the Nth page (only) of a PDF file
+
+# (c) Toby Breckon, 2026
+# License: http://www.gnu.org/licenses/gpl.txt
+
+#########################################################################################
+
+# get command name from command call
+
+COMMAND_NAME=`basename $0`
+
+#########################################################################################
+
+# check number of arguments
+
+if [ "$#" -ne 3 ]; then
+    echo
+    echo "Usage: $COMMAND_NAME N input.pdf output.pdf"
+    echo
+    echo "Rotate Nth page (only) of a specified PDF file"
+    echo 
+    exit 1
+else
+  rotated=$1
+fi
+
+#########################################################################################
+
+# check pdftk is available
+
+NEEDED_COMMAND="pdftk"
+NEEDED_LONGNAME="pdftk"
+NEEDED_PACKAGE="pdftk"
+if ! command -v $NEEDED_COMMAND >/dev/null 2>&1; then
+  echo "$COMMAND_NAME ERROR: required $NEEDED_LONGNAME package (package name: $NEEDED_PACKAGE) NOT installed."
+  echo
+  exit 1
+fi
+
+#########################################################################################
+
+# check for file overwrite as a safeguard
+
+FILE_TO_CHECK=$3
+if [ -e "$FILE_TO_CHECK" ]; then
+  echo "Output file '$FILE_TO_CHECK' already exists."
+  read -p "Do you want to overwrite it? (y/n): " overwrite
+  case "$overwrite" in
+    y|Y)
+      echo "Overwriting $FILE_TO_CHECK..."
+      ;;
+    *)
+      echo "Aborting. File '$FILE_TO_CHECK' was not overwritten."
+      exit 1
+      ;;
+  esac
+fi
+
+#########################################################################################
+
+#### perform rotation of Nth PDF page 
+
+((previous=rotated - 1))
+((next=rotated + 1))
+
+
+if [ "$rotated" -eq "1" ]; then
+        pdftk $2 cat ${rotated}east $next-end output $3
+        exit 0
+elif [ "$previous" -eq "1" ]; then
+        pdftk $2 cat 1 ${rotated}east $next-end output $3
+else
+        pdftk $2 cat 1-$previous ${rotated}east $next-end output $3
+fi
+
+#########################################################################################
