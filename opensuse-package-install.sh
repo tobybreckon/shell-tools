@@ -36,7 +36,7 @@ case $1 in
     # zoom video conf
 
     wget https://zoom.us/client/latest/zoom_openSUSE_x86_64.rpm
-    wget -O package-signing-key.pub https://zoom.us/linux/download/pubkey?version=5-12-6
+    wget -O package-signing-key.pub https://zoom.us/linux/download/pubkey?version=6-7-5
     sudo rpm --import package-signing-key.pub
     sudo zypper install zoom_openSUSE_x86_64.rpm
     ;;
