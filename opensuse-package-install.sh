@@ -5,12 +5,18 @@
 # install a number of esoteric packages on OpenSuSE 15.x and later + Tumbleweed
 # (semi-automatically without having to web search each set of commands)
 
-# Toby Breckon, Durham University, May 2022
+# Toby Breckon, Durham University, May 2022+
 
 ################################################################################
 
 TMPDIR=$(mktemp -d)
 cd $TMPDIR
+
+################################################################################
+
+CUDA_MAJOR_VERSION="13"
+CUDA_MINOR_VERSION="2"
+CUDA_VERSION=$CUDA_MAJOR_VERSION-$CUDA_MINOR_VERSION
 
 ################################################################################
 
@@ -147,11 +153,13 @@ case $1 in
 
     # nvidia cuda - full stack
 
+    echo "Target install: CUDA version - " $CUDA_VERSION
+    echo
     sudo zypper ar -f -n "NVidia Developer Libraries" https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/ "nvidia-developer-libraries"
     sudo zypper  --gpg-auto-import-keys refresh
-    sudo zypper install cuda-12-8
+    sudo zypper install cuda-$CUDA_VERSION
     echo
-    echo "CUDA version - 12-8"
+    echo "Installled: CUDA version - " $CUDA_VERSION
     echo
     ;;
 
@@ -178,7 +186,7 @@ case $1 in
     # nvidia cuCNN deep learning base library
 
     sudo zypper refresh
-    sudo zypper install libcudnn9-cuda-12 libcudnn9-devel-cuda-12 libcudnn9-static-cuda-12
+    sudo zypper install libcudnn9-cuda-$CUDA_MAJOR_VERSION libcudnn9-devel-cuda-$CUDA_MAJOR_VERSION libcudnn9-static-cuda-$CUDA_MAJOR_VERSION
     echo
     ;;
 
@@ -330,6 +338,7 @@ case $1 in
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
     echo
+    echo "[ target install CUDA/cudnn version: " $CUDA_VERSION " ]"
     echo "[ \"a quick hack\" by Toby Breckon, 2022+ ]"
     echo
     rm -rf $TMPDIR
