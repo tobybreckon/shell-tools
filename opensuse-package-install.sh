@@ -28,7 +28,7 @@ case $1 in
     wget https://dl.google.com/linux/linux_signing_key.pub
     sudo rpm --import linux_signing_key.pub
     sudo zypper refresh
-    sudo zypper in google-chrome-stable
+    sudo zypper install google-chrome-stable
     ;;
 
   zoom)
@@ -121,7 +121,7 @@ case $1 in
     | grep 'slack.*64.rpm' \
     | head -1 \
     | xargs wget -q -O slack-desktop-latest.rpm 
-    sudo zypper in slack-desktop-latest.rpm 
+    sudo zypper install slack-desktop-latest.rpm 
     ;;
 
   ximea)
