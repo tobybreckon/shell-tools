@@ -66,15 +66,33 @@ fi
 
 ((previous=rotated - 1))
 ((next=rotated + 1))
+pages=$(pdfinfo $2 | awk '/Pages/ {print $2}')
+echo $pages 
 
+# handle rotating last page especially 
+
+if [ "$rotated" -eq "$pages" ]; then
+  echo last page
+  if [ "$rotated" -eq "1" ]; then
+          pdftk $2 cat ${rotated}east output $3
+  elif [ "$previous" -eq "1" ]; then
+          pdftk $2 cat 1 ${rotated}east output $3
+  else
+          pdftk $2 cat 1-$previous ${rotated}east output $3
+  fi
+  exit 0
+fi 
+
+# handle rotating other pages
 
 if [ "$rotated" -eq "1" ]; then
         pdftk $2 cat ${rotated}east $next-end output $3
-        exit 0
 elif [ "$previous" -eq "1" ]; then
         pdftk $2 cat 1 ${rotated}east $next-end output $3
 else
         pdftk $2 cat 1-$previous ${rotated}east $next-end output $3
 fi
+
+exit 0
 
 #########################################################################################
