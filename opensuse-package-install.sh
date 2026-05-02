@@ -69,7 +69,7 @@ case $1 in
 
   .net)
 
-    # MS .NET runtime v 8.x for linux
+    # MS .NET runtime v 10.x for linux
     
     sudo zypper install libicu
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -79,7 +79,7 @@ case $1 in
 
     # runtime only
 
-    sudo zypper install dotnet-runtime-8.0
+    sudo zypper install dotnet-runtime-10.0
 
     # runtime with asp
 
