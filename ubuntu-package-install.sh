@@ -107,8 +107,8 @@ case $1 in
 
     # ximea camera drivers - for OpenCV build
 
-    wget https://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
-    tar xzf XIMEA_Linux_SP.tgz
+    wget https://updates.ximea.com/public/ximea_linux_sp_beta.tgz
+    tar xzf ximea_linux_sp_beta.tgz
     cd package
     sudo ./install
     ;;
