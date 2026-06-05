@@ -270,7 +270,7 @@ case $1 in
 
     # base SuSE software patterns
 
-    sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia patterns-devel-python-devel_python3
+    sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia devel_python3
     ;;
 
   realsense)
@@ -288,11 +288,11 @@ case $1 in
     libtiff-devel libjasper-devel libdc1394-devel \
     pkgconf-pkg-config libva-devel openblas-common-devel \
     atlascpp-devel lapack-devel eigen3-devel gstreamer-devel \
-    libtesseract4 tesseract tesseract-ocr tesseract-ocr-devel \
-    gflags gflags-devel gflags-devel-static glog-devel gdal-devel \
+    libtesseract5 tesseract tesseract-ocr tesseract-ocr-devel \
+    gflags gflags-devel glog-devel gdal-devel \
     gdcm-devel onnx-devel libxine-devel libceres-devel glibc-devel-32bit \
     libgphoto2-devel libaravis-*-devel opencl-cpp-headers opencl-headers gstreamer* \
-    coin-or-Clp coin-or-Clp-devel ffmpeg-7-mini-devel
+    coin-or-Clp coin-or-Clp-devel
     ;;
 
   baseline)
@@ -301,17 +301,17 @@ case $1 in
 
     sudo zypper install unison git lyx opera nano kwrite \
     pavucontrol opera obs-studio-devel mtools mjpegtools zip yt-dlp yt-dlp-youtube-dl \
-    xterm xless vlc-noX vlc-codecs vlc-codec-gstreamer vlc v4l2loopback-utils \
+    xterm vlc-noX vlc-codecs vlc-codec-gstreamer vlc v4l2loopback-utils \
     v4l-utils-lang v4l-utils v4l-tools v4l-conf unzip unrar powertop xcalc \
     wireless-tools wine-32bit wine whois which vtkdata vtk-devel \
-    lame htop traceroute texmaker attica-qt5 MPlayer ImageMagick gzip gwenview5 \
+    lame htop traceroute texmaker attica-qt5 ImageMagick gzip gwenview5 \
     gv gparted gimp ghostscript-x11 ghostscript-fonts-std ghostscript-fonts-other \
     ghostscript gawk file fetchmsttfonts dos2unix diffutils cmake-gui cmake \
     bzip2 bind-utils nmap xournalpp klatexformula kernel-devel openvpn mlocate \
     kdeconnect-kde xkill xev texlive-spie texlive-ieeeconf texlive-ieeetran \
     texlive-biblatex-ieee texlive-llncs texlive-biblatex-lncs texlive-llncsconf \
     texlive-elsarticle pdftk sox arping2 arpwatch nvtop simplescreenrecorder \
-    v4l2loopback-kmp-default heif-examples mpv
+    v4l2loopback-kmp-default libheif-devel mpv
     ;;
 
   packaging)
