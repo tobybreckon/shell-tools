@@ -270,7 +270,7 @@ case $1 in
 
     # base SuSE software patterns
 
-    sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia
+    sudo zypper install -t pattern devel_basis devel_C_C++ devel_kernel multimedia patterns-devel-python-devel_python3
     ;;
 
   realsense)
@@ -284,7 +284,7 @@ case $1 in
 
     # additional packages required for fully functional OpenCV build from source
 
-    sudo zypper install python-devel python-numpy-devel tbb-devel libjpeg8-devel \
+    sudo zypper install python313-numpy-devel tbb-devel libjpeg8-devel \
     libtiff-devel libjasper-devel libdc1394-devel \
     pkgconf-pkg-config libva-devel openblas-common-devel \
     atlascpp-devel lapack-devel eigen3-devel gstreamer-devel \
