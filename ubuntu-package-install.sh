@@ -27,10 +27,14 @@ case $1 in
     # google chrome browser
 
     wget https://dl-ssl.google.com/linux/linux_signing_key.pub
-    sudo apt-key add linux_signing_key.pub
-    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    # sudo apt-key add linux_signing_key.pub
+    # sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 
-    sudo apt-get install google-chrome-stable
+    cat linux_signing_key.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/google.gpg
+    echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/google.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | \
+         sudo tee /etc/apt/sources.list.d/google-chrome.list
+    sudo apt update
+    sudo apt install google-chrome-stable
     ;;
 
   zoom)
@@ -45,9 +49,17 @@ case $1 in
 
     # MS VS code editor
 
-    wget https://packages.microsoft.com/keys/microsoft.asc
-    sudo apt-key add microsoft.asc
-    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+
+    sudo sh -c 'echo "Types: deb" > /etc/apt/sources.list.d/vscode.sources'
+    sudo sh -c 'echo "URIs: https://packages.microsoft.com/repos/code" >> /etc/apt/sources.list.d/vscode.sources'
+    sudo sh -c 'echo "Suites: stable" >> /etc/apt/sources.list.d/vscode.sources'
+    sudo sh -c 'echo "Components: main" >> /etc/apt/sources.list.d/vscode.sources'
+    sudo sh -c 'echo "Architectures: amd64,arm64,armhf" >> /etc/apt/sources.list.d/vscode.sources'
+    sudo sh -c 'echo "Signed-By: /usr/share/keyrings/microsoft.gpg" >> /etc/apt/sources.list.d/vscode.sources'
+
+    cat /etc/apt/sources.list.d/vscode.sources
+
     sudo apt update
     sudo apt install code
     ;;
@@ -55,10 +67,16 @@ case $1 in
   edge)
 
     # MS edge browser
-    
-    wget https://packages.microsoft.com/keys/microsoft.asc
-    sudo apt-key add microsoft.asc
-    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/edge.list'
+
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+
+    sudo sh -c 'echo "Types: deb" > /etc/apt/sources.list.d/edge.sources'
+    sudo sh -c 'echo "URIs: https://packages.microsoft.com/repos/edge" >> /etc/apt/sources.list.d/edge.sources'
+    sudo sh -c 'echo "Suites: stable" >> /etc/apt/sources.list.d/edge.sources'
+    sudo sh -c 'echo "Components: main" >> /etc/apt/sources.list.d/edge.sources'
+    sudo sh -c 'echo "Architectures: amd64,arm64,armhf" >> /etc/apt/sources.list.d/edge.sources'
+    sudo sh -c 'echo "Signed-By: /usr/share/keyrings/microsoft.gpg" >> /etc/apt/sources.list.d/edge.sources'
+
     sudo apt update
     sudo apt install microsoft-edge-stable
     ;;
@@ -89,8 +107,8 @@ case $1 in
 
     # ximea camera drivers - for OpenCV build
 
-    wget https://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
-    tar xzf XIMEA_Linux_SP.tgz
+    wget https://updates.ximea.com/public/ximea_linux_sp_beta.tgz
+    tar xzf ximea_linux_sp_beta.tgz
     cd package
     sudo ./install
     ;;
@@ -180,7 +198,7 @@ case $1 in
 
     wget https://raw.githubusercontent.com/tobybreckon/pdfjam-extras/refs/heads/master/pdfjam-extras.spec
     VERSION=`cat pdfjam-extras.spec | grep Version | cut -d: -f2 | tr -d " "`
-    wget https://github.com/tobybreckon/pdfjam-extras/releases/download/v$VERSION/pdfjam-extras-$VERSION-1_all.deb
+    wget https://github.com/tobybreckon/pdfjam-extras/releases/download/v$VERSION/pdfjam-extras_$VERSION-1_all.deb
     sudo apt install ./pdfjam-extras_$VERSION-1_all.deb
 
     ;;
@@ -189,7 +207,7 @@ case $1 in
 
    # everything else ....
    
-   sudo apt install vlc exfat-fuse exfatprogs cmake-qt-gui v4l-utils v4l-conf nvtop htop nano git
+   sudo apt install vlc exfat-fuse exfatprogs cmake-qt-gui v4l-utils v4l-conf nvtop htop nano git gnome-tweaks gpg
 
    ##########
     ;;
