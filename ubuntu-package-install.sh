@@ -107,8 +107,8 @@ case $1 in
 
     # ximea camera drivers - for OpenCV build
 
-    wget https://updates.ximea.com/public/ximea_linux_sp_beta.tgz
-    tar xzf ximea_linux_sp_beta.tgz
+    wget https://www.ximea.com/downloads/recent/XIMEA_Linux_SP.tgz
+    tar xzf XIMEA_Linux_SP.tgz
     cd package
     sudo ./install
     ;;
@@ -142,11 +142,11 @@ case $1 in
     cmake \
     doxygen \
     ffmpeg \
-    g++-9 \
-    gcc-9 \
+    # g++-9 \
+    # gcc-9 \
     gfortran \
     git \
-    libatlas-base-dev \
+    # libatlas-base-dev \
     libavcodec-dev \
     libavformat-dev \
     libswresample-dev \
@@ -207,7 +207,7 @@ case $1 in
 
    # everything else ....
    
-   sudo apt install vlc exfat-fuse exfatprogs cmake-qt-gui v4l-utils v4l-conf nvtop htop nano git gnome-tweaks gpg mpv
+   sudo apt install vlc exfat-fuse exfatprogs cmake-qt-gui v4l-utils v4l-conf nvtop htop nano git gnome-tweaks gpg
 
    ##########
     ;;
