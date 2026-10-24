@@ -32,6 +32,7 @@
 # remove double underscore fills "__" that result from filename operations 10/2024 - tbreckon
 # fix verbose in recursive dry-run mode as directory names will not change 12/2024 - tbreckon
 # permission check now tests the containing directory, not the file 10/2026 - tbreckon
+# only change final part of path (not leading directories), keep "-" when cleaning 10/2026 - tbreckon
 
 ###############################################################################
 
@@ -118,12 +119,25 @@ if (@filesin == 0){
 foreach $file (@filesin){
     if (-e $file){ # check file exists
 
-         $filelower = $file;
+         # only the final part of the path (the file or directory name
+         # itself) is changed - any leading directory path is left as is
+         # (directories in the path are only renamed via -r recursive mode)
+
+         $filepath = $file;
+         $filepath =~ s/(?<=.)\/+$//;   # remove any trailing "/" (but keep "/" itself)
+
+         if ($filepath =~ /^(.*\/)([^\/]*)$/){
+                $dirpart = $1;          # leading directory path (including final "/")
+                $filename = $2;         # file or directory name only
+         }else{
+                $dirpart = "";
+                $filename = $filepath;
+         }
 
          # translate name depending on option -U
          if ($upper){
          # if upper mode translate lower to upper (reverse) operation
-                 $filelower=~ tr/a-z/A-Z/; # get file name in upper case
+                 $filename=~ tr/a-z/A-Z/; # get file name in upper case
          }else{
          # else tranlate upper to lower as normal operation
 
@@ -131,71 +145,57 @@ foreach $file (@filesin){
                 # -S = performing space removal only
                 # -C = performing filename cleaning only
                 if ($lower){
-                  $filelower=~ tr/A-Z/a-z/; # get file name in lower case
+                  $filename=~ tr/A-Z/a-z/; # get file name in lower case
                 }
          }
 
          # remove spaces in filenames
          if ($nospaces){
-                $filelower=~ s/\s+/_/g; # remove all white space
+                $filename=~ s/\s+/_/g; # remove all white space
 
                 # replace any double underscore fills with singles (2 passes)
-                $filelower=~ s/__/_/g;
-                $filelower=~ s/__/_/g;
+                $filename=~ s/__/_/g;
+                $filename=~ s/__/_/g;
          }
 
          # remove all non-alphanumeric characaters apart from ".-_"
          if ($clean){
-                $filelower=~ s/[^a-zA-Z0-9.-_]/_/g;
 
-                # remove forward slash "\" not caught in the above
-                $filelower=~ s/\\/_/g;
+                # remove square brackets
+                $filename=~ s/\[//g;
+                $filename=~ s/\]//g;
 
-                # remove square brackets not caught in the above
-                $filelower=~ s/\[//g;
-                $filelower=~ s/\]//g;
+                # replace everything else (including "\") with "_"
+                # (N.B. "-" must come last in [] so it is not taken as a range)
+                $filename=~ s/[^a-zA-Z0-9._-]/_/g;
 
                 # replace all double underscore fills with singles (2 passes)
-                $filelower=~ s/__/_/g;
-                $filelower=~ s/__/_/g;
+                $filename=~ s/__/_/g;
+                $filename=~ s/__/_/g;
          }
 
+         $filelower = $dirpart.$filename;
+
          # if name translates then move file
-         if ($file ne $filelower){
+         if ($filepath ne $filelower){
 
                 # rename file if new target doesn't exist
                 # or if overwrite is specified
                 # for sub-directories it would appear!
                 # but significantly slower
                  if ((-e $filelower) && !($overwrite)){
-                         print ("lowername: $filelower already exists - $file not renamed\n");
-                 }elsif (!(&able_to_move($file))){
-                        print ("lowername: user does not have write permission for the directory containing $file - cannot rename\n");
-                 }else{
-
+                         print ("lowername: $filelower already exists - $filepath not renamed\n");
+                 }elsif (!(&able_to_move($filepath))){
+                        print ("lowername: user does not have write permission for the directory containing $filepath - cannot rename\n");
+                 }elsif (!($test) && !(rename($filepath,$filelower))){
                         # if not in test mode then actually rename the file
-                        if (!($test)){
-                          rename($file,$filelower);
-                        }
+                        print ("lowername: cannot rename $filepath to $filelower: $!\n");
+                 }else{
 
                         # if verbose mode then print and count translations
                         if ($verbose){
-
-                               # put in handling for dry-run mode when we are only interested in the file basename changes
-                
-                               $file =~ /.*[\/\\](.*)/;         # will return 1 (or 0) and set $1 to basename
-                               $file_basename = $1;             # $1 contains the file basename
-
-                               $filelower =~ /.*[\/\\](.*)/;    # will return 1 (or 0) and set $1 to basename
-                               $filelower_basename = $1;        # $1 contains the file basename
-
-                               # if file base name has changed or if it is the top level directory with no base name
-
-                               if (($file_basename ne $filelower_basename) || ($file_basename eq "")) {
-                                   print ("$file => $filelower\n");
-                                   $moved++;
-                               }
-
+                               print ("$filepath => $filelower\n");
+                               $moved++;
                         }
                  }
          }
@@ -218,18 +218,18 @@ foreach $file (@filesin){
                     @filesin[$inputs] = $path;
                  }
            }
-         } elsif (($recursive) && (-d $file) && ($test)){
+         } elsif (($recursive) && (-d $filepath) && ($test)){
             # catch the recursive directory case when in test (dry-run) mode
 
             # open and get all sub-directory listings
-            opendir (DIRHANDLE,$file);
+            opendir (DIRHANDLE,$filepath);
             @dirfiles = readdir DIRHANDLE;
             close DIRHANDLE;
             foreach $diritem (@dirfiles){
                  # add all new sub-directory entries to array of files
                  # to process
                  if (($diritem ne ".") && ($diritem ne "..")){
-                    $path = ($file."/".$diritem);
+                    $path = ($filepath."/".$diritem);
                     $inputs++;
                     @filesin[$inputs] = $path;
                  }
