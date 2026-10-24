@@ -31,6 +31,7 @@
 # handle non alphanumeric removal of square brackets "[]" in filenames 10/2024 - tbreckon
 # remove double underscore fills "__" that result from filename operations 10/2024 - tbreckon
 # fix verbose in recursive dry-run mode as directory names will not change 12/2024 - tbreckon
+# permission check now tests the containing directory, not the file 10/2026 - tbreckon
 
 ###############################################################################
 
@@ -38,6 +39,8 @@
 # License: http://www.gnu.org/licenses/gpl.txt
 
 ###############################################################################
+
+use File::Basename; # for dirname() used in file permission checking
 
 # initial check for error
 if ((@ARGV == 0) || (@ARGV[0] =~ /^-h/) || (@ARGV[0] =~ /^--h/)){
@@ -167,7 +170,7 @@ foreach $file (@filesin){
                  if ((-e $filelower) && !($overwrite)){
                          print ("lowername: $filelower already exists - $file not renamed\n");
                  }elsif (!(&able_to_move($file))){
-                        print ("lowername: user does not have write permission for $file - cannot rename\n");
+                        print ("lowername: user does not have write permission for the directory containing $file - cannot rename\n");
                  }else{
 
                         # if not in test mode then actually rename the file
@@ -293,16 +296,25 @@ sub strip_options{
 ###############################################################################
 
 sub able_to_move{
-  # check whether user has permisson to move file
-  # (i.e. write permission)
+  # check whether user has permisson to move file - this requires write
+  # (and search) permission on the directory containing the file, not on
+  # the file itself
   local $file = @_[0];
-  if (-w $file ) {
-          # if so then can move file
-          return 1;
-  }else{
+  local $parent = dirname($file);
+
+  if (!((-w $parent) && (-x $parent))) {
           # if not then cannot move file
           return 0;
   }
+
+  # in a sticky directory (e.g. /tmp) only the owner of the file or of the
+  # directory (or root) can rename the file
+  if ((-k $parent) && ($> != 0) && !(-o $file) && !(-o $parent)) {
+          return 0;
+  }
+
+  # otherwise can move file
+  return 1;
 }
 
 ###############################################################################
