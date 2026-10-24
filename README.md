@@ -18,7 +18,7 @@ Usage: lowername [-voUsScCrd] files
 
 Translate uppercase filenames to lowercase.
 
-Author: Toby Breckon, 1999-2024
+Author: Toby Breckon, 1999-2026
 
 ```
 ---
