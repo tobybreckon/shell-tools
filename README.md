@@ -24,12 +24,14 @@ Author: Toby Breckon, 1999-2024
 ---
 
 ```
-Usage: numberfile [-p prefix -t tail | files]
+Usage: numberfiles [-p prefix] [-t tail] [-z digits] files
 -p prefix: prefix for numbered files
 -t tail: tail (postfix) for numbered files
+-z digits: number of digits, zero padded (default: 5)
 
-number a set of files as prefix00001 prefix00002 etc
+number a set of files as prefix00000tail prefix00001tail etc
 from specified list of files on command line.
+(existing files are never overwritten)
 
 Author: Toby Breckon, November 2010
 ```
