@@ -32,11 +32,12 @@
 # remove double underscore fills "__" that result from filename operations 10/2024 - tbreckon
 # fix verbose in recursive dry-run mode as directory names will not change 12/2024 - tbreckon
 # permission check now tests the containing directory, not the file 10/2026 - tbreckon
-# only change final part of path (not leading directories), keep "-" when cleaning 10/2026 - tbreckon
+# only change final part of path (not leading directories, A/TMP.txt -> A/tmp.txt) 10/2026 - tbreckon
+# keep "-" when cleaning 10/2026 - tbreckon
 
 ###############################################################################
 
-# Copyright: Toby Breckon, 1999-2024
+# Copyright: Toby Breckon, 1999-2026
 # License: http://www.gnu.org/licenses/gpl.txt
 
 ###############################################################################
@@ -332,7 +333,7 @@ sub print_help {
          print ("-r recursive mode - recurse through directories\n");
          print ("-d dry-run - show potential changes with no file changes\n\n");
          print ("Translate uppercase filenames to lowercase.\n\n");
-         print ("Author: Toby Breckon, 1999-2024\n");
+         print ("Author: Toby Breckon, 1999-2026\n");
 }
 
 ###############################################################################
