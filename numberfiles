@@ -2,107 +2,135 @@
 
 ################################################################################
 
-#  simple perl hack to number files as prefix_001 ... etc.
+#  simple perl hack to number files as prefix00000 ... etc.
 #  The list specified as "-p prefix -t tail files"
 
-#  "numberfile -h" for usage
+#  "numberfiles -h" for usage
 
 #  Author: Toby Breckon, November 2010
 
-#  Known bugs: does not check for file existance
+#  option parsing and target file existence checking fixed 10/2026
 
 ################################################################################
 
 #  process command line options
 
-$counter = 0; #  counter
 $prefix = "";
 $tail = "";
+$digits = 5;	# number of digits (zero padded) used for numbering
 
 	# initial check for error
-	if ((@ARGV == 0) || (@ARGV[0] =~ /^-h/) || (@ARGV[0] =~ /^--h/)){
+	if ((@ARGV == 0) || ($ARGV[0] =~ /^-h/) || ($ARGV[0] =~ /^--h/)){
 	  # if no options or files or help requested (-h,--h,--help,-help etc.)
 	  # display some help
 			 &print_help;
 			 exit(1);
 	}
 
-	# get options from command line
-	@options = &get_options(@ARGV);
-
-	# process options from comand line and set option flags
-	foreach $item (@options){
-	                if ($item eq "p"){
-			   $prefix = @ARGV[1];   #  get prefix
-			}elsif ($item eq "t"){
-			  $tail = @ARGV[3];   #  get prefix
-			 }else{
-			   # handle invalid options
-			   print ("numberfiles: invalid option: -$item \n\n");
-			   &print_help;
-			   exit(1);
-			 }
+	# get options (each followed by its value) from the start of the command
+	# line - the first argument that is not an option marks the start of the files
+	while ((@ARGV > 0) && ($ARGV[0] =~ /^-/)){
+		$option = shift(@ARGV);
+		if ($option eq "--"){
+			last;	# explicit end of options
+		}elsif (($option eq "-p") || ($option eq "-t") || ($option eq "-z")){
+			if (@ARGV == 0){
+				print ("numberfiles: option $option requires a value\n\n");
+				&print_help;
+				exit(1);
+			}
+			if ($option eq "-p"){
+				$prefix = shift(@ARGV);   #  get prefix
+			}elsif ($option eq "-t"){
+				$tail = shift(@ARGV);     #  get tail
+			}else{
+				$digits = shift(@ARGV);   #  get number of digits
+				if ($digits !~ /^[1-9][0-9]*$/){
+					print ("numberfiles: option -z requires a positive whole number (got '$digits')\n\n");
+					&print_help;
+					exit(1);
+				}
+			}
+		}else{
+			# handle invalid options
+			print ("numberfiles: invalid option: $option \n\n");
+			&print_help;
+			exit(1);
+		}
 	}
+
+	@files = @ARGV;
+
+	if (@files == 0){
+		print ("numberfiles: no files specified\n\n");
+		&print_help;
+		exit(1);
+	}
+
+#  work out new file names, checking all files before renaming any of them
+
+$i = 0;
+$errors = 0;
+%sources = map { $_ => 1 } @files;
+
+foreach $item (@files){
+
+  if (! -e $item){
+	print ("numberfiles: $item: file does not exist - skipping\n");
+	next;
+  }
+
+  $filename = $prefix . sprintf("%0${digits}d", $i) . $tail;
+  $i++;
+
+  if ($filename eq $item){
+	next; # already has the correct name
+  }
+
+  if (-e $filename){
+	if ($sources{$filename}){
+		print ("numberfiles: $filename is also in the list of files to rename - ");
+		print ("cannot rename $item to it\n");
+	}else{
+		print ("numberfiles: $filename already exists - cannot rename $item to it\n");
+	}
+	$errors++;
+  }
+
+  push(@renames, [$item, $filename]);
+}
+
+if ($errors){
+	print ("numberfiles: no files renamed (to avoid overwriting existing files)\n");
+	exit(1);
+}
 
 #  rename files
 
-$i=0;
-
-foreach $item (@ARGV){
-
-  $filename=$prefix . sprintf("%05d", $i) . $tail;
-  #  printf("$filename $tail\n");
-
-  if (-e $item)
-  {
-	rename($item, $filename);
-  	$i++;
-  }
-
+foreach $pair (@renames){
+	($from, $to) = @$pair;
+	if (!rename($from, $to)){
+		print ("numberfiles: cannot rename $from to $to: $!\n");
+		$errors++;
+	}
 }
 
-################################################################################
-
-sub get_options{
-# return the options from the command line inputs array
-local @options;
-local @temp;
-local $item;
-local $item2;
-local $counter = 0;
-foreach $item (@_){
-         # for each input
-         if ($item =~ /^-/){
-           # if it's an option get it
-           @temp = split(//, $item);
-           for $item2 (@temp){
-                 if ($item2 ne "-"){
-                         @options[$counter]=$item2;
-                         $counter++;
-                 }
-           }
-         }else{
-         # if it's not an option then that's the end of the options
-         # thus return list of options
-           #  return @options;
-         }
-}
-# if only options in parameters then still return options
-return @options;
-}
+exit($errors ? 1 : 0);
 
 ################################################################################
 
 sub print_help {
   	 # print out standard help message as follows
 
-	 print ("Usage: numberfile [-p prefix -t tail | files]\n");
+	 print ("Usage: numberfiles [-p prefix] [-t tail] [-z digits] files\n");
          print ("-p prefix: prefix for numbered files\n");
          print ("-t tail: tail (postfix) for numbered files\n");
+         print ("-z digits: number of digits, zero padded (default: 5)\n");
 	 print ("\n");
 
-	 print ("number a set of files as prefix00001 prefix00002 etc\n");
+	 print ("number a set of files as prefix00000tail prefix00001tail etc\n");
 	 print ("from specified list of files on command line.\n");
+	 print ("(existing files are never overwritten)\n");
 
 	 print ("\n");
          print ("Author: Toby Breckon, November 2010\n");
