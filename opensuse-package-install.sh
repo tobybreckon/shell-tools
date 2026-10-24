@@ -20,10 +20,6 @@ CUDA_VERSION=$CUDA_MAJOR_VERSION-$CUDA_MINOR_VERSION
 
 ################################################################################
 
-set -e
-
-################################################################################
-
 case $1 in
 
   chrome)
@@ -83,11 +79,11 @@ case $1 in
 
     # runtime with asp
 
-    # sudo zypper install aspnetcore-runtime-8.0
+    # sudo zypper install aspnetcore-runtime-10.0
 
-    # sdk 
+    # sdk
 
-    # sudo zypper install dotnet-sdk-8.0
+    # sudo zypper install dotnet-sdk-10.0
 
     ;;
 
@@ -177,7 +173,8 @@ case $1 in
     # nordvpn cli client
     
     echo
-    sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
+    curl -sSf -o nordvpn-install.sh https://downloads.nordcdn.com/apps/linux/install.sh
+    sh nordvpn-install.sh
     echo
     ;;
 
@@ -197,9 +194,9 @@ case $1 in
     echo "Manually download: https://developer.nvidia.com/downloads/designworks/video-codec-sdk/secure/12.1/video_codec_sdk_12.1.14.zip"
     echo "Save into directory to ... : " $PWD
     echo "then press enter."
-    read
-    unzip *zip 
-    mkdir -p  /usr/local/cuda/include/
+    read dummy
+    unzip *zip
+    sudo mkdir -p  /usr/local/cuda/include/
     cd Video_Codec_SDK_*/Interface/
     sudo cp  *.h /usr/local/cuda/include/
     cd ../Lib/linux/stubs/x86_64
@@ -213,7 +210,7 @@ case $1 in
 
     wget -O zed-installer.run https://download.stereolabs.com/zedsdk/4.0/cu118/ubuntu22
     chmod +x zed-installer.run
-    sudo ln -s /opt/zed /usr/local/zed
+    sudo ln -sfn /opt/zed /usr/local/zed
     ./zed-installer.run
     ;;
 
@@ -226,7 +223,7 @@ case $1 in
     sudo systemctl start freshclam 
     echo "Checking freshcam status via systemctl ..."
     echo
-    sudo systemctl status freshclam
+    sudo systemctl --no-pager status freshclam
     echo
     echo "Setting up freshcam timer via systemctl ..."
     echo
@@ -299,7 +296,7 @@ case $1 in
 
    # everything else ....
 
-    sudo zypper install unison git lyx opera nano kwrite \
+    sudo zypper install unison git lyx nano kwrite \
     pavucontrol opera obs-studio-devel mtools mjpegtools zip yt-dlp yt-dlp-youtube-dl \
     xterm vlc-noX vlc-codecs vlc-codec-gstreamer vlc v4l2loopback-utils \
     v4l-utils-lang v4l-utils v4l-tools v4l-conf unzip unrar powertop xcalc \
@@ -330,11 +327,11 @@ case $1 in
 
   *)
     echo
-    echo "Usage: opensuse-package-install.sh [chrome | zoom | vscode | edge | .net"
+    echo "Usage: opensuse-package-install.sh [chrome | zoom | vscode | edge | .net |"
     echo "                                    f5vpn | dropbox | slack | ximea |"
     echo "                                    brackets | cuda | cudnn | nvcuvid |"
     echo "                                    zed | clamav | pdfjam-extras |"
-    echo "                                    patterns | realsense | pheonix | nordvpn"
+    echo "                                    patterns | realsense | pheonix | nordvpn |"
     echo "                                    libreoffice-extensions | laptop-extras |"
     echo "                                    packaging | opencv-extras | baseline | ... ]"
     echo

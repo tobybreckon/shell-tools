@@ -65,11 +65,11 @@ Rotate Nth page (only) of a specified PDF file
 ### Linux Packages
 
 ```
-Usage: opensuse-package-install.sh [chrome | zoom | vscode | edge | .net
+Usage: opensuse-package-install.sh [chrome | zoom | vscode | edge | .net |
                                     f5vpn | dropbox | slack | ximea |
                                     brackets | cuda | cudnn | nvcuvid |
                                     zed | clamav | pdfjam-extras |
-                                    patterns | realsense | pheonix | nordvpn
+                                    patterns | realsense | pheonix | nordvpn |
                                     libreoffice-extensions | laptop-extras |
                                     packaging | opencv-extras | baseline | ... ]
 

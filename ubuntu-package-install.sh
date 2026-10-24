@@ -30,7 +30,7 @@ case $1 in
     # sudo apt-key add linux_signing_key.pub
     # sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 
-    cat linux_signing_key.pub | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/google.gpg
+    cat linux_signing_key.pub | sudo gpg --yes --dearmor -o /etc/apt/trusted.gpg.d/google.gpg
     echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/google.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | \
          sudo tee /etc/apt/sources.list.d/google-chrome.list
     sudo apt update
@@ -49,7 +49,7 @@ case $1 in
 
     # MS VS code editor
 
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --yes --dearmor -o /usr/share/keyrings/microsoft.gpg
 
     sudo sh -c 'echo "Types: deb" > /etc/apt/sources.list.d/vscode.sources'
     sudo sh -c 'echo "URIs: https://packages.microsoft.com/repos/code" >> /etc/apt/sources.list.d/vscode.sources'
@@ -68,7 +68,7 @@ case $1 in
 
     # MS edge browser
 
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --yes --dearmor -o /usr/share/keyrings/microsoft.gpg
 
     sudo sh -c 'echo "Types: deb" > /etc/apt/sources.list.d/edge.sources'
     sudo sh -c 'echo "URIs: https://packages.microsoft.com/repos/edge" >> /etc/apt/sources.list.d/edge.sources'
@@ -142,11 +142,8 @@ case $1 in
     cmake \
     doxygen \
     ffmpeg \
-    # g++-9 \
-    # gcc-9 \
     gfortran \
     git \
-    # libatlas-base-dev \
     libavcodec-dev \
     libavformat-dev \
     libswresample-dev \
@@ -186,6 +183,7 @@ case $1 in
     v4l-utils \
     x264 \
     yasm
+    # g++-9 gcc-9 libatlas-base-dev
 
     cd /usr/include/linux
     sudo ln -s -f ../libv4l1-videodev.h videodev.h
@@ -207,7 +205,7 @@ case $1 in
 
    # everything else ....
    
-   sudo apt install vlc exfat-fuse exfatprogs cmake-qt-gui v4l-utils \ 
+   sudo apt install vlc exfat-fuse exfatprogs cmake-qt-gui v4l-utils \
 		    v4l-conf nvtop htop nano git gnome-tweaks gpg \
 		    libheif-examples 
 
