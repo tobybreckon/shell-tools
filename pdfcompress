@@ -2,7 +2,7 @@
 
 #########################################################################################
 
-# compress a PDF file using ghostview (gv) from level 1 (max/small) to level 5 (min/big)
+# compress a PDF file using ghostscript (gs) from level 1 (max/small) to level 5 (min/big)
 
 # (c) Toby Breckon, Durham University, 2025
 # License: http://www.gnu.org/licenses/gpl.txt
@@ -15,25 +15,86 @@ PDF_COMPATIBILITY_LEVEL=1.4
 
 # get command name from command call
 
-COMMAND_NAME=`basename $0`
+COMMAND_NAME=`basename "$0"`
+
+#########################################################################################
+
+print_usage() {
+    echo
+    echo "Usage: $COMMAND_NAME {1-5} input.pdf output.pdf"
+    echo "Usage: $COMMAND_NAME {small|medium|large|larger|largest} ..."
+    echo "Usage: $COMMAND_NAME {screen|ebook|printer|prepress|default} ..."
+    echo
+    echo "Compress PDF file from level 1 (max, smallest file) to 5 (min, largest file)"
+    echo
+}
 
 #########################################################################################
 
 # check number of arguments
 
 if [ "$#" -ne 3 ]; then
-  compression="error"
-else
-  compression=$1
+  print_usage
+  exit 1
 fi
+
+INPUT_FILE=$2
+OUTPUT_FILE=$3
 
 #########################################################################################
 
-# check ghostview (gv) is available
+# select compression from level 1 (smallest file, max compression)
+# to 5 (largest file, minimum/default compression)
 
-NEEDED_COMMAND="gv"
-NEEDED_LONGNAME="ghostview"
-NEEDED_PACKAGE="gv"
+case "$1" in
+  small|1|screen)
+
+    # /screen selects low-resolution output similar to the
+    # Acrobat Distiller (up to version X) "Screen Optimized" setting.
+
+    PDF_SETTINGS=/screen
+    ;;
+  medium|2|ebook)
+
+    # /ebook selects medium-resolution output similar to the
+    # Acrobat Distiller (up to version X) "eBook" setting.
+
+    PDF_SETTINGS=/ebook
+    ;;
+  large|3|printer)
+
+    # /printer selects output similar to the Acrobat Distiller
+    # "Print Optimized" (up to version X) setting.
+
+    PDF_SETTINGS=/printer
+    ;;
+  larger|4|prepress)
+
+    # /prepress selects output similar to Acrobat Distiller
+    # "Prepress Optimized" (up to version X) setting.
+
+    PDF_SETTINGS=/prepress
+    ;;
+  largest|5|default)
+
+    # /default selects output intended to be useful across a
+    # wide variety of uses, possibly at the expense of a larger output file.
+
+    PDF_SETTINGS=/default
+    ;;
+  *)
+    print_usage
+    exit 1
+    ;;
+esac
+
+#########################################################################################
+
+# check ghostscript (gs) is available
+
+NEEDED_COMMAND="gs"
+NEEDED_LONGNAME="ghostscript"
+NEEDED_PACKAGE="ghostscript"
 if ! command -v $NEEDED_COMMAND >/dev/null 2>&1; then
   echo "$COMMAND_NAME ERROR: required $NEEDED_LONGNAME package (package name: $NEEDED_PACKAGE) NOT installed."
   echo
@@ -42,9 +103,18 @@ fi
 
 #########################################################################################
 
+# check input file exists
+
+if [ ! -f "$INPUT_FILE" ]; then
+  echo "$COMMAND_NAME ERROR: input file '$INPUT_FILE' does not exist."
+  exit 1
+fi
+
+#########################################################################################
+
 # check for file overwrite as a safeguard
 
-FILE_TO_CHECK=$3
+FILE_TO_CHECK=$OUTPUT_FILE
 if [ -e "$FILE_TO_CHECK" ]; then
   echo "Output file '$FILE_TO_CHECK' already exists."
   read -p "Do you want to overwrite it? (y/n): " overwrite
@@ -61,71 +131,11 @@ fi
 
 #########################################################################################
 
-# perform compression from level 1 (smallest file, max compression)
-# to 5 (largest file, minimum/default compression)
+# perform compression
 
-case "$compression" in
-  small|1|screen)
-   
-    # /screen selects low-resolution output similar to the 
-    # Acrobat Distiller (up to version X) "Screen Optimized" setting.
-   
-    gs -sDEVICE=pdfwrite -dCompatibilityLevel=$PDF_COMPATIBILITY_LEVEL \
-    -dPDFSETTINGS=/screen \
-    -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$3 $2
-   
-    ;;
-  medium|2|ebook)
-
-    # /ebook selects medium-resolution output similar to the 
-    # Acrobat Distiller (up to version X) "eBook" setting.
-
-     gs -sDEVICE=pdfwrite -dCompatibilityLevel=$PDF_COMPATIBILITY_LEVEL \
-    -dPDFSETTINGS=/ebook \
-    -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$3 $2
-
-    ;;
-  large|3|printer)
-
-    # /printer selects output similar to the Acrobat Distiller 
-    # "Print Optimized" (up to version X) setting.
-
-    gs -sDEVICE=pdfwrite -dCompatibilityLevel=$PDF_COMPATIBILITY_LEVEL \
-    -dPDFSETTINGS=/printer \
-    -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$3 $2
-   
-    ;;
-  larger|4|prepress)
-
-    # /prepress selects output similar to Acrobat Distiller 
-    # "Prepress Optimized" (up to version X) setting.
-    
-    gs -sDEVICE=pdfwrite -dCompatibilityLevel=$PDF_COMPATIBILITY_LEVEL \
-    -dPDFSETTINGS=/prepress \
-    -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$3 $2
-
-    ;;
-
-  largest|5|default)
-
-    # /default selects output intended to be useful across a 
-    # wide variety of uses, possibly at the expense of a larger output file.
-
-    gs -sDEVICE=pdfwrite -dCompatibilityLevel=$PDF_COMPATIBILITY_LEVEL \
-    -dPDFSETTINGS=/default \
-    -dNOPAUSE -dQUIET -dBATCH -sOutputFile=$3 $2
-    ;;
-  error|*)
-    echo
-    echo "Usage: $COMMAND_NAME {1-5} input.pdf output.pdf"
-    echo "Usage: $COMMAND_NAME {small|medium|large|larger|largest} ..."
-    echo "Usage: $COMMAND_NAME {screen|ebook|printer|prepress|default} ..."
-    echo
-    echo "Compress PDF file from level 1 (max, smallest file) to 5 (min, largest file)"
-    echo 
-    exit 1
-  
-    ;;
-esac
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=$PDF_COMPATIBILITY_LEVEL \
+  -dPDFSETTINGS=$PDF_SETTINGS \
+  -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$OUTPUT_FILE" "$INPUT_FILE"
+exit $?
 
 #########################################################################################

@@ -11,7 +11,7 @@
 
 # get command name from command call
 
-COMMAND_NAME=`basename $0`
+COMMAND_NAME=`basename "$0"`
 
 #########################################################################################
 
@@ -22,22 +22,54 @@ if [ "$#" -ne 3 ]; then
     echo "Usage: $COMMAND_NAME N input.pdf output.pdf"
     echo
     echo "Rotate Nth page (only) of a specified PDF file"
-    echo 
+    echo
     exit 1
-else
-  rotated=$1
 fi
+
+rotated=$1
+INPUT_FILE=$2
+OUTPUT_FILE=$3
 
 #########################################################################################
 
-# check pdftk is available
+# check pdftk and pdfinfo are available
 
-NEEDED_COMMAND="pdftk"
-NEEDED_LONGNAME="pdftk"
-NEEDED_PACKAGE="pdftk"
-if ! command -v $NEEDED_COMMAND >/dev/null 2>&1; then
-  echo "$COMMAND_NAME ERROR: required $NEEDED_LONGNAME package (package name: $NEEDED_PACKAGE) NOT installed."
-  echo
+for NEEDED in "pdftk:pdftk:pdftk" "pdfinfo:pdfinfo:poppler-tools / poppler-utils"; do
+  NEEDED_COMMAND=${NEEDED%%:*}
+  NEEDED_LONGNAME=${NEEDED#*:}; NEEDED_LONGNAME=${NEEDED_LONGNAME%%:*}
+  NEEDED_PACKAGE=${NEEDED##*:}
+  if ! command -v "$NEEDED_COMMAND" >/dev/null 2>&1; then
+    echo "$COMMAND_NAME ERROR: required $NEEDED_LONGNAME package (package name: $NEEDED_PACKAGE) NOT installed."
+    echo
+    exit 1
+  fi
+done
+
+#########################################################################################
+
+# check input file exists and page number is valid
+
+if [ ! -f "$INPUT_FILE" ]; then
+  echo "$COMMAND_NAME ERROR: input file '$INPUT_FILE' does not exist."
+  exit 1
+fi
+
+pages=$(pdfinfo "$INPUT_FILE" 2>/dev/null | awk '/^Pages:/ {print $2}')
+
+if [ -z "$pages" ]; then
+  echo "$COMMAND_NAME ERROR: cannot read page count from '$INPUT_FILE' (not a valid PDF?)."
+  exit 1
+fi
+
+case "$rotated" in
+  ''|*[!0-9]*)
+    echo "$COMMAND_NAME ERROR: page number N must be a positive integer (got '$rotated')."
+    exit 1
+    ;;
+esac
+
+if [ "$rotated" -lt 1 ] || [ "$rotated" -gt "$pages" ]; then
+  echo "$COMMAND_NAME ERROR: page number N must be between 1 and $pages (got $rotated)."
   exit 1
 fi
 
@@ -45,7 +77,7 @@ fi
 
 # check for file overwrite as a safeguard
 
-FILE_TO_CHECK=$3
+FILE_TO_CHECK=$OUTPUT_FILE
 if [ -e "$FILE_TO_CHECK" ]; then
   echo "Output file '$FILE_TO_CHECK' already exists."
   read -p "Do you want to overwrite it? (y/n): " overwrite
@@ -62,37 +94,9 @@ fi
 
 #########################################################################################
 
-#### perform rotation of Nth PDF page 
+#### perform rotation of Nth PDF page (all other pages are left unchanged)
 
-((previous=rotated - 1))
-((next=rotated + 1))
-pages=$(pdfinfo $2 | awk '/Pages/ {print $2}')
-echo $pages 
-
-# handle rotating last page especially 
-
-if [ "$rotated" -eq "$pages" ]; then
-  echo last page
-  if [ "$rotated" -eq "1" ]; then
-          pdftk $2 cat ${rotated}east output $3
-  elif [ "$previous" -eq "1" ]; then
-          pdftk $2 cat 1 ${rotated}east output $3
-  else
-          pdftk $2 cat 1-$previous ${rotated}east output $3
-  fi
-  exit 0
-fi 
-
-# handle rotating other pages
-
-if [ "$rotated" -eq "1" ]; then
-        pdftk $2 cat ${rotated}east $next-end output $3
-elif [ "$previous" -eq "1" ]; then
-        pdftk $2 cat 1 ${rotated}east $next-end output $3
-else
-        pdftk $2 cat 1-$previous ${rotated}east $next-end output $3
-fi
-
-exit 0
+pdftk "$INPUT_FILE" rotate "${rotated}east" output "$OUTPUT_FILE"
+exit $?
 
 #########################################################################################
